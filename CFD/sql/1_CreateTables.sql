@@ -1,3 +1,38 @@
+--2018Abril20
+CREATE TABLE `indexyahoocfd`.`HST_HISTORICAL_DATA_COMPANY_TO_RSI`
+(
+	-- identificador unico del regitro
+   HST_CODIGO INT NOT NULL AUTO_INCREMENT, --int PRIMARY KEY NOT NULL,
+   -- Join con la compania
+   SCN_CODIGO INT NOT NULL,
+   --DATE,CLOSE,HIGH,LOW,OPEN,VOLUME
+   -- FECHA REGISTRO
+   HST_DATE timestamp,
+   -- Precio Accion CLOSE			
+   HST_STOCK_PRICE_CLOSE VARCHAR(1000),
+   -- Precio Accion HIGH			
+   HST_STOCK_PRICE_HIGH VARCHAR(1000),
+   -- Precio Accion LOW			
+   HST_STOCK_PRICE_LOW VARCHAR(1000),
+   -- Precio Accion OPEN			
+   HST_STOCK_PRICE_OPEN VARCHAR(1000),
+   -- Accion VOLUME			
+   HST_STOCK_VOLUME VARCHAR(1000),
+   -- fecha creacion del registro
+   HST_FECHA_CREACION timestamp,
+   PRIMARY KEY (`HST_CODIGO`)
+)
+;   
+
+ALTER TABLE `indexyahoocfd`.`HST_HISTORICAL_DATA_COMPANY_TO_RSI` 
+
+  ADD CONSTRAINT `companyForeignKeyHst`
+
+  FOREIGN KEY (`SCN_CODIGO` )
+
+  REFERENCES `indexyahoocfd`.`iyc_stock_companies` (`SCN_CODIGO` )
+;
+
 --2017Nov06
 ALTER TABLE  `indexyahoocfd`.`iyc_stock_companies` 
 	ADD SCN_MSN_QUOTE VARCHAR(500);
