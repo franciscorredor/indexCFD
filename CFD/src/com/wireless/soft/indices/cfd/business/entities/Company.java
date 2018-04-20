@@ -21,6 +21,7 @@ import javax.persistence.Table;
 	@NamedNativeQuery(name = "findCompanies", query = " SELECT	com.scn_cid as cid , com.SCN_GOOGLE_SYMBOL as googleSymbol, com.SCN_CODIGO as id, com.SCN_NAME as name, sci.SCI_URL_INDEX as urlIndex, com.SCN_MSN_QUOTE as urlQuote \n"+
 														" FROM		indexyahoocfd.iyc_stack_company_index sci  	INNER JOIN indexyahoocfd.iyc_stock_companies com   	on com.SCN_CODIGO = sci.SCN_CODIGO and com.SCN_MSN_QUOTE is not null and com.SCN_MSN_QUOTE <> 'noMSN' \n"+ 
 														" inner join indexyahoocfd.iyc_stack_company_quotes scq	on scq.scn_codigo = com.scn_codigo \n"+
+														//" WHERE com.scn_cid not in (676, 918, 917, 139, 157) \n"+
 														" ORDER by com.SCN_CODIGO", resultClass = Company.class),
 	@NamedNativeQuery(name = "findCompanyById", query = "SELECT	com.scn_cid as cid , com.SCN_GOOGLE_SYMBOL as googleSymbol, com.SCN_CODIGO as id, com.SCN_NAME as name, sci.SCI_URL_INDEX as urlIndex, com.SCN_MSN_QUOTE as urlQuote FROM		indexyahoocfd.iyc_stack_company_index sci  INNER JOIN  indexyahoocfd.iyc_stock_companies com   on com.SCN_CODIGO = sci.SCN_CODIGO inner join indexyahoocfd.iyc_stack_company_quotes scq	on scq.scn_codigo = com.scn_codigo WHERE  com.SCN_CODIGO = :companyId  ", resultClass = Company.class),
 	@NamedNativeQuery(name = "findCompanyBySymbol", query = " SELECT	com.scn_cid as cid , com.SCN_GOOGLE_SYMBOL as googleSymbol, com.SCN_CODIGO as id, com.SCN_NAME as name, ch.symbol as urlIndex, com.SCN_MSN_QUOTE as urlQuote  \n"+

@@ -16,6 +16,7 @@ import com.wireless.soft.indices.cfd.business.entities.BloombergIndex;
 import com.wireless.soft.indices.cfd.business.entities.Company;
 import com.wireless.soft.indices.cfd.business.entities.DataMiningCompany;
 import com.wireless.soft.indices.cfd.business.entities.FundamentalHistoryCompany;
+import com.wireless.soft.indices.cfd.business.entities.HistoricalDataCompany;
 import com.wireless.soft.indices.cfd.business.entities.QuoteHistoryCompany;
 import com.wireless.soft.indices.cfd.deserializable.json.object.ReturnYahooFinanceQuoteObject;
 import com.wireless.soft.indices.cfd.deserializable.json.object.ReturnYahooFinanceQuoteObject.Query.Results.Quote;
@@ -25,50 +26,49 @@ import com.wireless.soft.indices.cfd.util.UtilSession;
 /**
  * @author Francisco Corredor
  * @version 1.0
- * @since 2015Dec01
- * Clase encargada de gestionar la consulta a la BD
+ * @since 2015Dec01 Clase encargada de gestionar la consulta a la BD
  *
  */
 public class AdminEntity {
-	
-    // ////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
-    // ////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(AdminEntity.class);
 
-    // ////////////////////////////////////////////////////////////////////////
-    // Atributos de la clase
-    // ////////////////////////////////////////////////////////////////////////
-    /** */
-    private EntityManagerFactory emf;
-    /** */
-    private EntityManager em;
-    /** */
-    private EntityTransaction tx;
-    
-    private static final AdminEntity INSTANCE = new AdminEntity();
+	// ////////////////////////////////////////////////////////////////////////
+	// Logger de la clase
+	// ////////////////////////////////////////////////////////////////////////
+	private static Logger _logger = Logger.getLogger(AdminEntity.class);
 
-    // ////////////////////////////////////////////////////////////////////////
-    // Constructor de la clase
-    // ////////////////////////////////////////////////////////////////////////
-    /**
-     * Constructor de la clase
-     */
-    private AdminEntity() {
-    	super();
+	// ////////////////////////////////////////////////////////////////////////
+	// Atributos de la clase
+	// ////////////////////////////////////////////////////////////////////////
+	/** */
+	private EntityManagerFactory emf;
+	/** */
+	private EntityManager em;
+	/** */
+	private EntityTransaction tx;
 
-    this.emf = Persistence.createEntityManagerFactory("entityManager");
-	this.em = this.emf.createEntityManager();
-	this.tx = this.em.getTransaction();
-    }
-    
-    public static AdminEntity getInstance() {
-        return INSTANCE;
-    }
+	private static final AdminEntity INSTANCE = new AdminEntity();
 
-    // ////////////////////////////////////////////////////////////////////////
-    // Metodos de negocio
-    // ////////////////////////////////////////////////////////////////////////
+	// ////////////////////////////////////////////////////////////////////////
+	// Constructor de la clase
+	// ////////////////////////////////////////////////////////////////////////
+	/**
+	 * Constructor de la clase
+	 */
+	private AdminEntity() {
+		super();
+
+		this.emf = Persistence.createEntityManagerFactory("entityManager");
+		this.em = this.emf.createEntityManager();
+		this.tx = this.em.getTransaction();
+	}
+
+	public static AdminEntity getInstance() {
+		return INSTANCE;
+	}
+
+	// ////////////////////////////////////////////////////////////////////////
+	// Metodos de negocio
+	// ////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * @return
@@ -92,93 +92,82 @@ public class AdminEntity {
 			throw new BusinessException(s, ex);
 		}
 
-		
-
 		return lstCompanies;
 
 	}
-	
+
 	/**
 	 * @param ri
 	 * @param cmp
 	 */
-	public void persistirCompaniesQuotes(ReturnYahooFinanceQuoteObject rf, Company cmp){
-		
+	public void persistirCompaniesQuotes(ReturnYahooFinanceQuoteObject rf, Company cmp) {
+
 		this.tx.begin();
-		
-		if (null != rf && null != rf.getQuery()
-			&& null != rf.getQuery().getResults()
-			&& null != rf.getQuery().getResults().getQuote()){
-			
+
+		if (null != rf && null != rf.getQuery() && null != rf.getQuery().getResults()
+				&& null != rf.getQuery().getResults().getQuote()) {
 
 			Quote q = rf.getQuery().getResults().getQuote();
-				if (null != q && null != q.getVolume() ){
+			if (null != q && null != q.getVolume()) {
 				try {
-					
+
 					QuoteHistoryCompany qhc = new QuoteHistoryCompany();
 					qhc.setCompany(cmp.getId());
 					qhc.setFechaCreacion(Calendar.getInstance());
-					//qhc.setName( f.getName() );
-					//qhc.setSymbol(q.getSymbol());
-					//qhc.setTs(f.getTs());
-					//qhc.setType(f.getType());
-					//qhc.setUtctime(f.getUtctime());
+					// qhc.setName( f.getName() );
+					// qhc.setSymbol(q.getSymbol());
+					// qhc.setTs(f.getTs());
+					// qhc.setType(f.getType());
+					// qhc.setUtctime(f.getUtctime());
 					qhc.setVolume(q.getVolume());
-					//qhc.setSyntaxis_change(f.getChange());
+					// qhc.setSyntaxis_change(f.getChange());
 					qhc.setChg_percent(q.getChange());
 					qhc.setDay_high(q.getDaysHigh());
 					qhc.setDay_low(q.getDaysLow());
-					//qhc.setIssuer_name(f.getIssuer_name());
-					//qhc.setIssuer_name_lang(f.getIssuer_name_lang());
+					// qhc.setIssuer_name(f.getIssuer_name());
+					// qhc.setIssuer_name_lang(f.getIssuer_name_lang());
 					qhc.setYear_high(q.getYearHigh());
 					qhc.setYear_low(q.getYearLow());
-					//qhc.setPrice(q.getLastTradePriceOnly());
-					qhc.setPrice(q.getAsk()); //Se modifica ahora trae de MSN
+					// qhc.setPrice(q.getLastTradePriceOnly());
+					qhc.setPrice(q.getAsk()); // Se modifica ahora trae de MSN
 					em.persist(qhc);
 					this.em.flush();
-					//_logger.info("PErsistio.." + qhc.toString());
-					}
-					catch(Exception e){
-						e.printStackTrace();
-					}
-					
+					// _logger.info("PErsistio.." + qhc.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			}
-		
-		
-		
-	    this.tx.commit();	
-	}
 
+			}
+		}
+
+		this.tx.commit();
+	}
 
 	/**
 	 * @param cmp
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public List<Object> getCompIdxQuote(Company cmp) throws Exception{
+	public List<Object> getCompIdxQuote(Company cmp) throws Exception {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("company", cmp.getId());
-		List<Object> listIdxCompany = UtilSession
-			.getObjectsByNamedQuery(
-				em,
-				QuoteHistoryCompany.FIND_QUOTEHISTORY_BYCOMPANY,
-				param);
-		
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				QuoteHistoryCompany.FIND_QUOTEHISTORY_BYCOMPANY, param);
+
 		return listIdxCompany;
-		
+
 	}
-	
-	//TODO
-	//para saber si una compa�ia subio su maximo high del dia realizar la consulta del dia y si encontro unpunto donde 
-	//incremento el tope con repecto al minimo, realiar un break;
-	
-	
+
+	// TODO
+	// para saber si una compa�ia subio su maximo high del dia realizar la
+	// consulta del dia y si encontro unpunto donde
+	// incremento el tope con repecto al minimo, realiar un break;
+
 	/**
 	 * @param cmp
 	 * @return
-	 * @throws Exception 
-	 * Obtiene el primer record de una compa�ia
+	 * @throws Exception
+	 *             Obtiene el primer record de una compa�ia
 	 */
 	public QuoteHistoryCompany getFirstRecordDay(Company cmp) throws Exception {
 
@@ -202,8 +191,8 @@ public class AdminEntity {
 	/**
 	 * @param cmp
 	 * @return
-	 * @throws Exception 
-	 * Obtiene el primer record de una compa�ia
+	 * @throws Exception
+	 *             Obtiene el primer record de una compa�ia
 	 */
 	public Company getCompanyById(Company cmp) throws Exception {
 
@@ -222,12 +211,12 @@ public class AdminEntity {
 		return cReturn;
 
 	}
-	
+
 	/**
 	 * @param cmp
 	 * @return
-	 * @throws Exception 
-	 * Obtiene el primer record de una compa�ia
+	 * @throws Exception
+	 *             Obtiene el primer record de una compa�ia
 	 */
 	public Company getCompanyBySymbol(Company cmp) throws Exception {
 
@@ -246,14 +235,14 @@ public class AdminEntity {
 		return cReturn;
 
 	}
-	
+
 	/**
 	 * @param cmp
 	 * @return
-	 * @throws Exception 
-	 * Obtiene el primer record de una compania
+	 * @throws Exception
+	 *             Obtiene el primer record de una compania
 	 */
-	
+
 	public DataMiningCompany getDMCompanyByCmpAndIteracion(DataMiningCompany dmCmp) throws Exception {
 
 		DataMiningCompany dmcReturn = null;
@@ -261,7 +250,8 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", dmCmp.getCompany().getId());
 		param.put("iteracion", dmCmp.getIdIteracion());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, DataMiningCompany.FIND_DATAMINING_COMPANY_BY_ID_ITERACION, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				DataMiningCompany.FIND_DATAMINING_COMPANY_BY_ID_ITERACION, param);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				dmcReturn = (DataMiningCompany) object;
@@ -272,23 +262,20 @@ public class AdminEntity {
 		return dmcReturn;
 
 	}
-	
-	
+
 	/**
 	 * @param dmCmp
 	 * @return
 	 * @throws Exception
-	 * Obtiene lista de DataMining
+	 *             Obtiene lista de DataMining
 	 */
 	public List<DataMiningCompany> getDMCompanyByIteracion(DataMiningCompany dmCmp) throws Exception {
 		List<DataMiningCompany> lstDataMC = new ArrayList<DataMiningCompany>();
-		
+
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("iteracion01", dmCmp.getIdIteracion());
-		List<Object> listDMC = UtilSession.getObjectsByNamedQuery (em, 
-				DataMiningCompany.FIND_DATAMINING_BY_ID_ITERACION, 
+		List<Object> listDMC = UtilSession.getObjectsByNamedQuery(em, DataMiningCompany.FIND_DATAMINING_BY_ID_ITERACION,
 				param);
-		
 
 		if (null != listDMC && listDMC.size() > 0) {
 			for (Object object : listDMC) {
@@ -299,23 +286,20 @@ public class AdminEntity {
 
 		return lstDataMC;
 	}
-	
-	
+
 	/**
 	 * @param rf
 	 * @param cmp
 	 */
-	public void persistirCompaniesFundamental(ReturnYahooFinanceQuoteObject rf, Company cmp){
-		
+	public void persistirCompaniesFundamental(ReturnYahooFinanceQuoteObject rf, Company cmp) {
+
 		this.tx.begin();
-		
-		if (null != rf && null != rf.getQuery()
-			&& null != rf.getQuery().getResults()
-			&& null != rf.getQuery().getResults().getQuote()){
-			
+
+		if (null != rf && null != rf.getQuery() && null != rf.getQuery().getResults()
+				&& null != rf.getQuery().getResults().getQuote()) {
 
 			Quote q = rf.getQuery().getResults().getQuote();
-				if (null != q && null != q.getPERatio()){
+			if (null != q && null != q.getPERatio()) {
 				try {
 
 					FundamentalHistoryCompany fhc = new FundamentalHistoryCompany();
@@ -331,27 +315,21 @@ public class AdminEntity {
 					fhc.setMarketCapitalization(q.getMarketCapitalization());
 					fhc.setMarketCapRealtime(q.getMarketCapRealtime());
 					fhc.setPEGRatio(q.getPEGRatio());
-					
+
 					em.persist(fhc);
 					this.em.flush();
-					//_logger.info("Persistio.." + fhc.toString());
-				}
-					catch(Exception e){
-						e.printStackTrace();
-					}
-					
+					// _logger.info("Persistio.." + fhc.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 
-			
-			
+			}
+
 		}
-		
-		
-		
-	    this.tx.commit();	
+
+		this.tx.commit();
 	}
-	
-	
+
 	/**
 	 * @param dmc
 	 */
@@ -359,11 +337,10 @@ public class AdminEntity {
 
 		this.tx.begin();
 
-		if (null != dmc && null != dmc.getCompany()
-				&& null != dmc.getCompany().getId()) {
+		if (null != dmc && null != dmc.getCompany() && null != dmc.getCompany().getId()) {
 
 			try {
-				Company cmp  = em.find(Company.class, dmc.getCompany().getId());
+				Company cmp = em.find(Company.class, dmc.getCompany().getId());
 				dmc.setCompany(cmp);
 				em.persist(dmc);
 				this.em.flush();
@@ -375,7 +352,7 @@ public class AdminEntity {
 
 		this.tx.commit();
 	}
-	
+
 	/**
 	 * @param dmc
 	 */
@@ -383,8 +360,7 @@ public class AdminEntity {
 
 		this.tx.begin();
 
-		if (null != dmc && null != dmc.getCompany()
-				&& null != dmc.getCompany().getId()) {
+		if (null != dmc && null != dmc.getCompany() && null != dmc.getCompany().getId()) {
 
 			try {
 				em.merge(dmc);
@@ -397,10 +373,10 @@ public class AdminEntity {
 
 		this.tx.commit();
 	}
-	
-	
+
 	/**
 	 * Retorna el ultimo registro del analisis fundamental
+	 * 
 	 * @param cmp
 	 * @return
 	 * @throws Exception
@@ -423,9 +399,10 @@ public class AdminEntity {
 		return fhcReturn;
 
 	}
-	
+
 	/**
 	 * Obtine el URL Bloomberg para obtener los indicadores
+	 * 
 	 * @param cmp
 	 * @return
 	 * @throws Exception
@@ -449,5 +426,38 @@ public class AdminEntity {
 
 	}
 
+	/**
+	 * @param lstDataToPersistir
+	 */
+	public void persistirDataHistoricaByCompany(List<HistoricalDataCompany> lstDataToPersistir) {
+
+		this.tx.begin();
+
+		if (null != lstDataToPersistir && !lstDataToPersistir.isEmpty()) {
+
+			for (HistoricalDataCompany historicalDataCompany : lstDataToPersistir) {
+				em.persist(historicalDataCompany);
+				this.em.flush();
+			}
+
+		}
+
+		this.tx.commit();
+	}
+
+	/**
+	 * @param lstDataToPersistir
+	 * @throws Exception
+	 */
+	public void deleteDataHistorica() throws Exception {
+		this.tx.begin();
+
+		UtilSession.executeUpdateByNamedQuery(em, HistoricalDataCompany.DELETE_HISTORICAL_DATA, null);
+
+		this.em.flush();
+
+		this.tx.commit();
+
+	}
 
 }

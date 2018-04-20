@@ -248,7 +248,10 @@ public class UtilGeneral {
 			        rsid.setId(++ctd);
 			        DateFormat formatter1;
 			        formatter1 = new SimpleDateFormat("d-MMM-yy", Locale.ENGLISH);
-			        rsid.setFecha(  formatter1.parse(torsid[0]) ) ;
+			        try {rsid.setFecha(  formatter1.parse(torsid[0]) ) ;
+			        }catch (ParseException e) {
+			        	formatter1 = new SimpleDateFormat("d-MMM.-yy", Locale.ENGLISH);
+			        	rsid.setFecha(  formatter1.parse(torsid[0]));}	
 			        try{rsid.setClose(Double.parseDouble(torsid[4]));}catch(NumberFormatException n){rsid.setClose(0);}
 			        try{rsid.setHigh(Double.parseDouble(torsid[2]));}catch(NumberFormatException n){rsid.setHigh(0);}
 			        try{rsid.setLow(Double.parseDouble(torsid[3]));}catch(NumberFormatException n){rsid.setLow(0);}
@@ -451,6 +454,7 @@ public class UtilGeneral {
 		cal.set(Calendar.DAY_OF_YEAR, 1);
 		cal.add(Calendar.DATE, -3); //--29 de Diciembre 
 		//cal.add(Calendar.DATE, -362); --Evaluar si al restar estos dias es un dia habil, tener en cuenta una fecha fija seteando el valor del primer dia del anio
+		cal.add(Calendar.DATE, -138); 
 		
 		DateFormat formatter1;
 		formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -477,8 +481,9 @@ public class UtilGeneral {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(year));
 		cal.set(Calendar.DAY_OF_YEAR, 1);
-		cal.add(Calendar.DATE, 2); //
+		cal.add(Calendar.DATE, 1); //
 		//cal.add(Calendar.DATE, -367); --Evaluar si al restar estos dias es un dia habil, tener en cuenta una fecha fija seteando el valor del primer dia del anio
+		cal.add(Calendar.DATE, -136); 
 		
 		DateFormat formatter1;
 		formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -567,7 +572,13 @@ public class UtilGeneral {
 							        rsid.setId(++ctd);
 							        DateFormat formatter1;
 							        formatter1 = new SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH);
-							        rsid.setFecha(  formatter1.parse(dataDate.text().trim()) ) ;
+							        try {rsid.setFecha(  formatter1.parse(dataDate.text().trim()) ) ;
+							        } catch (ParseException e) {
+							        	formatter1 = new SimpleDateFormat("MMM. d, yyyy", Locale.ENGLISH);
+							        	rsid.setFecha(  formatter1.parse(dataDate.text().trim()) ) ;
+							        }
+							        
+							        
 							        rsid.setClose(Double.parseDouble(torsid[3]));
 							        rsid.setHigh(Double.parseDouble(torsid[1]));
 							        rsid.setLow(Double.parseDouble(torsid[2]));
