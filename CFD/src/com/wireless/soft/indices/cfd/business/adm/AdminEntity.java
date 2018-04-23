@@ -87,7 +87,7 @@ public class AdminEntity {
 			}
 
 		} catch (Exception ex) {
-			String s = "Error al consultar las compa�ias";
+			String s = "Error al consultar las companias";
 			_logger.error(s, ex);
 			throw new BusinessException(s, ex);
 		}
@@ -192,7 +192,7 @@ public class AdminEntity {
 	 * @param cmp
 	 * @return
 	 * @throws Exception
-	 *             Obtiene el primer record de una compa�ia
+	 *             Obtiene el primer record de una compania
 	 */
 	public Company getCompanyById(Company cmp) throws Exception {
 
@@ -223,7 +223,7 @@ public class AdminEntity {
 		Company cReturn = null;
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
-		param.put("cmpSymbol", cmp.getUrlIndex());
+		param.put("cmpSymbol", cmp.getGoogleSymbol());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, Company.FIND_COMPANY_BY_SYMBOL, param);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
@@ -457,6 +457,77 @@ public class AdminEntity {
 		this.em.flush();
 
 		this.tx.commit();
+
+	}
+	
+
+	/**
+	 * @param hdc
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HistoricalDataCompany> getHistoricalDataCompanyByCompany(HistoricalDataCompany hdc) throws Exception {
+
+		List<HistoricalDataCompany> listHdcReturn = null;
+		listHdcReturn = new ArrayList<HistoricalDataCompany>();
+
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("companyId", hdc.getCompany());
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_HISTORICAL_DATA_BYCOMPANY, param);
+		if (null != listIdxCompany && listIdxCompany.size() > 0) {
+			for (Object object : listIdxCompany) {
+				listHdcReturn.add( (HistoricalDataCompany) object );
+				
+			}
+		}
+
+		return listHdcReturn;
+
+	}
+	
+	/**
+	 * @param hdc
+	 * @return
+	 * @throws Exception
+	 */
+	public HistoricalDataCompany getFirstHistoricalDataCompanyByCompany(HistoricalDataCompany hdc) throws Exception {
+
+		HistoricalDataCompany hdcReturn = null;
+
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("companyId", hdc.getCompany());
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_FIRST_HISTORICAL_DATA_BYCOMPANY, param);
+		if (null != listIdxCompany && listIdxCompany.size() > 0) {
+			for (Object object : listIdxCompany) {
+				hdcReturn = (HistoricalDataCompany) object ;
+				break;
+			}
+		}
+
+		return hdcReturn;
+
+	}
+	
+	/**
+	 * @param hdc
+	 * @return
+	 * @throws Exception
+	 */
+	public HistoricalDataCompany getLastHistoricalDataCompanyByCompany(HistoricalDataCompany hdc) throws Exception {
+
+		HistoricalDataCompany hdcReturn = null;
+
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("companyId", hdc.getCompany());
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_LAST_HISTORICAL_DATA_BYCOMPANY, param);
+		if (null != listIdxCompany && listIdxCompany.size() > 0) {
+			for (Object object : listIdxCompany) {
+				hdcReturn = (HistoricalDataCompany) object ;
+				break;
+			}
+		}
+
+		return hdcReturn;
 
 	}
 

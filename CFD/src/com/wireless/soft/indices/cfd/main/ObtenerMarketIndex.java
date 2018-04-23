@@ -214,7 +214,7 @@ public class ObtenerMarketIndex {
 				break;
 			case "9":
 				_logger.info("\n Obtener indicador YTD (Regla de tres con respecto al inicio del year) --> [" + args[1]
-						+ "] | " + omi.getYearToDateReturn(args[1]));
+						+ "] | " + omi.getYearToDateReturn(Long.parseLong(args[1])));
 				break;
 			case "10":
 				_logger.info(
@@ -385,7 +385,7 @@ public class ObtenerMarketIndex {
 	 * @param url
 	 * @return
 	 * @throws IOException
-	 *             Retorna el valor de la copañia
+	 *             Retorna el valor de la copaï¿½ia
 	 */
 	private Double executeGoogleIndexSingleData(String url) throws IOException {
 
@@ -424,7 +424,7 @@ public class ObtenerMarketIndex {
 	 * @param url
 	 * @return
 	 * @throws IOException
-	 *             Retorna el valor de la copañia
+	 *             Retorna el valor de la copaï¿½ia
 	 */
 	private Double executeGoogleIndexSingleDataByHTML(String url) throws IOException {
 
@@ -731,10 +731,10 @@ public class ObtenerMarketIndex {
 					 * de 0,05% //Guaardar la informacion que se itera en Collections y que realize
 					 * ordenamiento, para que imprima en linea el resultado y no tener que
 					 * almacenarlo en ls BD para despues leerlo o calcularlo. Realixar el calculo de
-					 * las mejoras comaï¿½ias depues de la iteraciï¿½n por cada uno de las
-					 * compaï¿½ias que estan cumplienod con el // * calculo/estrategia definida en
-					 * el algoritmo! adicionar la variable /indice P/e usando http://jsoup.org/
-					 * 2015Dec24--> Tener en cuenta el laboratorio de analisis fundamental realizado
+					 * las mejoras comaï¿½ias depues de la iteraciï¿½n por cada uno de las compaï¿½ias que
+					 * estan cumplienod con el // * calculo/estrategia definida en el algoritmo!
+					 * adicionar la variable /indice P/e usando http://jsoup.org/ 2015Dec24--> Tener
+					 * en cuenta el laboratorio de analisis fundamental realizado
 					 * {https://drive.google.com/drive/u/0/folders/
 					 * 0BwJXnohKnxjbfmNJV2NsYm4zT1Zqb0VlUC1zaUlfcjRaM2VIX1E2WmZ6cU1MN1J2WWJhTGs}
 					 */
@@ -750,7 +750,7 @@ public class ObtenerMarketIndex {
 
 						double ytd = 0;
 						try {
-							ytd = this.getYearToDateReturn(cmp.getGoogleSymbol());
+							ytd = this.getYearToDateReturn(cmp.getId());
 						} catch (IllegalStateException ie) {
 							// _logger.info("ie.getMessage(this.getYearToDateReturn): " + ie.getMessage());
 						} catch (Exception e) {
@@ -867,10 +867,10 @@ public class ObtenerMarketIndex {
 					 * de 0,05% //Guaardar la informacion que se itera en Collections y que realize
 					 * ordenamiento, para que imprima en linea el resultado y no tener que
 					 * almacenarlo en ls BD para despues leerlo o calcularlo. Realixar el calculo de
-					 * las mejoras comaï¿½ias depues de la iteraciï¿½n por cada uno de las
-					 * compaï¿½ias que estan cumplienod con el // * calculo/estrategia definida en
-					 * el algoritmo! adicionar la variable /indice P/e usando http://jsoup.org/
-					 * 2015Dec24--> Tener en cuenta el laboratorio de analisis fundamental realizado
+					 * las mejoras comaï¿½ias depues de la iteraciï¿½n por cada uno de las compaï¿½ias que
+					 * estan cumplienod con el // * calculo/estrategia definida en el algoritmo!
+					 * adicionar la variable /indice P/e usando http://jsoup.org/ 2015Dec24--> Tener
+					 * en cuenta el laboratorio de analisis fundamental realizado
 					 * {https://drive.google.com/drive/u/0/folders/
 					 * 0BwJXnohKnxjbfmNJV2NsYm4zT1Zqb0VlUC1zaUlfcjRaM2VIX1E2WmZ6cU1MN1J2WWJhTGs}
 					 */
@@ -883,7 +883,7 @@ public class ObtenerMarketIndex {
 
 						double ytd = 0;
 						try {
-							ytd = this.getYearToDateReturn(cmp.getGoogleSymbol());
+							ytd = this.getYearToDateReturn(cmp.getId());
 						} catch (IllegalStateException ie) {
 							// _logger.info("ie.getMessage(this.getYearToDateReturn): " + ie.getMessage());
 						} catch (Exception e) {
@@ -1606,6 +1606,20 @@ public class ObtenerMarketIndex {
 	 * para que sirva el algoritmo
 	 */
 	private void relativeStrengthIndexFromGoogle(String companySymbol, int nDays, boolean print, String iteracion) {
+		//Convertir company Symbol en id de compaÃ±ua
+		Company cmp = null;
+		cmp = new Company();
+		cmp.setGoogleSymbol(companySymbol);
+		try {
+			cmp = this.admEnt.getCompanyBySymbol(cmp);
+		} catch (Exception e1) {
+			_logger.error("Error al traer info de la compania", e1);
+			return;
+		}
+		
+		
+		Long idCompanyDB  = cmp.getId();
+		
 		// obtener el historico de 14 dias o iteraciones!
 		if (print) {
 			_logger.info("obtener el historico de 14 dias o iteraciones!");
@@ -1624,7 +1638,8 @@ public class ObtenerMarketIndex {
 
 		}
 
-		lstRSI = UtilGeneral.getListaRSIGoogle(companySymbol, fechaHoy, mesatras, print);
+		//lstRSI = UtilGeneral.getListaRSIGoogle(companySymbol, fechaHoy, mesatras, print);
+		lstRSI = UtilGeneral.getListaRSIGoogleDB(idCompanyDB, print);
 
 		// ordena descendente ID, porque el formamo de la data esta de mayor a menor
 		// y las fechas deben ordenarse de menor a Mayor
@@ -1738,10 +1753,6 @@ public class ObtenerMarketIndex {
 		try {
 			if (null != iteracion && Long.valueOf(iteracion) > 0) {
 				// Consultar identificador de la compania
-				Company cmp = new Company();
-				cmp.setUrlIndex(companySymbol);
-				cmp = admEnt.getCompanyBySymbol(cmp);
-
 				DataMiningCompany dmCmp = new DataMiningCompany();
 				dmCmp.setCompany(cmp);
 				dmCmp.setIdIteracion(Long.valueOf(iteracion));
@@ -2092,34 +2103,34 @@ public class ObtenerMarketIndex {
 	 * FIXME: ##Si estoy a principio de anio (Enero 01 a 30 de abril) comparar con
 	 * Junio!
 	 */
-	private Double getYearToDateReturn(String companySymbol) throws IllegalStateException, Exception {
+	private Double getYearToDateReturn(Long companySymbol) throws IllegalStateException, Exception {
 
 		Double returnPorcentajeYTD = null;
 
-		// Valor stock a hoy
-		List<RelativeStrengthIndexData> valuePonderadoToday = null;
-		valuePonderadoToday = UtilGeneral.getListaRSIGoogle(companySymbol, UtilGeneral.obtenerToday(),
-				UtilGeneral.obtenerTodayMinusThree(), false);
-		// valuePonderadoToday = this.getListaRSIYahoo(companySymbol,
-		// UtilGeneral.obtenerToday(), UtilGeneral.obtenerTodayMinusThree(), false);
-
-		// Valor stock a principio del anio
-		List<RelativeStrengthIndexData> valuePonderadoBeginYear = null;
-		valuePonderadoBeginYear = UtilGeneral.getListaRSIGoogle(companySymbol,
-				UtilGeneral.obtenerFirstDateOftheYearPlusOne(), UtilGeneral.obtenerFirstDateOftheYearMinusOne(), false);
-
+		
 		Double valorActual = 0d;
 		Double valorBeginYear = 0d;
-		// Obtiene el valor ajustado al cierre [Adj Close] a la fecha
-		valorActual = valuePonderadoToday.size() > 0
-				? (valuePonderadoToday.get(0) == null ? 0d : valuePonderadoToday.get(0).getClose())
-				: 0d;
-		for (RelativeStrengthIndexData tmpVBY : valuePonderadoBeginYear) {
-			if (tmpVBY.getClose() > valorBeginYear) {
-				valorBeginYear = tmpVBY.getClose();
-			}
-
+		
+		try {
+			HistoricalDataCompany hdc = null;
+			hdc = new HistoricalDataCompany();
+			hdc.setCompany(companySymbol);
+			hdc = this.admEnt.getFirstHistoricalDataCompanyByCompany(hdc);
+			valorActual = Double.parseDouble( hdc.getStockPriceClose() );
+		} catch(Exception e) {
+			_logger.error("Error getYearToDateReturn.valorActual", e);
 		}
+		
+		try {
+			HistoricalDataCompany hdc = null;
+			hdc = new HistoricalDataCompany();
+			hdc.setCompany(companySymbol);
+			hdc = this.admEnt.getLastHistoricalDataCompanyByCompany(hdc);
+			valorBeginYear = Double.parseDouble( hdc.getStockPriceClose() );
+		} catch(Exception e) {
+			_logger.error("Error getYearToDateReturn.valorBeginYear", e);
+		}
+		
 
 		// Calculo de regla de tres para consultar el porcentaje de YTD
 		returnPorcentajeYTD = ((100 * valorActual) / valorBeginYear) - 100;
@@ -2354,7 +2365,7 @@ public class ObtenerMarketIndex {
 
 	/**
 	 * Metodo encargado de persistir en la base de datos la informacion historica de
-	 * DATE,CLOSE,HIGH,LOW,OPEN,VOLUME, para luego calcular el RSI por compañia.
+	 * DATE,CLOSE,HIGH,LOW,OPEN,VOLUME, para luego calcular el RSI por compaï¿½ia.
 	 * 
 	 * @throws IOException
 	 */
@@ -2362,50 +2373,59 @@ public class ObtenerMarketIndex {
 		_logger.info(
 				"Persiste la informacion de: https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
 		BufferedReader in = null;
-		List <HistoricalDataCompany> lstHistoricalDataCompany = new ArrayList();
+		
 		try {
-			//Elimina la informacion historia de la tabla para tener el ultimo stock
+
+			// Elimina la informacion historia de la tabla para tener el ultimo stock
+
 			admEnt.deleteDataHistorica();
-			URL hitoricalDataToRSI = new URL(
-					"https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
-			in = new BufferedReader(new InputStreamReader(hitoricalDataToRSI.openStream()));
 
-			String inputLine;
-			while ((inputLine = in.readLine()) != null) {
-				if (!inputLine.startsWith("a")) {
-					continue;
+			for (Company cmp : admEnt.getCompanies()) {
+
+				String[] qx = cmp.getGoogleSymbol().split(":");
+				_logger.info("q:" + qx[1] + "x:" + qx[0]);
+
+				// "https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
+				URL hitoricalDataToRSI = new URL("https://finance.google.com/finance/getprices?q=" + qx[1] + "&x="
+						+ qx[0] + "&p=150d&i=86401&f=d,c,o,h,l,v");
+				in = new BufferedReader(new InputStreamReader(hitoricalDataToRSI.openStream()));
+
+				String inputLine;
+				List<HistoricalDataCompany> lstHistoricalDataCompany = null;
+				lstHistoricalDataCompany = new ArrayList<HistoricalDataCompany>();
+				while ((inputLine = in.readLine()) != null) {
+					if (!inputLine.startsWith("a")) {
+						continue;
+					}
+					String[] shd = inputLine.split(",");
+					/*
+					 * 0 --> a1522310400 : DATE 1 --> 249.9 : CLOSE 2 --> 251.1 : HIGH 3 --> 247.1 :
+					 * LOW 4 --> 248.8 : OPEN 5 --> 326609 : VOLUME
+					 */
+					long dateLong = Long.valueOf(shd[0].substring(1) + "000");
+					Calendar fechaHistorica = Calendar.getInstance();
+					// Se adicionan mil porque la fuente no esta en milisegundos
+					fechaHistorica.setTimeInMillis(dateLong);
+
+					HistoricalDataCompany hdc = new HistoricalDataCompany();
+					hdc.setCompany(cmp.getId());
+					hdc.setFechaCreacion(Calendar.getInstance());
+					hdc.setFechaDataHistorica(fechaHistorica);
+					hdc.setStockPriceClose(shd[1]);
+					hdc.setStockPriceHigh(shd[2]);
+					hdc.setStockPriceLow(shd[3]);
+					hdc.setStockPriceOpen(shd[4]);
+					hdc.setStockVolume(shd[5]);
+
+					lstHistoricalDataCompany.add(hdc);
+					//_logger.info(inputLine);
 				}
-				String[] shd =  inputLine.split(",");
-				/*
-				0 --> a1522310400	: DATE
-				1 --> 249.9			: CLOSE
-				2 --> 251.1			: HIGH
-				3 --> 247.1			: LOW
-				4 --> 248.8			: OPEN
-				5 --> 326609		: VOLUME
-				*/
-				long dateLong = Long.valueOf( shd[0].substring(1) + "000");
-				Calendar fechaHistorica = Calendar.getInstance();
-				//Se adicionan mil porque la fuente no esta en milisegundos
-				fechaHistorica.setTimeInMillis(dateLong);
+				
+				_logger.info("lstHistoricalDataCompany.size()" + lstHistoricalDataCompany.size());
 
-				HistoricalDataCompany hdc = new HistoricalDataCompany();
-				hdc.setCompany(345l);
-				hdc.setFechaCreacion(Calendar.getInstance());
-				hdc.setFechaDataHistorica(fechaHistorica);
-				hdc.setStockPriceClose(shd[1]);
-				hdc.setStockPriceHigh(shd[2]);
-				hdc.setStockPriceLow(shd[3]);
-				hdc.setStockPriceOpen(shd[4]);
-				hdc.setStockVolume(shd[5]);
-				
-				
-				lstHistoricalDataCompany.add(hdc);
-				_logger.info(inputLine);
+				// Periste la informacion de la lista
+				admEnt.persistirDataHistoricaByCompany(lstHistoricalDataCompany);
 			}
-			
-			//Periste la informacion de la lista
-			admEnt.persistirDataHistoricaByCompany(lstHistoricalDataCompany);
 
 		} catch (Exception e) {
 			_logger.error("Error en ObtenerMarketIndex.persistirHistoricoToRSI", e);

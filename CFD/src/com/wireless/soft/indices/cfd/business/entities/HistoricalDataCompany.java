@@ -8,20 +8,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- * Entity encargado del almacenar el ultimo historico por compañia para poder
+ * Entity encargado del almacenar el ultimo historico por compania para poder
  * calcular el RSI
  * 
  * @author Francisco
  *
  */
 @NamedQueries(value = {
-			@NamedQuery(name = "findHistoricalDataByCompany", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :company ORDER BY h.id desc ")
+			@NamedQuery(name = "findHistoricalDataByCompany", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId ORDER BY h.id desc ")
 		,	@NamedQuery(name = "deleteHistoricalData", query = "DELETE FROM HistoricalDataCompany ")})
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "findFirstValueHistoricalDataByCompany", query = "SELECT	*\r\n" + 
+			"FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + 
+			"WHERE	scn_codigo = :companyId \r\n" + 
+			"ORDER by  HST_date desc limit 1 ", resultClass = HistoricalDataCompany.class)
+,	@NamedNativeQuery(name = "findLastValueHistoricalDataByCompany", query = "SELECT	*\r\n" + 
+			"FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + 
+			"WHERE	scn_codigo = :companyId \r\n" + 
+			"ORDER by  HST_date asc limit 1 ", resultClass = HistoricalDataCompany.class)
+ })
+
 @Entity
 @Table(name = "indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI")
 public class HistoricalDataCompany implements Serializable {
@@ -36,6 +50,13 @@ public class HistoricalDataCompany implements Serializable {
 	// ////////////////////////////////////////////////////////////////////////
 	/** */
 	public static final String FIND_HISTORICAL_DATA_BYCOMPANY = "findHistoricalDataByCompany";
+	
+	/** */
+	public static final String FIND_FIRST_HISTORICAL_DATA_BYCOMPANY = "findFirstValueHistoricalDataByCompany";
+	
+	/** */
+	public static final String FIND_LAST_HISTORICAL_DATA_BYCOMPANY = "findLastValueHistoricalDataByCompany";
+	
 	/** */
 	public static final String DELETE_HISTORICAL_DATA = "deleteHistoricalData";
 
