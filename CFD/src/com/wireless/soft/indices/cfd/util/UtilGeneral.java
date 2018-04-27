@@ -639,34 +639,6 @@ public class UtilGeneral {
 
 	}
 
-	/**
-	 * @return
-	 */
-	public static String obtenerFirstDateOftheYearPlusOne() {
-
-		String firstDayYearPlusOne = null;
-		String year = null;
-
-		DateFormat formatterYear;
-		formatterYear = new SimpleDateFormat("yyyy", Locale.ENGLISH);
-		year = formatterYear.format(new Date());
-
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, Integer.parseInt(year));
-		cal.set(Calendar.DAY_OF_YEAR, 1);
-		cal.add(Calendar.DATE, 1); //
-		// cal.add(Calendar.DATE, -367); --Evaluar si al restar estos dias es un dia
-		// habil, tener en cuenta una fecha fija seteando el valor del primer dia del
-		// anio
-		cal.add(Calendar.DATE, -136);
-
-		DateFormat formatter1;
-		formatter1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-		firstDayYearPlusOne = formatter1.format(new Date(cal.getTimeInMillis()));
-
-		return firstDayYearPlusOne;
-
-	}
 
 	/**
 	 * @return

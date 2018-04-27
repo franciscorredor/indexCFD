@@ -3,7 +3,6 @@ package com.wireless.soft.indices.cfd.main;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -74,8 +73,6 @@ public class ObtenerMarketIndex {
 	// Atributos de la clase
 	// ////////////////////////////////////////////////////////////////////////
 	/** */
-	private final Gson gson = this.createGson();
-
 	private AdminEntity admEnt = null;
 
 	private static int WAIT_TIME = 3500;
@@ -202,7 +199,7 @@ public class ObtenerMarketIndex {
 				_logger.info("\n Call relativeStrengthIndex: --> [" + args[1] + "]");
 				// El identificador 0 es que no tiene iteracion y no debe almacenar ningun tipo
 				// de informacion para el Datamining
-				omi.relativeStrengthIndexFromGoogle(args[1], 0, true, "0");
+				omi.relativeStrengthIndexFromGoogle(args[1], true, "0");
 				break;
 			case "8":
 				_logger.info("\n Persiste info de las companies, consultando de yahoo [Go short]");
@@ -219,12 +216,12 @@ public class ObtenerMarketIndex {
 			case "10":
 				_logger.info(
 						"\n Obtener historico de n companias, definiendo el dia en q empieza la iteracion \nsample:java -jar indicesToCFD.jar 10 JUP.L;NEO.PA;APC.DE;HSX.L -1 \n");
-				omi.relativeStrengthIndexArray(args[1], args[2], args[3]);
+				omi.relativeStrengthIndexArray(args[1], args[2]);
 				break;
 			case "11":
 				_logger.info(
 						"\n Obtener tendencia de la compania en n meses (0) - alza 	(1)	- baja		(2)	Alza		(3)	Baja \n");
-				_logger.info(" " + omi.getTendenciaGoogle(args[1], Integer.parseInt(args[2])));
+				_logger.info(" " + omi.getTendenciaGoogle(Long.parseLong(args[1]), Integer.parseInt(args[2])));
 				break;
 			case "12":
 				_logger.info("\n Evaluar data mining statistical modeling ");
@@ -357,68 +354,6 @@ public class ObtenerMarketIndex {
 	 * @return
 	 * @throws IOException
 	 */
-
-	/**
-	 * @param url
-	 * @return
-	 * @throws IOException
-	 */
-	/*
-	 * @Deprecated private ReturnSingleDataYahooFinance
-	 * executeYahooIndexSingleData(String url) throws IOException { try {
-	 * 
-	 * JsonElement result = executeJ(url); if (result.isJsonObject()) { JsonElement
-	 * error = result.getAsJsonObject().get("error"); if (error != null) {
-	 * JsonElement code = result.getAsJsonObject().get("code");
-	 * _logger.info("[Error] code:" + code); } }
-	 * 
-	 * return gson.fromJson(result, ReturnSingleDataYahooFinance.class);
-	 * 
-	 * } catch (Exception e) { _logger.info("[" + e.getMessage() +
-	 * "]Error en ReturnSingleDataYahooFinance executeYahooIndexSingleData:" + url);
-	 * //e.printStackTrace(); } return null;
-	 * 
-	 * }
-	 */
-
-	/**
-	 * @param url
-	 * @return
-	 * @throws IOException
-	 *             Retorna el valor de la copa�ia
-	 */
-	private Double executeGoogleIndexSingleData(String url) throws IOException {
-
-		try (InputStream input = new URL(url).openStream()) {
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-
-			while (line != null) {
-
-				sb.append(line);
-				sb.append(System.lineSeparator());
-				line = br.readLine();
-				if (null != line) {
-					String[] torsid = line.split(",");
-
-					return Double.parseDouble(torsid[4]);
-
-				}
-
-			}
-		} catch (FileNotFoundException e) {
-			// e.printStackTrace();
-			_logger.info("Error al leer [" + url + "](FileNotFoundException)");
-		} catch (IOException e) {
-			// e.printStackTrace();
-			_logger.info("Error al leer [" + url + "](IOException)");
-		}
-
-		return null;
-
-	}
 
 	/**
 	 * @param url
@@ -818,7 +753,7 @@ public class ObtenerMarketIndex {
 				}
 			}
 			_logger.info("\nIdentificador iteracion:" + identificadorUnicoIteracion);
-			_logger.info(toexecute + " 0 " + identificadorUnicoIteracion);
+			_logger.info(toexecute + " " + identificadorUnicoIteracion);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1472,141 +1407,10 @@ public class ObtenerMarketIndex {
 	/*
 	 * Obtine el indicador, para saber que tan costosa o overbuy esta la accion. El
 	 * input lo toma de un servicio de un servicio de yahoo nDays debe ser negativo
-	 * para que sirva el algoritmo Metodo no se usa porque yahoo descontinuo el
-	 * servicio, usar relativeStrengthIndexFromGoogle
-	 */
-	/*
-	 * @Deprecated private void relativeStrengthIndex(String companySymbol, int
-	 * nDays, boolean print, String iteracion){ //obtener el historico de 14 dias o
-	 * iteraciones! if (print){
-	 * _logger.info("obtener el historico de 14 dias o iteraciones!"); }
-	 * 
-	 * List<RelativeStrengthIndexData> lstRSI = null; String fechaHoy =
-	 * UtilGeneral.obtenerToday(); //"2016-08-04"; String mesatras =
-	 * UtilGeneral.obtenerTodayMinusMonth(); //"2016-07-04";
-	 * 
-	 * if (nDays == 0){ fechaHoy = UtilGeneral.obtenerToday(); //"2016-08-04";
-	 * mesatras = UtilGeneral.obtenerTodayMinusMonth(); //"2016-07-04"; }else{
-	 * fechaHoy = UtilGeneral.obtenerTodayMinusNDays(nDays); mesatras =
-	 * UtilGeneral.obtenerTodayMinusNDays(-27+nDays); //"2016-07-04";
-	 * 
-	 * }
-	 * 
-	 * lstRSI = this.getListaRSIYahoo(companySymbol, fechaHoy, mesatras, print);
-	 * 
-	 * //ordena descendente ID, porque el formamo de la data esta de mayor a menor
-	 * //y las fechas deben ordenarse de menor a Mayor Collections.sort(lstRSI);
-	 * 
-	 * //Obtener el valor maximo y minimo en el cierre de la accion al dia double
-	 * max = 0; double min = 0;
-	 * 
-	 * //obtener el promedio de H&L double avgHigh = 0; double avgLow = 0;
-	 * //Iteracion 2 change = close today - close yesterday for (int i = 0; i <
-	 * lstRSI.size(); i++) { if (i == 0){ RelativeStrengthIndexData
-	 * relativeStrengthIndexMM = lstRSI.get(i); if (null !=
-	 * relativeStrengthIndexMM){ max = relativeStrengthIndexMM.getClose(); min =
-	 * relativeStrengthIndexMM.getClose(); avgHigh +=
-	 * relativeStrengthIndexMM.getHigh(); avgLow +=
-	 * relativeStrengthIndexMM.getLow(); }
-	 * 
-	 * } if ( i > 0){ RelativeStrengthIndexData relativeStrengthIndexDataA =
-	 * lstRSI.get(i-1); RelativeStrengthIndexData relativeStrengthIndexDataB =
-	 * lstRSI.get(i); //_logger.info(relativeStrengthIndexDataA.getClose());
-	 * //_logger.info(relativeStrengthIndexDataB.getClose());
-	 * relativeStrengthIndexDataB.setChange(-relativeStrengthIndexDataA.getClose()+
-	 * relativeStrengthIndexDataB.getClose());
-	 * //_logger.info(relativeStrengthIndexDataB.toString()); lstRSI.set(i,
-	 * relativeStrengthIndexDataB);
-	 * 
-	 * //Valida valor Mayor y menor if (relativeStrengthIndexDataB.getClose() >
-	 * max){ max = relativeStrengthIndexDataB.getClose(); } if
-	 * (relativeStrengthIndexDataB.getClose() < min){ min =
-	 * relativeStrengthIndexDataB.getClose(); }
-	 * 
-	 * //sumar el average avgHigh += relativeStrengthIndexDataB.getHigh(); avgLow +=
-	 * relativeStrengthIndexDataB.getLow();
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * avgHigh = avgHigh/lstRSI.size(); avgLow = avgLow/lstRSI.size();
-	 * 
-	 * 
-	 * // print Resultado // for (RelativeStrengthIndexData
-	 * relativeStrengthIndexData : lstRSI) { //
-	 * _logger.info(relativeStrengthIndexData.toString()); // }
-	 * 
-	 * 
-	 * //Iteracion 3 suma gain and lost BigDecimal gain = new BigDecimal(0);
-	 * gain.setScale(10, BigDecimal.ROUND_UNNECESSARY); BigDecimal lost = new
-	 * BigDecimal(0); lost.setScale(10, BigDecimal.ROUND_UNNECESSARY); if (null !=
-	 * lstRSI && lstRSI.size() > 2) { for (int i = 0; i < 14; i++) { try{ double
-	 * change = lstRSI.get(i).getChange(); if (change > 0) { //
-	 * _logger.info("change (+) >" + change); gain = gain.add(new
-	 * BigDecimal(change)); // _logger.info("gain >" + gain); } else if (change < 0)
-	 * { // _logger.info("change (-) >" + change); lost = lost.add(new
-	 * BigDecimal(Math.abs(change))); // _logger.info("lost >" + lost);
-	 * }}catch(IndexOutOfBoundsException
-	 * iobE){System.out.print("Error en obtenerReturnIndex" + iobE.getMessage());}
-	 * }}
-	 * 
-	 * 
-	 * //_logger.info(gain + "<-- g"); //_logger.info(lost + "<-- l");
-	 * 
-	 * double rs = (gain.doubleValue()/14)/(lost.doubleValue()/14); double rsi = 100
-	 * - (100/(1+rs));
-	 * 
-	 * int diff = (int) (max - min); int porcentajeIncremento = (int)
-	 * (((100*avgHigh)/avgLow)-100);
-	 * 
-	 * //if (diff > 49 || porcentajeIncremento>=3 ){
-	 * 
-	 * System.out.print("symbol:[" + companySymbol + "]");
-	 * System.out.print("|RSI14:[" +String.format( "%.4f", rsi) + "]");
-	 * System.out.print("|max:[" + max+ "]"); System.out.print("|min:[" + min+ "]");
-	 * System.out.print("|diff:[" + String.format( "%.4f", (max - min) )+
-	 * (diff>49?"Diferencia mayor a 49 DataMining*":"") +"]");
-	 * System.out.print("|%IncrementoHigh:[" + String.format( "%.4f",
-	 * (((100*avgHigh)/avgLow)-100)) +
-	 * (porcentajeIncremento>=3?"%IncMayorIgual3 DataMining *":"") + "]");
-	 * System.out.print("|media:[" + String.format( "%.2f", (max+min)/2 ) + "] \n");
-	 * //} //Almacenar informacion de Data Mining si el numero //de la iteracion
-	 * contine informacion try { if (null != iteracion && Long.valueOf(iteracion) >
-	 * 0) { // Consultar identificador de la compania Company cmp = new Company();
-	 * cmp.setUrlIndex(companySymbol); cmp = admEnt.getCompanyBySymbol(cmp);
-	 * 
-	 * DataMiningCompany dmCmp = new DataMiningCompany(); dmCmp.setCompany(cmp);
-	 * dmCmp.setIdIteracion(Long.valueOf(iteracion)); dmCmp =
-	 * admEnt.getDMCompanyByCmpAndIteracion(dmCmp);
-	 * dmCmp.setRelativeStrengthIndex(String.format( "%.4f", rsi) );
-	 * dmCmp.setDiffMaxMin(String.format( "%.4f", (max - min) ));
-	 * dmCmp.setPercentageIncrement(String.format( "%.4f",
-	 * (((100*avgHigh)/avgLow)-100))); boolean isStockPriceMayorMedia =
-	 * (Double.parseDouble( dmCmp.getStockPrice().replace(',','.').trim() ) >
-	 * (max+min)/2 ); dmCmp.setIsTockPriceMayorMedia( isStockPriceMayorMedia );
-	 * //Obtener tendencia (0) - alza (1) - baja (2) Alza (3) Baja diasIntentos =
-	 * -1; dmCmp.setTendencia(getTendencia(companySymbol,-1));
-	 * 
-	 * admEnt.updateDataMiningCompany(dmCmp);
-	 * 
-	 * } } catch (Exception e) { e.printStackTrace();
-	 * _logger.info("Error al persistir el DataMining" + e.getMessage());
-	 * 
-	 * 
-	 * }
-	 * 
-	 * 
-	 * }
-	 */
-
-	/*
-	 * Obtine el indicador, para saber que tan costosa o overbuy esta la accion. El
-	 * input lo toma de un servicio de un servicio de yahoo nDays debe ser negativo
 	 * para que sirva el algoritmo
 	 */
-	private void relativeStrengthIndexFromGoogle(String companySymbol, int nDays, boolean print, String iteracion) {
-		//Convertir company Symbol en id de compañua
+	private void relativeStrengthIndexFromGoogle(String companySymbol, boolean print, String iteracion) {
+		// Convertir company Symbol en id de compañua
 		Company cmp = null;
 		cmp = new Company();
 		cmp.setGoogleSymbol(companySymbol);
@@ -1616,29 +1420,18 @@ public class ObtenerMarketIndex {
 			_logger.error("Error al traer info de la compania", e1);
 			return;
 		}
-		
-		
-		Long idCompanyDB  = cmp.getId();
-		
+
+		Long idCompanyDB = cmp.getId();
+
 		// obtener el historico de 14 dias o iteraciones!
 		if (print) {
 			_logger.info("obtener el historico de 14 dias o iteraciones!");
 		}
 
 		List<RelativeStrengthIndexData> lstRSI = null;
-		String fechaHoy = UtilGeneral.obtenerToday(); // "2016-08-04";
-		String mesatras = UtilGeneral.obtenerTodayMinusMonth(); // "2016-07-04";
 
-		if (nDays == 0) {
-			fechaHoy = UtilGeneral.obtenerToday(); // "2016-08-04";
-			mesatras = UtilGeneral.obtenerTodayMinusMonth(); // "2016-07-04";
-		} else {
-			fechaHoy = UtilGeneral.obtenerTodayMinusNDays(nDays);
-			mesatras = UtilGeneral.obtenerTodayMinusNDays(-27 + nDays); // "2016-07-04";
-
-		}
-
-		//lstRSI = UtilGeneral.getListaRSIGoogle(companySymbol, fechaHoy, mesatras, print);
+		// lstRSI = UtilGeneral.getListaRSIGoogle(companySymbol, fechaHoy, mesatras,
+		// print);
 		lstRSI = UtilGeneral.getListaRSIGoogleDB(idCompanyDB, print);
 
 		// ordena descendente ID, porque el formamo de la data esta de mayor a menor
@@ -1765,12 +1558,7 @@ public class ObtenerMarketIndex {
 				dmCmp.setIsTockPriceMayorMedia(isStockPriceMayorMedia);
 				// Obtener tendencia (0) - alza (1) - baja (2) Alza (3) Baja
 				diasIntentos = -1;
-				if (cmp.getCid() != null) {
-					// _logger.info("by HTML");
-					dmCmp.setTendencia(getTendenciaGoogleByHTML(cmp, -1));
-				} else {
-					dmCmp.setTendencia(getTendenciaGoogle(companySymbol, -1));
-				}
+				dmCmp.setTendencia(getTendenciaGoogle(cmp.getId(), -1));
 
 				admEnt.updateDataMiningCompany(dmCmp);
 
@@ -1791,22 +1579,9 @@ public class ObtenerMarketIndex {
 	 *            Obtener la tendencia segun 4 estados /* (0) - alza (1) - baja (2)
 	 *            Alza (3) Baja enum TENDENCIA {minusalza, minusbaja, ALZA, BAJA;}
 	 */
-	private Integer getTendenciaGoogle(String companySymbol, int nDays) {
+	private Integer getTendenciaGoogle(Long idCompany, int nDays) {
 
-		// yyyy-MM-dd
-		String fechaHoy = UtilGeneral.obtenerToday();
-		String mesatras = UtilGeneral.obtenerTodayMinusNDays(-90);
-
-		if (nDays == 0) {
-			fechaHoy = UtilGeneral.obtenerToday();
-			mesatras = UtilGeneral.obtenerTodayMinusNDays(-90);
-		} else {
-			fechaHoy = UtilGeneral.obtenerTodayMinusNDays(nDays);
-			mesatras = UtilGeneral.obtenerTodayMinusNDays(-90 + nDays);
-
-		}
-
-		switch (this.getTendenciaGoogle(companySymbol, fechaHoy, mesatras)) {
+		switch (this.getTendenciaGoogle(idCompany)) {
 		case minusalza:
 			return 0; // "-alza";
 		case minusbaja:
@@ -1821,7 +1596,7 @@ public class ObtenerMarketIndex {
 			if (variableGlobalIntentos > 3) {
 				return null;
 			}
-			return getTendenciaGoogle(companySymbol, nDays + (diasIntentos));
+			return getTendenciaGoogle(idCompany, nDays + (diasIntentos));
 		default:
 			break;
 
@@ -1882,79 +1657,15 @@ public class ObtenerMarketIndex {
 	 * @param diasAtras
 	 *            Obtener el RSI de varias companias dado una fecha hacia atras
 	 */
-	private void relativeStrengthIndexArray(String companySymbols, String diasAtras, String idIteracion) {
+	private void relativeStrengthIndexArray(String companySymbols, String idIteracion) {
 
 		String cmpSymbol[] = companySymbols.split(";");
 
 		for (String string : cmpSymbol) {
-			if (string != null) {
-				string = string.replace(',', '.');
-			}
-			// this.relativeStrengthIndex(string.trim(), Integer.parseInt(diasAtras), false,
-			// idIteracion);
-			this.relativeStrengthIndexFromGoogle(string.trim(), Integer.parseInt(diasAtras), false, idIteracion);
+			this.relativeStrengthIndexFromGoogle(string.trim(), false, idIteracion);
 		}
 
 	}
-
-	/**
-	 * Obtine listado de RSI Data
-	 * 
-	 * @return
-	 */
-	/**
-	 * @param symbol
-	 * @param dateEnd:
-	 *            Fecha mas proxima
-	 * @param dateBegin:
-	 *            Fecha mas lejana
-	 * @return Ya no se usa porque el servicio historico de Yahoo ya no esta
-	 *         trayendo la informacion se debe usar el metodo:
-	 *         relativeStrengthIndexDinamico
-	 */
-	/*
-	 * @Deprecated private List<RelativeStrengthIndexData> getListaRSIYahoo(String
-	 * symbol, String dateEnd, String dateBegin, boolean print){
-	 * List<RelativeStrengthIndexData> lstRSI = null; lstRSI = new
-	 * ArrayList<RelativeStrengthIndexData>();
-	 * 
-	 * //String fechaHoy = UtilGeneral.obtenerToday(); //"2016-08-04"; //String
-	 * mesatras = UtilGeneral.obtenerTodayMinusMonth(); //"2016-07-04";
-	 * 
-	 * ReturnHistoricaldataYahooFinance rHistData = null; try { String urlHistdata =
-	 * "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22"
-	 * +symbol+"%22%20and%20startDate%20%3D%20%22"+dateBegin+
-	 * "%22%20and%20endDate%20%3D%20%22"+dateEnd+
-	 * "%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-	 * if (print){ _logger.info("urlHistdata: ["+urlHistdata+"]");
-	 * _logger.info("Date,Open,High,Low,Close,Adj Close"); } rHistData =
-	 * this.executeYahooIndexHistoricaldata(urlHistdata);
-	 * 
-	 * 
-	 * if (null != rHistData && null != rHistData.getQuery() && null !=
-	 * rHistData.getQuery().getResults() && null !=
-	 * rHistData.getQuery().getResults().getQuote()){ int ctd = 0; for
-	 * (ReturnHistoricaldataYahooFinance.Query.Results.Quote quote :
-	 * rHistData.getQuery().getResults().getQuote()) { RelativeStrengthIndexData
-	 * rsid = new RelativeStrengthIndexData(); rsid.setId(++ctd); DateFormat
-	 * formatter1; formatter1 = new SimpleDateFormat("yyyy-mm-DD"); rsid.setFecha(
-	 * formatter1.parse(quote.getDate()) ) ;
-	 * rsid.setClose(Double.parseDouble(quote.getAdj_Close()));
-	 * rsid.setHigh(Double.parseDouble(quote.getHigh()));
-	 * rsid.setLow(Double.parseDouble(quote.getLow()));
-	 * //_logger.info("quote ["+ctd+"] : " +quote.toString()); if (print){
-	 * _logger.info(quote.toString()); } lstRSI.add(rsid);
-	 * 
-	 * if (ctd > 13){ break; } } }
-	 * 
-	 * 
-	 * //System.out.print( tr.toString() ); } catch (IOException e) {
-	 * e.printStackTrace(); } catch (ParseException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); }
-	 * 
-	 * 
-	 * return lstRSI; }
-	 */
 
 	/**
 	 * @param symbol
@@ -1963,79 +1674,50 @@ public class ObtenerMarketIndex {
 	 * @param print
 	 * @return Obtiene la tendencia de la compania
 	 */
-	private TENDENCIA getTendenciaGoogle(String symbol, String dateEnd, String dateBegin) {
+	private TENDENCIA getTendenciaGoogle(Long idCompany) {
 
-		Double valorTresMesesAtras = null;
 		Double valorHoy = null;
-		// String fechaHoy = UtilGeneral.obtenerToday(); //"2016-08-04";
-		// String mesatras = UtilGeneral.obtenerTodayMinusMonth(); //"2016-07-04";
+		Double valorTresMesesAtras = null;
 
-		String urlDataHoy = null;
-		String urlDataTresMonthBefore = null;
-
-		// ReturnSingleDataYahooFinance rHistDataHoy = null;
-		// ReturnSingleDataYahooFinance rHistDataTresMonthBefore = null;
 		try {
-			// urlDataHoy =
-			// "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22"+symbol+"%22%20and%20startDate%20%3D%20%22"+dateEnd+"%22%20and%20endDate%20%3D%20%22"+dateEnd+"%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-			// urlDataTresMonthBefore =
-			// "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22"+symbol+"%22%20and%20startDate%20%3D%20%22"+dateBegin+"%22%20and%20endDate%20%3D%20%22"+dateBegin+"%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-			// https://www.google.com/finance/historical?q=EPA:CA
-			// https://pypi.python.org/pypi/googlefinance
-			//
-			urlDataHoy = "https://finance.google.ca/finance/historical?q=" + symbol.replace(":", "%3A") + "&startdate="
-					+ dateEnd.replace(" ", "%20") + "&enddate=" + dateEnd.replace(" ", "%20") + "&output=csv";
-			urlDataTresMonthBefore = "https://finance.google.ca/finance/historical?q=" + symbol.replace(":", "%3A")
-					+ "&startdate=" + dateBegin.replace(" ", "%20") + "&enddate=" + dateBegin.replace(" ", "%20")
-					+ "&output=csv";
-			valorHoy = this.executeGoogleIndexSingleData(urlDataHoy);
-			valorTresMesesAtras = this.executeGoogleIndexSingleData(urlDataTresMonthBefore);
-			/*
-			 * rHistDataHoy = this.executeYahooIndexSingleData(urlDataHoy);
-			 * rHistDataTresMonthBefore =
-			 * this.executeYahooIndexSingleData(urlDataTresMonthBefore); if (null !=
-			 * rHistDataHoy && null != rHistDataHoy.getQuery() && null !=
-			 * rHistDataHoy.getQuery().getResults() && null !=
-			 * rHistDataHoy.getQuery().getResults().getQuote()){ valorHoy =
-			 * Double.parseDouble(rHistDataHoy.getQuery().getResults().getQuote().
-			 * getAdj_Close()); } if (null != rHistDataTresMonthBefore && null !=
-			 * rHistDataTresMonthBefore.getQuery() && null !=
-			 * rHistDataTresMonthBefore.getQuery().getResults() && null !=
-			 * rHistDataTresMonthBefore.getQuery().getResults().getQuote()){
-			 * valorTresMesesAtras =
-			 * Double.parseDouble(rHistDataTresMonthBefore.getQuery().getResults().getQuote(
-			 * ).getAdj_Close());
-			 * 
-			 * }
-			 */
-
-			if (null == valorHoy | null == valorTresMesesAtras) {
-				return TENDENCIA.NO_EVALUADA;
-			}
-
-			if (valorHoy > valorTresMesesAtras) {
-
-				double res = valorHoy - valorTresMesesAtras;
-				if (res < 1.2d) {
-					return TENDENCIA.minusalza;
-				}
-				return TENDENCIA.ALZA;
-			} else {
-				double res = valorTresMesesAtras - valorHoy;
-				if (res < 1.2d) {
-					return TENDENCIA.minusbaja;
-				}
-				return TENDENCIA.BAJA;
-			}
-
-			// System.out.print( tr.toString() );
-		} catch (IOException e) {
-			_logger.info("urlDataHoy: [" + urlDataHoy + "]");
-			_logger.info("urlDataTresMonthBefore: [" + urlDataTresMonthBefore + "]");
-			_logger.info("Error al evaluar la tendencia" + e.getMessage());
+			HistoricalDataCompany hdc = null;
+			hdc = new HistoricalDataCompany();
+			hdc.setCompany(idCompany);
+			hdc = this.admEnt.getLastHistoricalDataCompanyByCompany(hdc);
+			valorHoy = Double.parseDouble(hdc.getStockPriceClose());
+		} catch (Exception e) {
+			_logger.error("Error getTendenciaGoogle.valorHoy (" + idCompany + ")");
 		}
 
-		return TENDENCIA.NO_EVALUADA;
+		try {
+			HistoricalDataCompany hdc = null;
+			hdc = new HistoricalDataCompany();
+			hdc.setCompany(idCompany);
+			hdc = this.admEnt.getLastHistoricalDataCompanyByCompany(hdc);
+			valorTresMesesAtras = Double.parseDouble(hdc.getStockPriceClose());
+		} catch (Exception e) {
+			_logger.error("Error valorTresMesesAtras.valorBeginYear (" + idCompany + ")");
+		}
+
+		if (null == valorHoy | null == valorTresMesesAtras) {
+			return TENDENCIA.NO_EVALUADA;
+		}
+
+		if (valorHoy > valorTresMesesAtras) {
+
+			double res = valorHoy - valorTresMesesAtras;
+			if (res < 1.2d) {
+				return TENDENCIA.minusalza;
+			}
+			return TENDENCIA.ALZA;
+		} else {
+			double res = valorTresMesesAtras - valorHoy;
+			if (res < 1.2d) {
+				return TENDENCIA.minusbaja;
+			}
+			return TENDENCIA.BAJA;
+		}
+
 	}
 
 	/**
@@ -2107,30 +1789,32 @@ public class ObtenerMarketIndex {
 
 		Double returnPorcentajeYTD = null;
 
-		
 		Double valorActual = 0d;
 		Double valorBeginYear = 0d;
-		
+
 		try {
 			HistoricalDataCompany hdc = null;
 			hdc = new HistoricalDataCompany();
 			hdc.setCompany(companySymbol);
 			hdc = this.admEnt.getFirstHistoricalDataCompanyByCompany(hdc);
-			valorActual = Double.parseDouble( hdc.getStockPriceClose() );
-		} catch(Exception e) {
-			_logger.error("Error getYearToDateReturn.valorActual", e);
+			valorActual = Double.parseDouble(hdc.getStockPriceClose());
+		} catch (Exception e) {
+			_logger.error("Error getYearToDateReturn.valorActual (" + companySymbol + ")");
+			return 0d;
+			// _logger.error("Error getYearToDateReturn.valorActual", e);
 		}
-		
+
 		try {
 			HistoricalDataCompany hdc = null;
 			hdc = new HistoricalDataCompany();
 			hdc.setCompany(companySymbol);
 			hdc = this.admEnt.getLastHistoricalDataCompanyByCompany(hdc);
-			valorBeginYear = Double.parseDouble( hdc.getStockPriceClose() );
-		} catch(Exception e) {
-			_logger.error("Error getYearToDateReturn.valorBeginYear", e);
+			valorBeginYear = Double.parseDouble(hdc.getStockPriceClose());
+		} catch (Exception e) {
+			_logger.error("Error getYearToDateReturn.valorBeginYear (" + companySymbol + ")");
+			return 0d;
+			// _logger.error("Error getYearToDateReturn.valorBeginYear", e);
 		}
-		
 
 		// Calculo de regla de tres para consultar el porcentaje de YTD
 		returnPorcentajeYTD = ((100 * valorActual) / valorBeginYear) - 100;
@@ -2179,126 +1863,126 @@ public class ObtenerMarketIndex {
 
 			for (DataMiningCompany dataMiningCompany : lstDM) {
 				try {
-					Double probabiliadadWinTotal = null;
-					Double probabiliadadLostTotal = null;
+					Double probabilidadWinTotal = null;
+					Double probabilidadLostTotal = null;
 					// _logger.info(dataMiningCompany.toString());
 					PriceBetweenHighLow probabilidadVariable01 = new PriceBetweenHighLow();
-					double probabiliadadWin01 = probabilidadVariable01
+					double probabilidadWin01 = probabilidadVariable01
 							.getWinStatistics(dataMiningCompany.getIsPriceBetweenHighLow());
-					double probabiliadadLost01 = probabilidadVariable01
+					double probabilidadLost01 = probabilidadVariable01
 							.getLostStatistics(dataMiningCompany.getIsPriceBetweenHighLow());
-					// System.out.print("W1" + probabiliadadWin01);
-					// System.out.print("L1" + probabiliadadLost01);
+					// System.out.print("W1" + probabilidadWin01);
+					// System.out.print("L1" + probabilidadLost01);
 
 					TendenciaTresMeses probabilidadVariable02 = new TendenciaTresMeses();
-					double probabiliadadWin02 = probabilidadVariable02
+					double probabilidadWin02 = probabilidadVariable02
 							.getWinStatistics(dataMiningCompany.getTendencia());
-					double probabiliadadLost02 = probabilidadVariable02
+					double probabilidadLost02 = probabilidadVariable02
 							.getLostStatistics(dataMiningCompany.getTendencia());
-					// System.out.print("W2" + probabiliadadWin02);
-					// System.out.print("L2" + probabiliadadLost02);
+					// System.out.print("W2" + probabilidadWin02);
+					// System.out.print("L2" + probabilidadLost02);
 
 					PricePercentageIncrement probabilidadVariable03 = new PricePercentageIncrement();
-					double probabiliadadWin03 = probabilidadVariable03.getWinStatistics(
+					double probabilidadWin03 = probabilidadVariable03.getWinStatistics(
 							Double.parseDouble(dataMiningCompany.getPercentageIncrement().replace(',', '.').trim()));
-					double probabiliadadLost03 = probabilidadVariable03.getLostStatistics(
+					double probabilidadLost03 = probabilidadVariable03.getLostStatistics(
 							Double.parseDouble(dataMiningCompany.getPercentageIncrement().replace(',', '.').trim()));
-					// System.out.print("W3" + probabiliadadWin03);
-					// System.out.print("L3" + probabiliadadLost03);
+					// System.out.print("W3" + probabilidadWin03);
+					// System.out.print("L3" + probabilidadLost03);
 
 					NotaPonderada probabilidadVariable04 = new NotaPonderada();
-					double probabiliadadWin04 = probabilidadVariable04.getWinStatistics(
+					double probabilidadWin04 = probabilidadVariable04.getWinStatistics(
 							Double.parseDouble(dataMiningCompany.getNotaPonderada().replace(',', '.').trim()));
-					double probabiliadadLost04 = probabilidadVariable04.getLostStatistics(
+					double probabilidadLost04 = probabilidadVariable04.getLostStatistics(
 							Double.parseDouble(dataMiningCompany.getNotaPonderada().replace(',', '.').trim()));
-					// System.out.print("W4" + probabiliadadWin04);
-					// System.out.print("L4" + probabiliadadLost04);
+					// System.out.print("W4" + probabilidadWin04);
+					// System.out.print("L4" + probabilidadLost04);
 
 					PriceEarningRatio probabilidadVariable05 = new PriceEarningRatio();
-					double probabiliadadWin05 = probabilidadVariable05.getWinStatistics(
+					double probabilidadWin05 = probabilidadVariable05.getWinStatistics(
 							Double.parseDouble(dataMiningCompany.getPriceEarningRatio().replace(',', '.').trim()));
-					double probabiliadadLost05 = probabilidadVariable05.getLostStatistics(
+					double probabilidadLost05 = probabilidadVariable05.getLostStatistics(
 							Double.parseDouble(dataMiningCompany.getPriceEarningRatio().replace(',', '.').trim()));
-					// System.out.print("W5" + probabiliadadWin05);
-					// System.out.print("L5" + probabiliadadLost05);
+					// System.out.print("W5" + probabilidadWin05);
+					// System.out.print("L5" + probabilidadLost05);
 
 					RelativeStrengthIndex probabilidadVariable06 = new RelativeStrengthIndex();
-					double probabiliadadWin06 = probabilidadVariable06.getWinStatistics(
+					double probabilidadWin06 = probabilidadVariable06.getWinStatistics(
 							Double.parseDouble(dataMiningCompany.getRelativeStrengthIndex().replace(',', '.').trim()));
-					double probabiliadadLost06 = probabilidadVariable06.getLostStatistics(
+					double probabilidadLost06 = probabilidadVariable06.getLostStatistics(
 							Double.parseDouble(dataMiningCompany.getRelativeStrengthIndex().replace(',', '.').trim()));
-					// System.out.print("W6" + probabiliadadWin06);
-					// System.out.print("L6" + probabiliadadLost06);
+					// System.out.print("W6" + probabilidadWin06);
+					// System.out.print("L6" + probabilidadLost06);
 
 					PrecioAccion probabilidadVariable07 = new PrecioAccion();
-					double probabiliadadWin07 = probabilidadVariable07.getWinStatistics(
+					double probabilidadWin07 = probabilidadVariable07.getWinStatistics(
 							Double.parseDouble(dataMiningCompany.getStockPrice().replace(',', '.').trim()));
-					double probabiliadadLost07 = probabilidadVariable07.getLostStatistics(
+					double probabilidadLost07 = probabilidadVariable07.getLostStatistics(
 							Double.parseDouble(dataMiningCompany.getStockPrice().replace(',', '.').trim()));
-					// System.out.print("W7" + probabiliadadWin07);
-					// System.out.print("L7" + probabiliadadLost07);
+					// System.out.print("W7" + probabilidadWin07);
+					// System.out.print("L7" + probabilidadLost07);
 
 					LastDigit probabilidadVariable08 = new LastDigit();
-					double probabiliadadWin08 = probabilidadVariable08
+					double probabilidadWin08 = probabilidadVariable08
 							.getWinStatistics(dataMiningCompany.getLastDigitStockPrice());
-					double probabiliadadLost08 = probabilidadVariable08
+					double probabilidadLost08 = probabilidadVariable08
 							.getLostStatistics(dataMiningCompany.getLastDigitStockPrice());
-					// System.out.print("W8" + probabiliadadWin08);
-					// System.out.print("L8" + probabiliadadLost08);
+					// System.out.print("W8" + probabilidadWin08);
+					// System.out.print("L8" + probabilidadLost08);
 
 					DiffMaxMin probabilidadVariable09 = new DiffMaxMin();
-					double probabiliadadWin09 = probabilidadVariable09.getWinStatistics(
+					double probabilidadWin09 = probabilidadVariable09.getWinStatistics(
 							Double.parseDouble(dataMiningCompany.getDiffMaxMin().replace(',', '.').trim()));
-					double probabiliadadLost09 = probabilidadVariable09.getLostStatistics(
+					double probabilidadLost09 = probabilidadVariable09.getLostStatistics(
 							Double.parseDouble(dataMiningCompany.getDiffMaxMin().replace(',', '.').trim()));
-					// System.out.print("W9" + probabiliadadWin09);
-					// System.out.print("L9" + probabiliadadLost09);
+					// System.out.print("W9" + probabilidadWin09);
+					// System.out.print("L9" + probabilidadLost09);
 
 					PercentageIncremento probabilidadVariable10 = new PercentageIncremento();
-					double probabiliadadWin10 = probabilidadVariable10.getWinStatistics(
+					double probabilidadWin10 = probabilidadVariable10.getWinStatistics(
 							Double.parseDouble(dataMiningCompany.getPercentageIncrement().replace(',', '.').trim()));
-					double probabiliadadLost10 = probabilidadVariable10.getLostStatistics(
+					double probabilidadLost10 = probabilidadVariable10.getLostStatistics(
 							Double.parseDouble(dataMiningCompany.getPercentageIncrement().replace(',', '.').trim()));
-					// System.out.print("W10" + probabiliadadWin10);
-					// System.out.print("L10" + probabiliadadLost10);
+					// System.out.print("W10" + probabilidadWin10);
+					// System.out.print("L10" + probabilidadLost10);
 
 					StockMayorMedia probabilidadVariable11 = new StockMayorMedia();
-					double probabiliadadWin11 = probabilidadVariable11
+					double probabilidadWin11 = probabilidadVariable11
 							.getWinStatistics(dataMiningCompany.getIsTockPriceMayorMedia());
-					double probabiliadadLost11 = probabilidadVariable11
+					double probabilidadLost11 = probabilidadVariable11
 							.getLostStatistics(dataMiningCompany.getIsTockPriceMayorMedia());
-					// System.out.print("W11" + probabiliadadWin11);
-					// System.out.print("L11" + probabiliadadLost11);
+					// System.out.print("W11" + probabilidadWin11);
+					// System.out.print("L11" + probabilidadLost11);
 
 					// Indicador/peso de la ganancia o perdida de la accion al final del dia
-					double probabiliadadWin12 = IStatistics.ganoVariacionPrecio;
-					double probabiliadadLost12 = IStatistics.perdioVariacionPrecio;
-					// System.out.print("W12" + probabiliadadWin12);
-					// System.out.print("L12" + probabiliadadLost12);
+					double probabilidadWin12 = IStatistics.ganoVariacionPrecio;
+					double probabilidadLost12 = IStatistics.perdioVariacionPrecio;
+					// System.out.print("W12" + probabilidadWin12);
+					// System.out.print("L12" + probabilidadLost12);
 
-					probabiliadadWinTotal = probabiliadadWin01 * probabiliadadWin02 * probabiliadadWin03
-							* probabiliadadWin04 * probabiliadadWin05 * probabiliadadWin06 * probabiliadadWin07
-							* probabiliadadWin08 * probabiliadadWin09 * probabiliadadWin10 * probabiliadadWin11
-							* probabiliadadWin12;
-					probabiliadadLostTotal = probabiliadadLost01 * probabiliadadLost02 * probabiliadadLost03
-							* probabiliadadLost04 * probabiliadadLost05 * probabiliadadLost06 * probabiliadadLost07
-							* probabiliadadLost08 * probabiliadadLost09 * probabiliadadLost10 * probabiliadadLost11
-							* probabiliadadLost12;
+					probabilidadWinTotal = probabilidadWin01 * probabilidadWin02 * probabilidadWin03
+							* probabilidadWin04 * probabilidadWin05 * probabilidadWin06 * probabilidadWin07
+							* probabilidadWin08 * probabilidadWin09 * probabilidadWin10 * probabilidadWin11
+							* probabilidadWin12;
+					probabilidadLostTotal = probabilidadLost01 * probabilidadLost02 * probabilidadLost03
+							* probabilidadLost04 * probabilidadLost05 * probabilidadLost06 * probabilidadLost07
+							* probabilidadLost08 * probabilidadLost09 * probabilidadLost10 * probabilidadLost11
+							* probabilidadLost12;
 
 					_logger.info("*******************(ini) [" + dataMiningCompany.getCompany().getName()
 							+ "]*************************");
-					if (probabiliadadWinTotal > probabiliadadLostTotal && Double
+					if (probabilidadWinTotal > probabilidadLostTotal && Double
 							.parseDouble(dataMiningCompany.getRelativeStrengthIndex().replace(',', '.').trim()) < 60) {
 						// _logger.info("Tiene probabilidad de ganancia al final del dia ");
 						System.out.println("[" + dataMiningCompany.getCompany().getId() + "-"
-								+ dataMiningCompany.getCompany().getName() + "]probabiliadadWin - Lost *10000-->"
-								+ ((probabiliadadWinTotal - probabiliadadLostTotal) * 10000));
+								+ dataMiningCompany.getCompany().getName() + "]probabilidadWin - Lost *10000-->"
+								+ ((probabilidadWinTotal - probabilidadLostTotal) * 10000));
 						_logger.info(dataMiningCompany.toString());
 
 					} else {
 						System.out.println("[" + dataMiningCompany.getCompany().getId() + "-"
-								+ dataMiningCompany.getCompany().getName() + "]probabiliadadLost - Lost *10000-->"
-								+ ((probabiliadadWinTotal - probabiliadadLostTotal) * 10000));
+								+ dataMiningCompany.getCompany().getName() + "]probabilidadLost - Lost *10000-->"
+								+ ((probabilidadWinTotal - probabilidadLostTotal) * 10000));
 					}
 
 					Double ytd = Double.parseDouble(dataMiningCompany.getYTDPlataforma().replace(',', '.').trim());
@@ -2343,6 +2027,7 @@ public class ObtenerMarketIndex {
 	private static void runManytimes(ObtenerMarketIndex omi, Integer argumento2, Integer cortePorcentajePonderado)
 			throws BusinessException, IOException {
 
+		omi.persistirHistoricoToRSI();
 		for (;;) {
 			cr = null;
 			_logger.info("\n Persiste info de las companias, consultando de yahoo  [Go long]");
@@ -2373,7 +2058,7 @@ public class ObtenerMarketIndex {
 		_logger.info(
 				"Persiste la informacion de: https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
 		BufferedReader in = null;
-		
+
 		try {
 
 			// Elimina la informacion historia de la tabla para tener el ultimo stock
@@ -2383,7 +2068,7 @@ public class ObtenerMarketIndex {
 			for (Company cmp : admEnt.getCompanies()) {
 
 				String[] qx = cmp.getGoogleSymbol().split(":");
-				_logger.info("q:" + qx[1] + "x:" + qx[0]);
+				//_logger.info("q:" + qx[1] + "x:" + qx[0]);
 
 				// "https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
 				URL hitoricalDataToRSI = new URL("https://finance.google.com/finance/getprices?q=" + qx[1] + "&x="
@@ -2418,10 +2103,10 @@ public class ObtenerMarketIndex {
 					hdc.setStockVolume(shd[5]);
 
 					lstHistoricalDataCompany.add(hdc);
-					//_logger.info(inputLine);
+					// _logger.info(inputLine);
 				}
-				
-				_logger.info("lstHistoricalDataCompany.size()" + lstHistoricalDataCompany.size());
+
+				//_logger.info("lstHistoricalDataCompany.size()" + lstHistoricalDataCompany.size());
 
 				// Periste la informacion de la lista
 				admEnt.persistirDataHistoricaByCompany(lstHistoricalDataCompany);
