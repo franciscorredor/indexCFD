@@ -530,5 +530,29 @@ public class AdminEntity {
 		return hdcReturn;
 
 	}
+	
+	/**
+	 * @param hdc
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HistoricalDataCompany> getTopFiveToMomentumFactor(HistoricalDataCompany hdc) throws Exception {
+
+		List<HistoricalDataCompany> listHdcReturn = null;
+		listHdcReturn = new ArrayList<HistoricalDataCompany>();
+
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("companyId", hdc.getCompany());
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_TOP_FIVE_TO_MOMENTUM_FACTOR, param);
+		if (null != listIdxCompany && listIdxCompany.size() > 0) {
+			for (Object object : listIdxCompany) {
+				listHdcReturn.add( (HistoricalDataCompany) object );
+				
+			}
+		}
+
+		return listHdcReturn;
+
+	}
 
 }

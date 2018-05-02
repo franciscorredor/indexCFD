@@ -34,6 +34,10 @@ import javax.persistence.Table;
 			"FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + 
 			"WHERE	scn_codigo = :companyId \r\n" + 
 			"ORDER by  HST_date asc limit 1 ", resultClass = HistoricalDataCompany.class)
+,	@NamedNativeQuery(name = "findTopFiveToMomentumFactor", query = "SELECT	*\r\n" + 
+			"FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + 
+			"WHERE	scn_codigo = :companyId \r\n" + 
+			"ORDER by  HST_date desc limit 5 ", resultClass = HistoricalDataCompany.class)	
  })
 
 @Entity
@@ -56,6 +60,9 @@ public class HistoricalDataCompany implements Serializable {
 	
 	/** */
 	public static final String FIND_LAST_HISTORICAL_DATA_BYCOMPANY = "findLastValueHistoricalDataByCompany";
+	
+	/** */
+	public static final String FIND_TOP_FIVE_TO_MOMENTUM_FACTOR = "findTopFiveToMomentumFactor";
 	
 	/** */
 	public static final String DELETE_HISTORICAL_DATA = "deleteHistoricalData";

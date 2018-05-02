@@ -231,6 +231,10 @@ public class ObtenerMarketIndex {
 				_logger.info("\n Obtener historico diario para obtener el RSI ");
 				omi.persistirHistoricoToRSI();
 				break;
+			case "14":
+				_logger.info("\n Print Momentum Factor ");
+				omi.printMomentumFactor();
+				break;
 
 			default:
 				_logger.info("\n No realiza acci_n");
@@ -755,7 +759,6 @@ public class ObtenerMarketIndex {
 			_logger.info("\nIdentificador iteracion:" + identificadorUnicoIteracion);
 			_logger.info(toexecute + " " + identificadorUnicoIteracion);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -1960,10 +1963,9 @@ public class ObtenerMarketIndex {
 					// System.out.print("W12" + probabilidadWin12);
 					// System.out.print("L12" + probabilidadLost12);
 
-					probabilidadWinTotal = probabilidadWin01 * probabilidadWin02 * probabilidadWin03
-							* probabilidadWin04 * probabilidadWin05 * probabilidadWin06 * probabilidadWin07
-							* probabilidadWin08 * probabilidadWin09 * probabilidadWin10 * probabilidadWin11
-							* probabilidadWin12;
+					probabilidadWinTotal = probabilidadWin01 * probabilidadWin02 * probabilidadWin03 * probabilidadWin04
+							* probabilidadWin05 * probabilidadWin06 * probabilidadWin07 * probabilidadWin08
+							* probabilidadWin09 * probabilidadWin10 * probabilidadWin11 * probabilidadWin12;
 					probabilidadLostTotal = probabilidadLost01 * probabilidadLost02 * probabilidadLost03
 							* probabilidadLost04 * probabilidadLost05 * probabilidadLost06 * probabilidadLost07
 							* probabilidadLost08 * probabilidadLost09 * probabilidadLost10 * probabilidadLost11
@@ -2068,7 +2070,7 @@ public class ObtenerMarketIndex {
 			for (Company cmp : admEnt.getCompanies()) {
 
 				String[] qx = cmp.getGoogleSymbol().split(":");
-				//_logger.info("q:" + qx[1] + "x:" + qx[0]);
+				// _logger.info("q:" + qx[1] + "x:" + qx[0]);
 
 				// "https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
 				URL hitoricalDataToRSI = new URL("https://finance.google.com/finance/getprices?q=" + qx[1] + "&x="
@@ -2106,7 +2108,8 @@ public class ObtenerMarketIndex {
 					// _logger.info(inputLine);
 				}
 
-				//_logger.info("lstHistoricalDataCompany.size()" + lstHistoricalDataCompany.size());
+				// _logger.info("lstHistoricalDataCompany.size()" +
+				// lstHistoricalDataCompany.size());
 
 				// Periste la informacion de la lista
 				admEnt.persistirDataHistoricaByCompany(lstHistoricalDataCompany);
@@ -2120,6 +2123,75 @@ public class ObtenerMarketIndex {
 			}
 
 		}
+	}
+
+	private void printMomentumFactor() {
+		try {
+			for (Company cmp : admEnt.getCompanies()) {
+				// _logger.info("\n:" + cmp.getId());
+				printMomentumFactor(cmp.getId());
+			}
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Print the momentu factor for each company
+	 */
+	private void printMomentumFactor(Long cmpId) {
+
+		List<HistoricalDataCompany> listTopFiveHdc = null;
+		Double[] aClosePrice = new Double[5];
+		try {
+
+			HistoricalDataCompany hdc = null;
+			hdc = new HistoricalDataCompany();
+			hdc.setCompany(cmpId);
+			// Take de 5 last info from hst_historical_data_company_to_rsi
+			listTopFiveHdc = this.admEnt.getTopFiveToMomentumFactor(hdc);
+
+			int count = 0;
+			for (HistoricalDataCompany h : listTopFiveHdc) {
+				aClosePrice[count++] = Double.parseDouble(h.getStockPriceClose());
+			}
+			/*
+			 * for (Double double1 : aClosePrice) { _logger.info("\n " + double1); }
+			 */
+
+			/*
+			 * _logger.info("\nMF1:" + (aClosePrice[4]-aClosePrice[2])*-1 );
+			 * _logger.info("\nMF2:" + (aClosePrice[3]-aClosePrice[1])*-1 );
+			 * _logger.info("\nMF3:" + (aClosePrice[2]-aClosePrice[0])*-1 );
+			 */
+
+			Double MF1 = (aClosePrice[4] - aClosePrice[2]) * -1;
+			Double MF2 = (aClosePrice[3] - aClosePrice[1]) * -1;
+			Double MFToday = (aClosePrice[2] - aClosePrice[0]) * -1;
+
+			/*
+			 * Long  --> When MF today is [higher] number for [either] of the previous two(2) days.
+			 * Short --> When MF today is [lower]  number for [both]   of the previous two(2) days.
+			 */
+			if (MF1 != 0 && MF2 != 0 && MFToday != 0) {
+				if (MF1 > 0 && MF2 > 0 && MFToday > 0) {
+					if (MFToday < MF1 && MFToday < MF2) {
+						_logger.info("\nPosible Short [" + cmpId + "] MF1["+ MF1 +"] MF2["+MF2+"] MFToday["+MFToday+"]");
+					}
+
+				}
+				if (MF1 < 0 && MF2 < 0 && MFToday < 0) {
+					if (MFToday > MF1 || MFToday > MF2) {
+						_logger.info("\nPosible Long [" + cmpId + "] MF1["+ MF1 +"] MF2["+MF2+"] MFToday["+MFToday+"]");
+					}
+					
+				}
+			}
+
+		} catch (Exception e) {
+			_logger.error("Error al leer el top 5 para obtener el Momentum factor :" + e.getMessage());
+		}
+
 	}
 
 }
