@@ -1,3 +1,14 @@
+--2018May04
+ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
+	ADD DMC_PROBABILIDAD_WIN VARCHAR(1000),
+	ADD DMC_PROBABILIDAD_LOST VARCHAR(1000),
+	ADD DMC_BANDERA_INCREMENTO smallint;
+
+
+--2018May04
+ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
+	ADD DMC_MOMENTUM_FACTOR int;
+
 --2018Abril20
 CREATE TABLE `indexyahoocfd`.`HST_HISTORICAL_DATA_COMPANY_TO_RSI`
 (
@@ -50,13 +61,13 @@ ALTER TABLE  `indexyahoocfd`.`iyc_stock_companies`
 
 CREATE SCHEMA `indexyahoocfd` ;
 
--- Tabla que me indica la industria a la que pertence la compañia
+-- Tabla que me indica la industria a la que pertence la compaï¿½ia
 
 
--- Tabla que me indica la bolsa a la que pertenece la compañia, uk, francia, usa
+-- Tabla que me indica la bolsa a la que pertenece la compaï¿½ia, uk, francia, usa
 		--LSE: London Stock Exchange
 
--- Pagina web de la compañia.
+-- Pagina web de la compaï¿½ia.
 
 -- Nombre de la tabla de datamining
 --DROP TABLE  `indexyahoocfd`.`dmc_data_mining_company`
@@ -130,39 +141,39 @@ ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company`
 
 
 
--- Nombre de compañias en la bolsa
+-- Nombre de compaï¿½ias en la bolsa
 CREATE TABLE `indexyahoocfd`.`iyc_stock_companies` (
-  -- identificador unico de la compañia
+  -- identificador unico de la compaï¿½ia
   `SCN_CODIGO` INT NOT NULL AUTO_INCREMENT,
-  -- Nombre de la compañia
+  -- Nombre de la compaï¿½ia
   `SCN_NAME` VARCHAR(500) NOT NULL,
-  -- Pagina web de la compañia, puede que tenga diferentes, tenerlo en cuenta en el diseño
+  -- Pagina web de la compaï¿½ia, puede que tenga diferentes, tenerlo en cuenta en el diseï¿½o
   --`SCN_WEB_PAGE
-  -- Sigla en la bolsa, puede que tenga otra sigla en una bolsa diferentes uk, tenerlo en cuenta en el dieño
+  -- Sigla en la bolsa, puede que tenga otra sigla en una bolsa diferentes uk, tenerlo en cuenta en el dieï¿½o
   --`SCN_SIGLA
   PRIMARY KEY (`SCN_CODIGO`),
   UNIQUE INDEX `SCN_NAME_UNIQUE` (`SCN_NAME` ASC));
 
--- indice yahoo de las compañias 
+-- indice yahoo de las compaï¿½ias 
 CREATE TABLE `indexyahoocfd`.`iyc_stack_company_index` (
 --identificador unico de la tabla 
 `SCI_CODIGO` INT NOT NULL AUTO_INCREMENT,
---identificador que relaciona con el nombre de la compañia 
+--identificador que relaciona con el nombre de la compaï¿½ia 
 `SCN_CODIGO` INT NOT NULL,
  --Link del indicador
 `SCI_URL_INDEX` VARCHAR(5000) NOT NULL,
--- Fecha creación del indice 
+-- Fecha creaciï¿½n del indice 
 `SCI_FECHA_CREACION` DATE NULL,
   PRIMARY KEY (`SCI_CODIGO`));
 
 --DROP TABLE  `indexyahoocfd`.`iyc_quote_company_history`  
- -- almacena el historico de las quotes de la diferentes compañias 
+ -- almacena el historico de las quotes de la diferentes compaï¿½ias 
 CREATE TABLE `indexyahoocfd`.`iyc_quote_company_history` (
 --identificador unico de la tabla 
 `QCH_CODIGO` INT NOT NULL AUTO_INCREMENT,
---identificador que relaciona con el nombre de la compañia 
+--identificador que relaciona con el nombre de la compaï¿½ia 
 `SCN_CODIGO` INT NOT NULL, 
--- Fecha creación del indice 
+-- Fecha creaciï¿½n del indice 
 `QHC_FECHA_CREACION` TIMESTAMP NOT NULL,
 `name` VARCHAR(1000),
 `symbol` VARCHAR(1000),
@@ -183,27 +194,27 @@ CREATE TABLE `indexyahoocfd`.`iyc_quote_company_history` (
 PRIMARY KEY (`QCH_CODIGO`));
 
 
--- quotes yahoo de las compañias 
+-- quotes yahoo de las compaï¿½ias 
 CREATE TABLE `indexyahoocfd`.`iyc_stack_company_quotes` (
 --identificador unico de la tabla 
 `SCQ_CODIGO` INT NOT NULL AUTO_INCREMENT,
---identificador que relaciona con el nombre de la compañia 
+--identificador que relaciona con el nombre de la compaï¿½ia 
 `SCN_CODIGO` INT NOT NULL,
  --Link del indicador
 `SCQ_URL_QUOTE` VARCHAR(5000) NOT NULL,
--- Fecha creación del indice 
+-- Fecha creaciï¿½n del indice 
 `SCQ_FECHA_CREACION` DATE NULL,
   PRIMARY KEY (`SCQ_CODIGO`));
   
   
  --DROP TABLE  `indexyahoocfd`.`iyc_fundamental_company_history`  
- -- almacena el historico de informacion fundamental de las diferentes compañias 
+ -- almacena el historico de informacion fundamental de las diferentes compaï¿½ias 
 CREATE TABLE `indexyahoocfd`.`iyc_fundamental_company_history` (
 --identificador unico de la tabla 
 `FCH_CODIGO` INT NOT NULL AUTO_INCREMENT,
---identificador que relaciona con el nombre de la compañia 
+--identificador que relaciona con el nombre de la compaï¿½ia 
 `SCN_CODIGO` INT NOT NULL, 
--- Fecha creación del indice 
+-- Fecha creaciï¿½n del indice 
 `FCH_FECHA_CREACION` TIMESTAMP NOT NULL,
 `PERatio` VARCHAR(1000),
 `Bid` VARCHAR(1000),
@@ -225,10 +236,10 @@ PRIMARY KEY (`FCH_CODIGO`));
 CREATE TABLE `indexyahoocfd`.`iyc_bbg_indicator` (
 --identificador unico de la tabla 
 `BBG_CODIGO` INT NOT NULL AUTO_INCREMENT,
---identificador que relaciona con el nombre de la compañia 
+--identificador que relaciona con el nombre de la compaï¿½ia 
 `SCN_CODIGO` INT NOT NULL,
  --Link del indicador
 `BBG_URL_YRTN` VARCHAR(5000) NOT NULL,
--- Fecha creación del indice 
+-- Fecha creaciï¿½n del indice 
 `BBG_FECHA_CREACION` DATE NULL,
   PRIMARY KEY (`BBG_CODIGO`));

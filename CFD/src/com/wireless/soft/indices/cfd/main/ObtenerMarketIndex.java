@@ -67,6 +67,14 @@ enum TENDENCIA {
 	minusalza, minusbaja, ALZA, BAJA, NO_EVALUADA;
 }
 
+/*
+ * En base de datos: CEROS --> 0 MF1 --> 1 MF2 --> 2 MF3 --> 3 SHORT --> 4 LONG
+ * --> 5
+ */
+enum MOMENTUM_FACTOR {
+	CEROS, MF1, MF2, MF3, SHORT, LONG;
+}
+
 public class ObtenerMarketIndex {
 
 	// ////////////////////////////////////////////////////////////////////////
@@ -1562,6 +1570,7 @@ public class ObtenerMarketIndex {
 				// Obtener tendencia (0) - alza (1) - baja (2) Alza (3) Baja
 				diasIntentos = -1;
 				dmCmp.setTendencia(getTendenciaGoogle(cmp.getId(), -1));
+				dmCmp.setMomentumFactor(this.transformMomentumFactorToInteger(this.getMomentumFactor(cmp.getId(), false)));
 
 				admEnt.updateDataMiningCompany(dmCmp);
 
@@ -1865,6 +1874,7 @@ public class ObtenerMarketIndex {
 			List<DataMiningCompany> lstDM = admEnt.getDMCompanyByIteracion(dmCmp);
 
 			for (DataMiningCompany dataMiningCompany : lstDM) {
+				
 				try {
 					Double probabilidadWinTotal = null;
 					Double probabilidadLostTotal = null;
@@ -1973,18 +1983,27 @@ public class ObtenerMarketIndex {
 
 					_logger.info("*******************(ini) [" + dataMiningCompany.getCompany().getName()
 							+ "]*************************");
+					/*
+					 * Si no almacena la informacion en el Datamining para el stage de Machine learning, dejar valores en cero(0)
+					 */
 					if (probabilidadWinTotal > probabilidadLostTotal && Double
 							.parseDouble(dataMiningCompany.getRelativeStrengthIndex().replace(',', '.').trim()) < 60) {
 						// _logger.info("Tiene probabilidad de ganancia al final del dia ");
 						System.out.println("[" + dataMiningCompany.getCompany().getId() + "-"
 								+ dataMiningCompany.getCompany().getName() + "]probabilidadWin - Lost *10000-->"
 								+ ((probabilidadWinTotal - probabilidadLostTotal) * 10000));
-						_logger.info(dataMiningCompany.toString());
+						//_logger.info(dataMiningCompany.toString());
+						//Almacena info en Datamining probabilidadWin
+						dataMiningCompany.setProbabilidadWin(Double.toString(((probabilidadWinTotal - probabilidadLostTotal) * 10000)));
+						admEnt.updateDataMiningCompany(dataMiningCompany);
 
 					} else {
 						System.out.println("[" + dataMiningCompany.getCompany().getId() + "-"
 								+ dataMiningCompany.getCompany().getName() + "]probabilidadLost - Lost *10000-->"
 								+ ((probabilidadWinTotal - probabilidadLostTotal) * 10000));
+						//Almacena info en Datamining probabilidadWin
+						dataMiningCompany.setProbabilidadLost(Double.toString(((probabilidadWinTotal - probabilidadLostTotal) * 10000)));
+						admEnt.updateDataMiningCompany(dataMiningCompany);
 					}
 
 					Double ytd = Double.parseDouble(dataMiningCompany.getYTDPlataforma().replace(',', '.').trim());
@@ -2001,6 +2020,13 @@ public class ObtenerMarketIndex {
 						System.out
 								.println("dataMiningCompany.getYTDPlataforma()" + dataMiningCompany.getYTDPlataforma());
 						_logger.info(dataMiningCompany.toString());
+						//Almacenar info en Datamining bandera 1
+						dataMiningCompany.setBanderaIncremento(true);
+						admEnt.updateDataMiningCompany(dataMiningCompany);
+					}else {
+						//Almacenar info en Datamining bandera 0
+						dataMiningCompany.setBanderaIncremento(false);
+						admEnt.updateDataMiningCompany(dataMiningCompany);
 					}
 					_logger.info("*******************(fin) [" + dataMiningCompany.getCompany().getName()
 							+ "]*************************");
@@ -2129,7 +2155,7 @@ public class ObtenerMarketIndex {
 		try {
 			for (Company cmp : admEnt.getCompanies()) {
 				// _logger.info("\n:" + cmp.getId());
-				printMomentumFactor(cmp.getId());
+				getMomentumFactor(cmp.getId(), true);
 			}
 		} catch (BusinessException e) {
 			e.printStackTrace();
@@ -2139,10 +2165,12 @@ public class ObtenerMarketIndex {
 	/**
 	 * Print the momentu factor for each company
 	 */
-	private void printMomentumFactor(Long cmpId) {
+	private MOMENTUM_FACTOR getMomentumFactor(Long cmpId, boolean persistirMomentumFactorByCompany) {
 
 		List<HistoricalDataCompany> listTopFiveHdc = null;
 		Double[] aClosePrice = new Double[5];
+		MOMENTUM_FACTOR saveDataMining = null;
+		
 		try {
 
 			HistoricalDataCompany hdc = null;
@@ -2173,25 +2201,96 @@ public class ObtenerMarketIndex {
 			 * Long  --> When MF today is [higher] number for [either] of the previous two(2) days.
 			 * Short --> When MF today is [lower]  number for [both]   of the previous two(2) days.
 			 */
+			
 			if (MF1 != 0 && MF2 != 0 && MFToday != 0) {
 				if (MF1 > 0 && MF2 > 0 && MFToday > 0) {
 					if (MFToday < MF1 && MFToday < MF2) {
+						//Almacena momentum factor SHORT
+						saveDataMining = MOMENTUM_FACTOR.SHORT;
 						_logger.info("\nPosible Short [" + cmpId + "] MF1["+ MF1 +"] MF2["+MF2+"] MFToday["+MFToday+"]");
+					}else {
+						saveDataMining = MOMENTUM_FACTOR.MF1;
 					}
-
 				}
-				if (MF1 < 0 && MF2 < 0 && MFToday < 0) {
+				else if (MF1 < 0 && MF2 < 0 && MFToday < 0) {
 					if (MFToday > MF1 || MFToday > MF2) {
+						//Almacena momentum factor SHORT
+						saveDataMining = MOMENTUM_FACTOR.LONG;
 						_logger.info("\nPosible Long [" + cmpId + "] MF1["+ MF1 +"] MF2["+MF2+"] MFToday["+MFToday+"]");
+					}else {
+						saveDataMining = MOMENTUM_FACTOR.MF2;
 					}
 					
 				}
+				else {
+					saveDataMining = MOMENTUM_FACTOR.MF3;
+				}
+			}else {
+				saveDataMining = MOMENTUM_FACTOR.CEROS;
 			}
+			
+			//Persiste en Data mining el valor de SaveDataMining.
+			if (persistirMomentumFactorByCompany) {
+				this.persistirMomentumFactor(saveDataMining, cmpId);
+			}
+			
+			
 
 		} catch (Exception e) {
-			_logger.error("Error al leer el top 5 para obtener el Momentum factor :" + e.getMessage());
+			_logger.error("Error al leer el top 5 para obtener el Momentum factor y persistirlo :" + e.getMessage());
 		}
+		
+		return saveDataMining;
 
+	}
+
+	/**
+	 * Metodo encargado de persistir en BD la variable Momentum factor
+	 * 
+	 * @param mf
+	 * @param cmpId
+	 * @throws Exception
+	 */
+	private void persistirMomentumFactor(MOMENTUM_FACTOR mf, Long cmpId) throws Exception {
+
+		admEnt.updateMomentumFactorByCompany(cmpId, this.transformMomentumFactorToInteger(mf));
+		
+	}
+	
+	/**
+	 * Transforma el momentum factor en un entero para poderlo persistir en la BD.
+	 * @param mf
+	 * @return
+	 */
+	private Integer transformMomentumFactorToInteger(MOMENTUM_FACTOR mf) {
+		Integer retornoMF = null;
+		
+		switch (mf) {
+		case CEROS:
+			retornoMF = 0;
+			break;
+		case MF1:
+			retornoMF = 1;
+			break;
+		case MF2:
+			retornoMF = 2;
+			break;
+		case MF3:
+			retornoMF = 3;
+			break;
+		case SHORT:
+			retornoMF = 4;
+			break;
+		case LONG:
+			retornoMF = 5;
+			break;
+		default:
+			break;
+
+		}
+		
+		
+		return retornoMF;
 	}
 
 }

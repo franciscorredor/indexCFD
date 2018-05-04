@@ -431,7 +431,9 @@ public class AdminEntity {
 	 */
 	public void persistirDataHistoricaByCompany(List<HistoricalDataCompany> lstDataToPersistir) {
 
-		this.tx.begin();
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
 
 		if (null != lstDataToPersistir && !lstDataToPersistir.isEmpty()) {
 
@@ -450,9 +452,35 @@ public class AdminEntity {
 	 * @throws Exception
 	 */
 	public void deleteDataHistorica() throws Exception {
-		this.tx.begin();
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
 
 		UtilSession.executeUpdateByNamedQuery(em, HistoricalDataCompany.DELETE_HISTORICAL_DATA, null);
+
+		this.em.flush();
+
+		this.tx.commit();
+
+	}
+	
+	
+	/**
+	 * @param lstDataToPersistir
+	 * @throws Exception
+	 */
+	public void updateMomentumFactorByCompany(Long idCompany, Integer momentumFactor) throws Exception {
+		
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("company", idCompany);
+		param.put("momentumFactor", momentumFactor);
+		UtilSession.executeUpdateByNativeQuery(em, "UPDATE indexyahoocfd.dmc_data_mining_company SET DMC_MOMENTUM_FACTOR = :momentumFactor WHERE scn_codigo = :company", param);
+		
+		
 
 		this.em.flush();
 

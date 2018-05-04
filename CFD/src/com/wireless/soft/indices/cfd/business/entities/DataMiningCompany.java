@@ -30,6 +30,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "findDataMiningCompanyByIteracion", query = "SELECT s FROM DataMiningCompany s WHERE s.idIteracion = :iteracion01 ")
 					})
 
+
 @Entity
 @Table(name = "indexyahoocfd.dmc_data_mining_company")
 public class DataMiningCompany implements Serializable{
@@ -45,6 +46,7 @@ public class DataMiningCompany implements Serializable{
     public static final String FIND_DATAMINING_COMPANY_BY_ID_ITERACION = "findDataMiningCompanyByIteracionAndCompany";
     
     public static final String FIND_DATAMINING_BY_ID_ITERACION = "findDataMiningCompanyByIteracion";
+
 	
 	// ////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
@@ -129,6 +131,18 @@ public class DataMiningCompany implements Serializable{
     @Column(name = "DMC_YTD_PLATAFORMA", nullable = true)
     private String YTDPlataforma;
     
+    
+    @Column(name = "DMC_MOMENTUM_FACTOR", nullable = true)
+    private Integer momentumFactor;
+    
+    @Column(name = "DMC_PROBABILIDAD_WIN", nullable = true)
+    private String probabilidadWin;
+    
+    @Column(name = "DMC_PROBABILIDAD_LOST", nullable = true)
+    private String probabilidadLost;
+    
+    @Column(name = "DMC_BANDERA_INCREMENTO", nullable = true)
+    private Boolean banderaIncremento;
     
     // ////////////////////////////////////////////////////////////////////////
     // Getter/Setter de la clase
@@ -405,6 +419,64 @@ public class DataMiningCompany implements Serializable{
 	 */
 	public void setYTDPlataforma(String yTDPlataforma) {
 		YTDPlataforma = yTDPlataforma;
+	}
+
+
+	public Integer getMomentumFactor() {
+		return momentumFactor;
+	}
+
+
+	public void setMomentumFactor(Integer momentumFactor) {
+		this.momentumFactor = momentumFactor;
+	}
+
+
+	/**
+	 * @return the probabilidadWin
+	 */
+	public String getProbabilidadWin() {
+		return probabilidadWin;
+	}
+
+
+	/**
+	 * @param probabilidadWin the probabilidadWin to set
+	 */
+	public void setProbabilidadWin(String probabilidadWin) {
+		this.probabilidadWin = probabilidadWin;
+	}
+
+
+	/**
+	 * @return the probabilidadLost
+	 */
+	public String getProbabilidadLost() {
+		return probabilidadLost;
+	}
+
+
+	/**
+	 * @param probabilidadLost the probabilidadLost to set
+	 */
+	public void setProbabilidadLost(String probabilidadLost) {
+		this.probabilidadLost = probabilidadLost;
+	}
+
+
+	/**
+	 * @return the banderaIncremento
+	 */
+	public Boolean getBanderaIncremento() {
+		return banderaIncremento;
+	}
+
+
+	/**
+	 * @param banderaIncremento the banderaIncremento to set
+	 */
+	public void setBanderaIncremento(Boolean banderaIncremento) {
+		this.banderaIncremento = banderaIncremento;
 	}
 
 
