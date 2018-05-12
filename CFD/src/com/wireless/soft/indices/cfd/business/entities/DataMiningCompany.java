@@ -27,6 +27,7 @@ import javax.persistence.Table;
 @NamedQueries(value = {				
 		@NamedQuery(name = "findAllDataMiningCompany", query = "SELECT s FROM DataMiningCompany s ORDER BY s.id"),
 		@NamedQuery(name = "findDataMiningCompanyByIteracionAndCompany", query = "SELECT s FROM DataMiningCompany s WHERE s.company.id = :companyId AND s.idIteracion = :iteracion "),
+		@NamedQuery(name = "findLastTwoDataMiningCompanyByCompany", query = "SELECT s FROM DataMiningCompany s WHERE s.company.id = :companyId ORDER BY s.id DESC "),
 		@NamedQuery(name = "findDataMiningCompanyByIteracion", query = "SELECT s FROM DataMiningCompany s WHERE s.idIteracion = :iteracion01 ")
 					})
 
@@ -44,6 +45,9 @@ public class DataMiningCompany implements Serializable{
     public static final String FIND_ALL_DATAMINING_COMPANY = "findAllDataMiningCompany";
     
     public static final String FIND_DATAMINING_COMPANY_BY_ID_ITERACION = "findDataMiningCompanyByIteracionAndCompany";
+    
+    
+    public static final String FIND_LAST_TWO_DATAMINING_COMPANY_BY_ID = "findLastTwoDataMiningCompanyByCompany";
     
     public static final String FIND_DATAMINING_BY_ID_ITERACION = "findDataMiningCompanyByIteracion";
 

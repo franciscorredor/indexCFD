@@ -262,6 +262,29 @@ public class AdminEntity {
 		return dmcReturn;
 
 	}
+	
+	/**
+	 * @param dmCmp
+	 * @return
+	 * @throws Exception
+	 */
+	public DataMiningCompany getPenultimateCompanyByCmp(DataMiningCompany dmCmp) throws Exception {
+
+		DataMiningCompany dmcReturn = null;
+
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("companyId", dmCmp.getCompany().getId());
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				DataMiningCompany.FIND_LAST_TWO_DATAMINING_COMPANY_BY_ID, param);
+		if (null != listIdxCompany && listIdxCompany.size() >= 2) {
+			//for (Object object : listIdxCompany) {
+				dmcReturn = (DataMiningCompany) listIdxCompany.get(1);
+			//}
+		}
+
+		return dmcReturn;
+
+	}
 
 	/**
 	 * @param dmCmp

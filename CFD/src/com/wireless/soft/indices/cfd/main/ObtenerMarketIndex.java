@@ -1571,7 +1571,14 @@ public class ObtenerMarketIndex {
 				diasIntentos = -1;
 				dmCmp.setTendencia(getTendenciaGoogle(cmp.getId(), -1));
 				dmCmp.setMomentumFactor(this.transformMomentumFactorToInteger(this.getMomentumFactor(cmp.getId(), false)));
-
+				
+				//Actualiza el campo: dmc_stock_price_close del registro anterior con el actual.
+				DataMiningCompany dmCmpAnterior = new DataMiningCompany();
+				dmCmpAnterior.setCompany(cmp);
+				dmCmpAnterior = admEnt.getPenultimateCompanyByCmp(dmCmp);
+				dmCmpAnterior.setStockPriceClose(dmCmp.getStockPrice());
+				admEnt.updateDataMiningCompany(dmCmpAnterior);
+				
 				admEnt.updateDataMiningCompany(dmCmp);
 
 			}
@@ -1862,6 +1869,8 @@ public class ObtenerMarketIndex {
 	 * 3. Sector: seguros y finanzas muy riesgoso
 	 * 
 	 */
+	//--> Volver a evaluar este algoritmo. Repasar libro:
+	//	C:\francisco\readme\BI\Data Mining - Practical Machine Learning Tools and Techniques.pdf
 	private void getStatisticalModeling(Long numeroIteracion) throws Exception {
 
 		_logger.info("Evalua numero de iteracion: " + numeroIteracion);
