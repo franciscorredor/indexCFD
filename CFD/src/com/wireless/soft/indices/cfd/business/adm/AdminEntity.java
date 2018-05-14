@@ -274,6 +274,7 @@ public class AdminEntity {
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", dmCmp.getCompany().getId());
+		param.put("idIteracion", dmCmp.getIdIteracion());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
 				DataMiningCompany.FIND_LAST_TWO_DATAMINING_COMPANY_BY_ID, param);
 		if (null != listIdxCompany && listIdxCompany.size() >= 2) {

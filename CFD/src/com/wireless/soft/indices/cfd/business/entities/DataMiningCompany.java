@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @NamedQueries(value = {				
 		@NamedQuery(name = "findAllDataMiningCompany", query = "SELECT s FROM DataMiningCompany s ORDER BY s.id"),
 		@NamedQuery(name = "findDataMiningCompanyByIteracionAndCompany", query = "SELECT s FROM DataMiningCompany s WHERE s.company.id = :companyId AND s.idIteracion = :iteracion "),
-		@NamedQuery(name = "findLastTwoDataMiningCompanyByCompany", query = "SELECT s FROM DataMiningCompany s WHERE s.company.id = :companyId ORDER BY s.id DESC "),
+		@NamedQuery(name = "findLastTwoDataMiningCompanyByCompany", query = "SELECT s FROM DataMiningCompany s WHERE s.company.id = :companyId AND idIteracion <= :idIteracion ORDER BY s.id DESC "),
 		@NamedQuery(name = "findDataMiningCompanyByIteracion", query = "SELECT s FROM DataMiningCompany s WHERE s.idIteracion = :iteracion01 ")
 					})
 

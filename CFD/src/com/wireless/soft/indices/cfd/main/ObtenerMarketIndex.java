@@ -1465,9 +1465,9 @@ public class ObtenerMarketIndex {
 				RelativeStrengthIndexData relativeStrengthIndexMM = lstRSI.get(i);
 				if (null != relativeStrengthIndexMM) {
 					max = relativeStrengthIndexMM.getClose();
-					lastClose 	=	min = relativeStrengthIndexMM.getClose();
-					lastHigh 	= 	avgHigh += relativeStrengthIndexMM.getHigh();
-					lastLow  	=	avgLow += relativeStrengthIndexMM.getLow();
+					min = relativeStrengthIndexMM.getClose();
+					avgHigh += relativeStrengthIndexMM.getHigh();
+					avgLow += relativeStrengthIndexMM.getLow();
 				}
 
 			}
@@ -1493,7 +1493,13 @@ public class ObtenerMarketIndex {
 				avgHigh += relativeStrengthIndexDataB.getHigh();
 				avgLow += relativeStrengthIndexDataB.getLow();
 
+				//Variables to evaluate REACTION MODE vs TREND MODE
+				lastClose =	 relativeStrengthIndexDataB.getClose();
+				lastHigh  =	 relativeStrengthIndexDataB.getHigh();
+				lastLow   =	 relativeStrengthIndexDataB.getLow();
 			}
+			
+			
 
 		}
 
@@ -2336,6 +2342,11 @@ public class ObtenerMarketIndex {
 			} catch (Exception e) {
 				return aceleracion;
 			}
+			
+			_logger.info("precioAnterior: " + precioAnterior);
+			_logger.info("precioNow: " + precioNow);
+			_logger.info("tiempoAnterior: " + tiempoAnterior);
+			_logger.info("tiempoNow: " + tiempoNow);
 
 			deltaPrecio = (precioNow - precioAnterior);
 			deltaTiempo = (tiempoNow - tiempoAnterior);
@@ -2367,11 +2378,14 @@ public class ObtenerMarketIndex {
 		 * lbop:=LowBreakOutPoint
 		 */
 		double xPrima, b_1, s_1, hbop, lbop;
-		
+		_logger.info("actualPrice: " +actualPrice );
+		_logger.info("lastHigh: " +lastHigh );
+		_logger.info("lastLow: " +lastLow );
+		_logger.info("lastClose: " +lastClose );
 		xPrima = (lastHigh+lastLow+lastClose)/3;
 		b_1 = (2*xPrima) - lastHigh;
 		s_1 = (2*xPrima) - lastLow;
-		_logger.info("b_1: " + b_1 + "b_1: " + b_1 );
+		_logger.info("b_1: " + b_1 + "s_1: " + s_1 );
 		hbop = (2*xPrima) - (2*lastLow)  + lastHigh;
 		lbop = (2*xPrima) - (2*lastHigh) + lastLow;
 		_logger.info("hbop: " + hbop + "lbop:" + lbop );
@@ -2384,3 +2398,4 @@ public class ObtenerMarketIndex {
 	}
 
 }
+
