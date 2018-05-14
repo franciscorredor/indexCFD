@@ -1,3 +1,16 @@
+--2018May14
+ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
+	ADD DMC_IS_REACTION_MODE smallint;
+
+--2018May14
+ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
+	ADD DMC_ACCELERATION VARCHAR (1000);
+	--DROP COLUMN DMC_ACCELERATION
+
+--2018May12
+ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
+	ADD DMC_STOCK_PRICE_CLOSE_TOTAL VARCHAR(1000);
+
 --2018May04
 ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
 	ADD DMC_PROBABILIDAD_WIN VARCHAR(1000),
