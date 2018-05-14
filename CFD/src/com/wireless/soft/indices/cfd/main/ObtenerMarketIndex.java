@@ -1425,6 +1425,9 @@ public class ObtenerMarketIndex {
 		Company cmp = null;
 		cmp = new Company();
 		cmp.setGoogleSymbol(companySymbol);
+		//Variables to evaluate REACTION MODE vs TREND MODE
+		double lastHigh = 0, lastLow = 0, lastClose = 0;
+		
 		try {
 			cmp = this.admEnt.getCompanyBySymbol(cmp);
 		} catch (Exception e1) {
@@ -1448,7 +1451,7 @@ public class ObtenerMarketIndex {
 		// ordena descendente ID, porque el formamo de la data esta de mayor a menor
 		// y las fechas deben ordenarse de menor a Mayor
 		Collections.sort(lstRSI);
-
+		
 		// Obtener el valor maximo y minimo en el cierre de la accion al dia
 		double max = 0;
 		double min = 0;
@@ -1462,9 +1465,9 @@ public class ObtenerMarketIndex {
 				RelativeStrengthIndexData relativeStrengthIndexMM = lstRSI.get(i);
 				if (null != relativeStrengthIndexMM) {
 					max = relativeStrengthIndexMM.getClose();
-					min = relativeStrengthIndexMM.getClose();
-					avgHigh += relativeStrengthIndexMM.getHigh();
-					avgLow += relativeStrengthIndexMM.getLow();
+					lastClose 	=	min = relativeStrengthIndexMM.getClose();
+					lastHigh 	= 	avgHigh += relativeStrengthIndexMM.getHigh();
+					lastLow  	=	avgLow += relativeStrengthIndexMM.getLow();
 				}
 
 			}
@@ -1570,17 +1573,23 @@ public class ObtenerMarketIndex {
 				// Obtener tendencia (0) - alza (1) - baja (2) Alza (3) Baja
 				diasIntentos = -1;
 				dmCmp.setTendencia(getTendenciaGoogle(cmp.getId(), -1));
-				dmCmp.setMomentumFactor(this.transformMomentumFactorToInteger(this.getMomentumFactor(cmp.getId(), false)));
-				
-				//Actualiza el campo: dmc_stock_price_close del registro anterior con el actual.
+				dmCmp.setMomentumFactor(
+						this.transformMomentumFactorToInteger(this.getMomentumFactor(cmp.getId(), false)));
+
+				// Actualiza el campo: dmc_stock_price_close del registro anterior con el
+				// actual.
 				DataMiningCompany dmCmpAnterior = new DataMiningCompany();
 				dmCmpAnterior.setCompany(cmp);
 				dmCmpAnterior = admEnt.getPenultimateCompanyByCmp(dmCmp);
 				dmCmpAnterior.setStockPriceClose(dmCmp.getStockPrice());
-				admEnt.updateDataMiningCompany(dmCmpAnterior);
-				
-				admEnt.updateDataMiningCompany(dmCmp);
 
+				// Aceleracion: delta Precio / delta Tiempo.
+				// Almacena el valor de la aceleraci_n
+				dmCmp.setAcceleration( String.valueOf( this.getAcceleration(dmCmpAnterior, dmCmp) ));
+				dmCmp.setReactionMode(isReactionMode(lastHigh, lastLow, lastClose, Double.parseDouble(dmCmp.getStockPrice()) ));
+
+				admEnt.updateDataMiningCompany(dmCmpAnterior);
+				admEnt.updateDataMiningCompany(dmCmp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1869,8 +1878,9 @@ public class ObtenerMarketIndex {
 	 * 3. Sector: seguros y finanzas muy riesgoso
 	 * 
 	 */
-	//--> Volver a evaluar este algoritmo. Repasar libro:
-	//	C:\francisco\readme\BI\Data Mining - Practical Machine Learning Tools and Techniques.pdf
+	// --> Volver a evaluar este algoritmo. Repasar libro:
+	// C:\francisco\readme\BI\Data Mining - Practical Machine Learning Tools and
+	// Techniques.pdf
 	private void getStatisticalModeling(Long numeroIteracion) throws Exception {
 
 		_logger.info("Evalua numero de iteracion: " + numeroIteracion);
@@ -1883,7 +1893,7 @@ public class ObtenerMarketIndex {
 			List<DataMiningCompany> lstDM = admEnt.getDMCompanyByIteracion(dmCmp);
 
 			for (DataMiningCompany dataMiningCompany : lstDM) {
-				
+
 				try {
 					Double probabilidadWinTotal = null;
 					Double probabilidadLostTotal = null;
@@ -1993,7 +2003,8 @@ public class ObtenerMarketIndex {
 					_logger.info("*******************(ini) [" + dataMiningCompany.getCompany().getName()
 							+ "]*************************");
 					/*
-					 * Si no almacena la informacion en el Datamining para el stage de Machine learning, dejar valores en cero(0)
+					 * Si no almacena la informacion en el Datamining para el stage de Machine
+					 * learning, dejar valores en cero(0)
 					 */
 					if (probabilidadWinTotal > probabilidadLostTotal && Double
 							.parseDouble(dataMiningCompany.getRelativeStrengthIndex().replace(',', '.').trim()) < 60) {
@@ -2001,17 +2012,19 @@ public class ObtenerMarketIndex {
 						System.out.println("[" + dataMiningCompany.getCompany().getId() + "-"
 								+ dataMiningCompany.getCompany().getName() + "]probabilidadWin - Lost *10000-->"
 								+ ((probabilidadWinTotal - probabilidadLostTotal) * 10000));
-						//_logger.info(dataMiningCompany.toString());
-						//Almacena info en Datamining probabilidadWin
-						dataMiningCompany.setProbabilidadWin(Double.toString(((probabilidadWinTotal - probabilidadLostTotal) * 10000)));
+						// _logger.info(dataMiningCompany.toString());
+						// Almacena info en Datamining probabilidadWin
+						dataMiningCompany.setProbabilidadWin(
+								Double.toString(((probabilidadWinTotal - probabilidadLostTotal) * 10000)));
 						admEnt.updateDataMiningCompany(dataMiningCompany);
 
 					} else {
 						System.out.println("[" + dataMiningCompany.getCompany().getId() + "-"
 								+ dataMiningCompany.getCompany().getName() + "]probabilidadLost - Lost *10000-->"
 								+ ((probabilidadWinTotal - probabilidadLostTotal) * 10000));
-						//Almacena info en Datamining probabilidadWin
-						dataMiningCompany.setProbabilidadLost(Double.toString(((probabilidadWinTotal - probabilidadLostTotal) * 10000)));
+						// Almacena info en Datamining probabilidadWin
+						dataMiningCompany.setProbabilidadLost(
+								Double.toString(((probabilidadWinTotal - probabilidadLostTotal) * 10000)));
 						admEnt.updateDataMiningCompany(dataMiningCompany);
 					}
 
@@ -2029,11 +2042,11 @@ public class ObtenerMarketIndex {
 						System.out
 								.println("dataMiningCompany.getYTDPlataforma()" + dataMiningCompany.getYTDPlataforma());
 						_logger.info(dataMiningCompany.toString());
-						//Almacenar info en Datamining bandera 1
+						// Almacenar info en Datamining bandera 1
 						dataMiningCompany.setBanderaIncremento(true);
 						admEnt.updateDataMiningCompany(dataMiningCompany);
-					}else {
-						//Almacenar info en Datamining bandera 0
+					} else {
+						// Almacenar info en Datamining bandera 0
 						dataMiningCompany.setBanderaIncremento(false);
 						admEnt.updateDataMiningCompany(dataMiningCompany);
 					}
@@ -2179,7 +2192,7 @@ public class ObtenerMarketIndex {
 		List<HistoricalDataCompany> listTopFiveHdc = null;
 		Double[] aClosePrice = new Double[5];
 		MOMENTUM_FACTOR saveDataMining = null;
-		
+
 		try {
 
 			HistoricalDataCompany hdc = null;
@@ -2207,48 +2220,47 @@ public class ObtenerMarketIndex {
 			Double MFToday = (aClosePrice[2] - aClosePrice[0]) * -1;
 
 			/*
-			 * Long  --> When MF today is [higher] number for [either] of the previous two(2) days.
-			 * Short --> When MF today is [lower]  number for [both]   of the previous two(2) days.
+			 * Long --> When MF today is [higher] number for [either] of the previous two(2)
+			 * days. Short --> When MF today is [lower] number for [both] of the previous
+			 * two(2) days.
 			 */
-			
+
 			if (MF1 != 0 && MF2 != 0 && MFToday != 0) {
 				if (MF1 > 0 && MF2 > 0 && MFToday > 0) {
 					if (MFToday < MF1 && MFToday < MF2) {
-						//Almacena momentum factor SHORT
+						// Almacena momentum factor SHORT
 						saveDataMining = MOMENTUM_FACTOR.SHORT;
-						_logger.info("\nPosible Short [" + cmpId + "] MF1["+ MF1 +"] MF2["+MF2+"] MFToday["+MFToday+"]");
-					}else {
+						_logger.info("\nPosible Short [" + cmpId + "] MF1[" + MF1 + "] MF2[" + MF2 + "] MFToday["
+								+ MFToday + "]");
+					} else {
 						saveDataMining = MOMENTUM_FACTOR.MF1;
 					}
-				}
-				else if (MF1 < 0 && MF2 < 0 && MFToday < 0) {
+				} else if (MF1 < 0 && MF2 < 0 && MFToday < 0) {
 					if (MFToday > MF1 || MFToday > MF2) {
-						//Almacena momentum factor SHORT
+						// Almacena momentum factor SHORT
 						saveDataMining = MOMENTUM_FACTOR.LONG;
-						_logger.info("\nPosible Long [" + cmpId + "] MF1["+ MF1 +"] MF2["+MF2+"] MFToday["+MFToday+"]");
-					}else {
+						_logger.info("\nPosible Long [" + cmpId + "] MF1[" + MF1 + "] MF2[" + MF2 + "] MFToday["
+								+ MFToday + "]");
+					} else {
 						saveDataMining = MOMENTUM_FACTOR.MF2;
 					}
-					
-				}
-				else {
+
+				} else {
 					saveDataMining = MOMENTUM_FACTOR.MF3;
 				}
-			}else {
+			} else {
 				saveDataMining = MOMENTUM_FACTOR.CEROS;
 			}
-			
-			//Persiste en Data mining el valor de SaveDataMining.
+
+			// Persiste en Data mining el valor de SaveDataMining.
 			if (persistirMomentumFactorByCompany) {
 				this.persistirMomentumFactor(saveDataMining, cmpId);
 			}
-			
-			
 
 		} catch (Exception e) {
 			_logger.error("Error al leer el top 5 para obtener el Momentum factor y persistirlo :" + e.getMessage());
 		}
-		
+
 		return saveDataMining;
 
 	}
@@ -2263,17 +2275,18 @@ public class ObtenerMarketIndex {
 	private void persistirMomentumFactor(MOMENTUM_FACTOR mf, Long cmpId) throws Exception {
 
 		admEnt.updateMomentumFactorByCompany(cmpId, this.transformMomentumFactorToInteger(mf));
-		
+
 	}
-	
+
 	/**
 	 * Transforma el momentum factor en un entero para poderlo persistir en la BD.
+	 * 
 	 * @param mf
 	 * @return
 	 */
 	private Integer transformMomentumFactorToInteger(MOMENTUM_FACTOR mf) {
 		Integer retornoMF = null;
-		
+
 		switch (mf) {
 		case CEROS:
 			retornoMF = 0;
@@ -2297,9 +2310,77 @@ public class ObtenerMarketIndex {
 			break;
 
 		}
-		
-		
+
 		return retornoMF;
+	}
+
+	/**
+	 * Obtener la aceleracion de la compania: delta Precio / delta Tiempo
+	 * 
+	 * @param dmCmpAnterior
+	 * @param dmCmpNow
+	 * @return
+	 */
+	private Double getAcceleration(DataMiningCompany dmCmpAnterior, DataMiningCompany dmCmpNow) {
+		Double aceleracion = 0d;
+
+		try {
+			double precioAnterior = 0, precioNow = 0, deltaPrecio = 0;
+			long tiempoAnterior = 0, tiempoNow = 0, deltaTiempo = 0;
+
+			try {
+				precioAnterior = Double.parseDouble(dmCmpAnterior.getStockPrice());
+				precioNow = Double.parseDouble(dmCmpNow.getStockPrice());
+				tiempoAnterior = dmCmpAnterior.getIdIteracion();
+				tiempoNow = dmCmpNow.getIdIteracion();
+			} catch (Exception e) {
+				return aceleracion;
+			}
+
+			deltaPrecio = (precioNow - precioAnterior);
+			deltaTiempo = (tiempoNow - tiempoAnterior);
+
+			aceleracion = deltaPrecio / deltaTiempo;
+		} catch (Exception e) {
+			aceleracion = 0d;
+		}
+
+		return aceleracion;
+
+	}
+	
+	/**
+	 * Evalua si el precio actual esta en ReactionMode o TrendMode
+	 * @param lastHigh
+	 * @param lastLow
+	 * @param lastClose
+	 * @return
+	 */
+	private Boolean isReactionMode(double lastHigh, double lastLow, double lastClose, double actualPrice) {
+		
+		Boolean reactionMode = false;
+		/*
+		 * xPrima:= media entre HLC
+		 * b_1:= Buy Point
+		 * s_1:= Sell Point
+		 * hbop:=HighBreakOutPoint
+		 * lbop:=LowBreakOutPoint
+		 */
+		double xPrima, b_1, s_1, hbop, lbop;
+		
+		xPrima = (lastHigh+lastLow+lastClose)/3;
+		b_1 = (2*xPrima) - lastHigh;
+		s_1 = (2*xPrima) - lastLow;
+		_logger.info("b_1: " + b_1 + "b_1: " + b_1 );
+		hbop = (2*xPrima) - (2*lastLow)  + lastHigh;
+		lbop = (2*xPrima) - (2*lastHigh) + lastLow;
+		_logger.info("hbop: " + hbop + "lbop:" + lbop );
+		
+		reactionMode = (actualPrice < hbop) && (actualPrice >  lbop);
+		
+		
+		return reactionMode;
+		
 	}
 
 }

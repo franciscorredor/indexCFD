@@ -148,6 +148,15 @@ public class DataMiningCompany implements Serializable{
     @Column(name = "DMC_BANDERA_INCREMENTO", nullable = true)
     private Boolean banderaIncremento;
     
+    
+    @Column(name = "DMC_ACCELERATION", nullable = true)
+    private String acceleration;
+    
+    
+    @Column(name = "DMC_IS_REACTION_MODE", nullable = true)
+    private Boolean reactionMode;
+    
+    
     // ////////////////////////////////////////////////////////////////////////
     // Getter/Setter de la clase
     // ////////////////////////////////////////////////////////////////////////
@@ -481,6 +490,38 @@ public class DataMiningCompany implements Serializable{
 	 */
 	public void setBanderaIncremento(Boolean banderaIncremento) {
 		this.banderaIncremento = banderaIncremento;
+	}
+
+
+	/**
+	 * @return the acceleration
+	 */
+	public String getAcceleration() {
+		return acceleration;
+	}
+
+
+	/**
+	 * @param acceleration the acceleration to set
+	 */
+	public void setAcceleration(String acceleration) {
+		this.acceleration = acceleration;
+	}
+
+
+	/**
+	 * @return the reactionMode
+	 */
+	public Boolean getReactionMode() {
+		return reactionMode;
+	}
+
+
+	/**
+	 * @param reactionMode the reactionMode to set
+	 */
+	public void setReactionMode(Boolean reactionMode) {
+		this.reactionMode = reactionMode;
 	}
 
 
