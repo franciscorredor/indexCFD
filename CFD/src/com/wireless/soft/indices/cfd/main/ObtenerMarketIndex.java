@@ -1592,7 +1592,7 @@ public class ObtenerMarketIndex {
 				// Aceleracion: delta Precio / delta Tiempo.
 				// Almacena el valor de la aceleraci_n
 				dmCmp.setAcceleration( String.valueOf( this.getAcceleration(dmCmpAnterior, dmCmp) ));
-				dmCmp.setReactionMode(isReactionMode(lastHigh, lastLow, lastClose, Double.parseDouble(dmCmp.getStockPrice()) ));
+				dmCmp.setReactionMode(isReactionMode(lastHigh, lastLow, lastClose, Double.parseDouble(dmCmp.getStockPrice().replace(",", ".")) ));
 
 				admEnt.updateDataMiningCompany(dmCmpAnterior);
 				admEnt.updateDataMiningCompany(dmCmp);
@@ -2335,18 +2335,20 @@ public class ObtenerMarketIndex {
 			long tiempoAnterior = 0, tiempoNow = 0, deltaTiempo = 0;
 
 			try {
-				precioAnterior = Double.parseDouble(dmCmpAnterior.getStockPrice());
-				precioNow = Double.parseDouble(dmCmpNow.getStockPrice());
+				precioAnterior = Double.parseDouble(dmCmpAnterior.getStockPrice().replace(",", "."));
+				precioNow = Double.parseDouble(dmCmpNow.getStockPrice().replace(",", "."));
 				tiempoAnterior = dmCmpAnterior.getIdIteracion();
 				tiempoNow = dmCmpNow.getIdIteracion();
 			} catch (Exception e) {
 				return aceleracion;
 			}
 			
+			/*
 			_logger.info("precioAnterior: " + precioAnterior);
 			_logger.info("precioNow: " + precioNow);
 			_logger.info("tiempoAnterior: " + tiempoAnterior);
 			_logger.info("tiempoNow: " + tiempoNow);
+			*/
 
 			deltaPrecio = (precioNow - precioAnterior);
 			deltaTiempo = (tiempoNow - tiempoAnterior);
@@ -2377,20 +2379,20 @@ public class ObtenerMarketIndex {
 		 * hbop:=HighBreakOutPoint
 		 * lbop:=LowBreakOutPoint
 		 */
-		double xPrima, b_1, s_1, hbop, lbop;
+		double xPrima, b_1, s_1, hbop, lbop, b_1_down;
 		_logger.info("actualPrice: " +actualPrice );
-		_logger.info("lastHigh: " +lastHigh );
-		_logger.info("lastLow: " +lastLow );
-		_logger.info("lastClose: " +lastClose );
-		xPrima = (lastHigh+lastLow+lastClose)/3;
+				xPrima = (lastHigh+lastLow+lastClose)/3;
 		b_1 = (2*xPrima) - lastHigh;
+		b_1_down = ( xPrima - (b_1-xPrima) );
 		s_1 = (2*xPrima) - lastLow;
-		_logger.info("b_1: " + b_1 + "s_1: " + s_1 );
+		_logger.info("xPrima" + xPrima );
+		_logger.info("b_1: (" + b_1 + "|" +  b_1_down + ")s_1: (" + s_1 + "|"+ (xPrima + (xPrima-s_1)) + ")" );
 		hbop = (2*xPrima) - (2*lastLow)  + lastHigh;
 		lbop = (2*xPrima) - (2*lastHigh) + lastLow;
-		_logger.info("hbop: " + hbop + "lbop:" + lbop );
+		//_logger.info("hbop: " + hbop + "lbop:" + lbop );
 		
-		reactionMode = (actualPrice < hbop) && (actualPrice >  lbop);
+		//reactionMode = (actualPrice < hbop) && (actualPrice >  lbop);
+		reactionMode = (actualPrice > b_1) && (actualPrice <  b_1_down);
 		
 		
 		return reactionMode;
