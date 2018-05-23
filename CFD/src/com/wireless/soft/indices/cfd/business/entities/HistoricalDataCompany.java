@@ -14,6 +14,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.wireless.soft.indices.cfd.collections.CompanyRanking;
+
 /**
  * Entity encargado del almacenar el ultimo historico por compania para poder
  * calcular el RSI
@@ -22,27 +24,25 @@ import javax.persistence.Table;
  *
  */
 @NamedQueries(value = {
-			@NamedQuery(name = "findHistoricalDataByCompany", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId ORDER BY h.id desc ")
-		,	@NamedQuery(name = "deleteHistoricalData", query = "DELETE FROM HistoricalDataCompany ")})
+		@NamedQuery(name = "findHistoricalDataByCompany", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId ORDER BY h.id desc "),
+		@NamedQuery(name = "deleteHistoricalData", query = "DELETE FROM HistoricalDataCompany "),
+		@NamedQuery(name = "findHistoricalDataByCompanyAndDate", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId AND fechaDataHistorica >= :dateBegin ORDER BY h.id desc ") })
 
-@NamedNativeQueries({
-	@NamedNativeQuery(name = "findFirstValueHistoricalDataByCompany", query = "SELECT	*\r\n" + 
-			"FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + 
-			"WHERE	scn_codigo = :companyId \r\n" + 
-			"ORDER by  HST_date desc limit 1 ", resultClass = HistoricalDataCompany.class)
-,	@NamedNativeQuery(name = "findLastValueHistoricalDataByCompany", query = "SELECT	*\r\n" + 
-			"FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + 
-			"WHERE	scn_codigo = :companyId \r\n" + 
-			"ORDER by  HST_date asc limit 1 ", resultClass = HistoricalDataCompany.class)
-,	@NamedNativeQuery(name = "findTopFiveToMomentumFactor", query = "SELECT	*\r\n" + 
-			"FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + 
-			"WHERE	scn_codigo = :companyId \r\n" + 
-			"ORDER by  HST_date desc limit 5 ", resultClass = HistoricalDataCompany.class)	
- })
+@NamedNativeQueries({ @NamedNativeQuery(name = "findFirstValueHistoricalDataByCompany", query = "SELECT	*\r\n"
+		+ "FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + "WHERE	scn_codigo = :companyId \r\n"
+		+ "ORDER by  HST_date desc limit 1 ", resultClass = HistoricalDataCompany.class),
+		@NamedNativeQuery(name = "findLastValueHistoricalDataByCompany", query = "SELECT	*\r\n"
+				+ "FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n"
+				+ "WHERE	scn_codigo = :companyId \r\n"
+				+ "ORDER by  HST_date asc limit 1 ", resultClass = HistoricalDataCompany.class),
+		@NamedNativeQuery(name = "findTopFiveToMomentumFactor", query = "SELECT	*\r\n"
+				+ "FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n"
+				+ "WHERE	scn_codigo = :companyId \r\n"
+				+ "ORDER by  HST_date desc limit 5 ", resultClass = HistoricalDataCompany.class) })
 
 @Entity
 @Table(name = "indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI")
-public class HistoricalDataCompany implements Serializable {
+public class HistoricalDataCompany implements Serializable, Comparable<HistoricalDataCompany> {
 
 	/**
 	 * 
@@ -54,18 +54,16 @@ public class HistoricalDataCompany implements Serializable {
 	// ////////////////////////////////////////////////////////////////////////
 	/** */
 	public static final String FIND_HISTORICAL_DATA_BYCOMPANY = "findHistoricalDataByCompany";
-	
 	/** */
 	public static final String FIND_FIRST_HISTORICAL_DATA_BYCOMPANY = "findFirstValueHistoricalDataByCompany";
-	
 	/** */
 	public static final String FIND_LAST_HISTORICAL_DATA_BYCOMPANY = "findLastValueHistoricalDataByCompany";
-	
 	/** */
 	public static final String FIND_TOP_FIVE_TO_MOMENTUM_FACTOR = "findTopFiveToMomentumFactor";
-	
 	/** */
 	public static final String DELETE_HISTORICAL_DATA = "deleteHistoricalData";
+	/** */
+	public static final String FIND_HISTORICAL_DATA_BY_COMPANY_DATE = "findHistoricalDataByCompanyAndDate";
 
 	// ////////////////////////////////////////////////////////////////////////
 	// Atributos de la clase
@@ -250,6 +248,31 @@ public class HistoricalDataCompany implements Serializable {
 		s.append(" fechaCreacion [" + this.fechaCreacion + "]");
 
 		return s.toString();
+	}
+
+	/**
+	 * @param compareCR
+	 * @return Compara Ponderado y volumen
+	 */
+	@Override
+	public int compareTo(HistoricalDataCompany compareHistoricalDataCompany) {
+
+		if (this == compareHistoricalDataCompany) {
+			return 0;
+		}
+
+		int value1 = 0;
+		try {
+
+
+			value1 = (int)(compareHistoricalDataCompany.getId() - this.getId());
+
+			return value1*-1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+
 	}
 
 }

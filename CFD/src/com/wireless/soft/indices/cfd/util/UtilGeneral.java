@@ -208,104 +208,66 @@ public class UtilGeneral {
 	 * @return
 	 */
 	/*
-	@Deprecated
-	public static List<RelativeStrengthIndexData> getListaRSIGoogle(String symbol, String dateEnd, String dateBegin,
-			boolean print) {
-		List<RelativeStrengthIndexData> lstRSI = null;
-		lstRSI = new ArrayList<RelativeStrengthIndexData>();
-		// String urlHistdata =
-		// "https://www.google.ca/finance/historical?q="+symbol.replace(":",
-		// "%3A")+"&startdate="+dateBegin.replace(" ",
-		// "%20")+"&enddate="+dateEnd.replace(" ", "%20")+"&output=csv";
-		String urlHistdata = "https://finance.google.ca/finance/historical?q=" + symbol.replace(":", "%3A")
-				+ "&startdate=" + dateBegin.replace(" ", "%20") + "&enddate=" + dateEnd.replace(" ", "%20")
-				+ "&output=csv";
-
-		int ctd = 0;
-		String[] torsid = null;
-		try (InputStream input = new URL(urlHistdata).openStream()) {
-
-			if (print) {
-				System.out.println("urlHistdata: [" + urlHistdata + "]");
-				System.out.println("Date,Open,High,Low,Close");
-			}
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(input, "UTF-8"));
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-
-			ctd = 0;
-			while (line != null) {
-
-				sb.append(line);
-				sb.append(System.lineSeparator());
-				line = br.readLine();
-				if (null != line) {
-					// System.out.println(line);
-					RelativeStrengthIndexData rsid = new RelativeStrengthIndexData();
-					torsid = line.split(",");
-
-					rsid.setId(++ctd);
-					DateFormat formatter1;
-					formatter1 = new SimpleDateFormat("d-MMM-yy", Locale.ENGLISH);
-					try {
-						rsid.setFecha(formatter1.parse(torsid[0]));
-					} catch (ParseException e) {
-						formatter1 = new SimpleDateFormat("d-MMM.-yy", Locale.ENGLISH);
-						rsid.setFecha(formatter1.parse(torsid[0]));
-					}
-					try {
-						rsid.setClose(Double.parseDouble(torsid[4]));
-					} catch (NumberFormatException n) {
-						rsid.setClose(0);
-					}
-					try {
-						rsid.setHigh(Double.parseDouble(torsid[2]));
-					} catch (NumberFormatException n) {
-						rsid.setHigh(0);
-					}
-					try {
-						rsid.setLow(Double.parseDouble(torsid[3]));
-					} catch (NumberFormatException n) {
-						rsid.setLow(0);
-					}
-					lstRSI.add(rsid);
-
-					if (print) {
-						try {
-							System.out.println(torsid[0] + "," + Double.parseDouble(torsid[1]) + ","
-									+ Double.parseDouble(torsid[2]) + "," + Double.parseDouble(torsid[3]) + ","
-									+ Double.parseDouble(torsid[4]));
-						} catch (NumberFormatException n) {
-							System.out.println(
-									torsid[0] + "," + torsid[1] + "," + torsid[2] + "," + torsid[3] + "," + torsid[4]);
-						}
-					}
-
-					if (ctd > 13) {
-						break;
-					}
-				}
-
-			}
-		} catch (FileNotFoundException e) {
-
-			lstRSI = getListaRSIGoogleByHTML(symbol, dateEnd, dateBegin, print);
-
-			if (lstRSI == null || (lstRSI != null && lstRSI.size() < 3)) {
-				System.out.println("Error al leer [" + symbol + "](FileNotFoundException)");
-			}
-		} catch (IOException e) {
-			System.out.println("Error al leer [" + symbol + "](IOException)");
-		} catch (ParseException e) {
-			System.out.println("Error al leer [" + symbol + "](ParseException)");
-		} catch (NumberFormatException nf) {
-			System.out.println("Error al leer [" + symbol + "](NumberFormatException) [" + ctd + "][" + torsid + "]");
-		}
-
-		return lstRSI;
-	}
-	*/
+	 * @Deprecated public static List<RelativeStrengthIndexData>
+	 * getListaRSIGoogle(String symbol, String dateEnd, String dateBegin, boolean
+	 * print) { List<RelativeStrengthIndexData> lstRSI = null; lstRSI = new
+	 * ArrayList<RelativeStrengthIndexData>(); // String urlHistdata = //
+	 * "https://www.google.ca/finance/historical?q="+symbol.replace(":", //
+	 * "%3A")+"&startdate="+dateBegin.replace(" ", //
+	 * "%20")+"&enddate="+dateEnd.replace(" ", "%20")+"&output=csv"; String
+	 * urlHistdata = "https://finance.google.ca/finance/historical?q=" +
+	 * symbol.replace(":", "%3A") + "&startdate=" + dateBegin.replace(" ", "%20") +
+	 * "&enddate=" + dateEnd.replace(" ", "%20") + "&output=csv";
+	 * 
+	 * int ctd = 0; String[] torsid = null; try (InputStream input = new
+	 * URL(urlHistdata).openStream()) {
+	 * 
+	 * if (print) { System.out.println("urlHistdata: [" + urlHistdata + "]");
+	 * System.out.println("Date,Open,High,Low,Close"); }
+	 * 
+	 * BufferedReader br = new BufferedReader(new InputStreamReader(input,
+	 * "UTF-8")); StringBuilder sb = new StringBuilder(); String line =
+	 * br.readLine();
+	 * 
+	 * ctd = 0; while (line != null) {
+	 * 
+	 * sb.append(line); sb.append(System.lineSeparator()); line = br.readLine(); if
+	 * (null != line) { // System.out.println(line); RelativeStrengthIndexData rsid
+	 * = new RelativeStrengthIndexData(); torsid = line.split(",");
+	 * 
+	 * rsid.setId(++ctd); DateFormat formatter1; formatter1 = new
+	 * SimpleDateFormat("d-MMM-yy", Locale.ENGLISH); try {
+	 * rsid.setFecha(formatter1.parse(torsid[0])); } catch (ParseException e) {
+	 * formatter1 = new SimpleDateFormat("d-MMM.-yy", Locale.ENGLISH);
+	 * rsid.setFecha(formatter1.parse(torsid[0])); } try {
+	 * rsid.setClose(Double.parseDouble(torsid[4])); } catch (NumberFormatException
+	 * n) { rsid.setClose(0); } try { rsid.setHigh(Double.parseDouble(torsid[2])); }
+	 * catch (NumberFormatException n) { rsid.setHigh(0); } try {
+	 * rsid.setLow(Double.parseDouble(torsid[3])); } catch (NumberFormatException n)
+	 * { rsid.setLow(0); } lstRSI.add(rsid);
+	 * 
+	 * if (print) { try { System.out.println(torsid[0] + "," +
+	 * Double.parseDouble(torsid[1]) + "," + Double.parseDouble(torsid[2]) + "," +
+	 * Double.parseDouble(torsid[3]) + "," + Double.parseDouble(torsid[4])); } catch
+	 * (NumberFormatException n) { System.out.println( torsid[0] + "," + torsid[1] +
+	 * "," + torsid[2] + "," + torsid[3] + "," + torsid[4]); } }
+	 * 
+	 * if (ctd > 13) { break; } }
+	 * 
+	 * } } catch (FileNotFoundException e) {
+	 * 
+	 * lstRSI = getListaRSIGoogleByHTML(symbol, dateEnd, dateBegin, print);
+	 * 
+	 * if (lstRSI == null || (lstRSI != null && lstRSI.size() < 3)) {
+	 * System.out.println("Error al leer [" + symbol + "](FileNotFoundException)");
+	 * } } catch (IOException e) { System.out.println("Error al leer [" + symbol +
+	 * "](IOException)"); } catch (ParseException e) {
+	 * System.out.println("Error al leer [" + symbol + "](ParseException)"); } catch
+	 * (NumberFormatException nf) { System.out.println("Error al leer [" + symbol +
+	 * "](NumberFormatException) [" + ctd + "][" + torsid + "]"); }
+	 * 
+	 * return lstRSI; }
+	 */
 
 	/**
 	 * @param companySymbol
@@ -360,7 +322,7 @@ public class UtilGeneral {
 				if (print) {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd", Locale.US);
 					try {
-						System.out.println(sdf.format( historicalDataCompany.getFechaDataHistorica().getTime()) + ","
+						System.out.println(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceOpen()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceHigh()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceLow()) + ","
@@ -388,8 +350,7 @@ public class UtilGeneral {
 
 		return lstRSI;
 	}
-	
-	
+
 	/**
 	 * @param companySymbol
 	 * @param nDays
@@ -443,7 +404,7 @@ public class UtilGeneral {
 				if (print) {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd", Locale.US);
 					try {
-						System.out.println(sdf.format( historicalDataCompany.getFechaDataHistorica().getTime()) + ","
+						System.out.println(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceOpen()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceHigh()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceLow()) + ","
@@ -639,7 +600,6 @@ public class UtilGeneral {
 
 	}
 
-
 	/**
 	 * @return
 	 */
@@ -663,5 +623,31 @@ public class UtilGeneral {
 		return retornoDMC;
 	}
 
+	/**
+	 * retorna el Item con el valor mas bajo.
+	 * 
+	 * @param hdc
+	 * @return
+	 */
+	public static int getLowest(HistoricalDataCompany[] hdc) {
+
+		double lowest = 0;
+		int idxLowest = 0;
+		for (int i = 0; i < hdc.length; i++) {
+			HistoricalDataCompany historicalDataCompany = hdc[i];
+			if (i == 0) {
+				lowest = Double.parseDouble(historicalDataCompany.getStockPriceLow());
+				idxLowest = i;
+			}
+			if (Double.parseDouble(historicalDataCompany.getStockPriceLow()) < lowest) {
+				idxLowest = i;
+				lowest = Double.parseDouble(historicalDataCompany.getStockPriceLow());
+			}
+
+		}
+
+		return idxLowest;
+
+	}
 
 }

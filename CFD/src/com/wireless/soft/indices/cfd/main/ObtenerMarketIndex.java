@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.apache.commons.collections.functors.ForClosure;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
@@ -35,6 +36,7 @@ import com.wireless.soft.indices.cfd.business.entities.FundamentalHistoryCompany
 import com.wireless.soft.indices.cfd.business.entities.HistoricalDataCompany;
 import com.wireless.soft.indices.cfd.business.entities.QuoteHistoryCompany;
 import com.wireless.soft.indices.cfd.collections.CompanyRanking;
+import com.wireless.soft.indices.cfd.collections.ReactionTrendSystem;
 import com.wireless.soft.indices.cfd.collections.RelativeStrengthIndexData;
 import com.wireless.soft.indices.cfd.deserializable.json.object.ReturnYahooFinanceQuoteObject;
 import com.wireless.soft.indices.cfd.exception.BusinessException;
@@ -242,6 +244,10 @@ public class ObtenerMarketIndex {
 			case "14":
 				_logger.info("\n Print Momentum Factor ");
 				omi.printMomentumFactor();
+				break;
+			case "15":
+				_logger.info("\n Print BOS -REACTION vs TREND mode- ");
+				omi.pintBOS(argumento2);
 				break;
 
 			default:
@@ -1425,9 +1431,9 @@ public class ObtenerMarketIndex {
 		Company cmp = null;
 		cmp = new Company();
 		cmp.setGoogleSymbol(companySymbol);
-		//Variables to evaluate REACTION MODE vs TREND MODE
+		// Variables to evaluate REACTION MODE vs TREND MODE
 		double lastHigh = 0, lastLow = 0, lastClose = 0;
-		
+
 		try {
 			cmp = this.admEnt.getCompanyBySymbol(cmp);
 		} catch (Exception e1) {
@@ -1451,7 +1457,7 @@ public class ObtenerMarketIndex {
 		// ordena descendente ID, porque el formamo de la data esta de mayor a menor
 		// y las fechas deben ordenarse de menor a Mayor
 		Collections.sort(lstRSI);
-		
+
 		// Obtener el valor maximo y minimo en el cierre de la accion al dia
 		double max = 0;
 		double min = 0;
@@ -1493,13 +1499,11 @@ public class ObtenerMarketIndex {
 				avgHigh += relativeStrengthIndexDataB.getHigh();
 				avgLow += relativeStrengthIndexDataB.getLow();
 
-				//Variables to evaluate REACTION MODE vs TREND MODE
-				lastClose =	 relativeStrengthIndexDataB.getClose();
-				lastHigh  =	 relativeStrengthIndexDataB.getHigh();
-				lastLow   =	 relativeStrengthIndexDataB.getLow();
+				// Variables to evaluate REACTION MODE vs TREND MODE
+				lastClose = relativeStrengthIndexDataB.getClose();
+				lastHigh = relativeStrengthIndexDataB.getHigh();
+				lastLow = relativeStrengthIndexDataB.getLow();
 			}
-			
-			
 
 		}
 
@@ -1591,8 +1595,20 @@ public class ObtenerMarketIndex {
 
 				// Aceleracion: delta Precio / delta Tiempo.
 				// Almacena el valor de la aceleraci_n
-				dmCmp.setAcceleration( String.valueOf( this.getAcceleration(dmCmpAnterior, dmCmp) ));
-				dmCmp.setReactionMode(isReactionMode(lastHigh, lastLow, lastClose, Double.parseDouble(dmCmp.getStockPrice().replace(",", ".")) ));
+				dmCmp.setAcceleration(String.valueOf(this.getAcceleration(dmCmpAnterior, dmCmp)));
+				/*
+				 * 0 BuyPoint 1 SellPoint 2 HBOP 3 LBOP 4 REACTION MODE (1) | TREND MODE (0)
+				 */
+				
+				
+				
+				ReactionTrendSystem rts = isReactionMode(lastHigh, lastLow, lastClose,
+						Double.parseDouble(dmCmp.getStockPrice().replace(",", ".")),true);
+				dmCmp.setBuyPoint(rts.getActualPriceBetweenBuy());
+				dmCmp.setSellPoint(rts.getActualPriceBetweenSell());
+				dmCmp.setHbop(rts.getActualPriceUpHBOP());
+				dmCmp.setLbop(rts.getActualPriceDownLBOP());
+				dmCmp.setReactionMode(rts.getActualPriceBetweenHBOPLBOP());
 
 				admEnt.updateDataMiningCompany(dmCmpAnterior);
 				admEnt.updateDataMiningCompany(dmCmp);
@@ -2342,13 +2358,12 @@ public class ObtenerMarketIndex {
 			} catch (Exception e) {
 				return aceleracion;
 			}
-			
+
 			/*
-			_logger.info("precioAnterior: " + precioAnterior);
-			_logger.info("precioNow: " + precioNow);
-			_logger.info("tiempoAnterior: " + tiempoAnterior);
-			_logger.info("tiempoNow: " + tiempoNow);
-			*/
+			 * _logger.info("precioAnterior: " + precioAnterior); _logger.info("precioNow: "
+			 * + precioNow); _logger.info("tiempoAnterior: " + tiempoAnterior);
+			 * _logger.info("tiempoNow: " + tiempoNow);
+			 */
 
 			deltaPrecio = (precioNow - precioAnterior);
 			deltaTiempo = (tiempoNow - tiempoAnterior);
@@ -2361,43 +2376,143 @@ public class ObtenerMarketIndex {
 		return aceleracion;
 
 	}
-	
+
 	/**
 	 * Evalua si el precio actual esta en ReactionMode o TrendMode
+	 * 
 	 * @param lastHigh
 	 * @param lastLow
 	 * @param lastClose
 	 * @return
+	 * 
+	 * 		Array --> 0 BuyPoint 1 SellPoint 2 HBOP 3 LBOP 4 REACTION MODE (1) |
+	 *         TREND MODE (0)
+	 * 
 	 */
-	private Boolean isReactionMode(double lastHigh, double lastLow, double lastClose, double actualPrice) {
-		
-		Boolean reactionMode = false;
+	private ReactionTrendSystem isReactionMode(double lastHigh, double lastLow, double lastClose, double actualPrice, boolean print) {
+
+		ReactionTrendSystem rts = new ReactionTrendSystem();
 		/*
-		 * xPrima:= media entre HLC
-		 * b_1:= Buy Point
-		 * s_1:= Sell Point
-		 * hbop:=HighBreakOutPoint
-		 * lbop:=LowBreakOutPoint
+		 * xPrima:= media entre HLC b_1:= Buy Point s_1:= Sell Point
+		 * hbop:=HighBreakOutPoint lbop:=LowBreakOutPoint
 		 */
-		double xPrima, b_1, s_1, hbop, lbop, b_1_down;
-		_logger.info("actualPrice: " +actualPrice );
-				xPrima = (lastHigh+lastLow+lastClose)/3;
-		b_1 = (2*xPrima) - lastHigh;
-		b_1_down = ( xPrima - (b_1-xPrima) );
-		s_1 = (2*xPrima) - lastLow;
-		_logger.info("xPrima" + xPrima );
-		_logger.info("b_1: (" + b_1 + "|" +  b_1_down + ")s_1: (" + s_1 + "|"+ (xPrima + (xPrima-s_1)) + ")" );
-		hbop = (2*xPrima) - (2*lastLow)  + lastHigh;
-		lbop = (2*xPrima) - (2*lastHigh) + lastLow;
-		//_logger.info("hbop: " + hbop + "lbop:" + lbop );
+		double xPrima, b_1, s_1, hbop, lbop, b_1_up, s_1_down;
+		if (print) {
+		_logger.info("actualPrice: " + actualPrice);
+		}
+		xPrima = (lastHigh + lastLow + lastClose) / 3;
+		b_1 = (2 * xPrima) - lastHigh;
+		b_1_up = (xPrima - (b_1 - xPrima));
+		s_1 = (2 * xPrima) - lastLow;
+		s_1_down = xPrima - (s_1 - xPrima);
+		if (print) {
+		_logger.info("xPrima" + xPrima);
+		_logger.info("b_1: (" + b_1 + "|" + b_1_up + ")s_1: (" + s_1 + "|" + (xPrima + (xPrima - s_1)) + ")");
+		}
+		hbop = (2 * xPrima) - (2 * lastLow) + lastHigh;
+		lbop = (2 * xPrima) - (2 * lastHigh) + lastLow;
+		// _logger.info("hbop: " + hbop + "lbop:" + lbop );
+
+		boolean betweenBuy = (actualPrice > b_1) && (actualPrice < b_1_up);
+		rts.setActualPriceBetweenBuy( betweenBuy );
+		rts.setActualPriceBetweenSell((actualPrice > s_1_down) && (actualPrice < s_1) && !betweenBuy);
+		rts.setActualPriceUpHBOP((actualPrice > hbop));
+		rts.setActualPriceDownLBOP( (actualPrice < lbop) );
+		rts.setActualPriceBetweenHBOPLBOP( (actualPrice < hbop) && (actualPrice > lbop) );
 		
-		//reactionMode = (actualPrice < hbop) && (actualPrice >  lbop);
-		reactionMode = (actualPrice > b_1) && (actualPrice <  b_1_down);
-		
-		
-		return reactionMode;
-		
+		rts.setxPrima(xPrima);
+		rts.setB_1(b_1);
+		rts.setS_1(s_1);
+		rts.setHbop(hbop);
+		rts.setLbop(lbop);
+		rts.setB_1_up(b_1_up);
+		rts.setS_1_down(s_1_down);
+
+		return rts;
+
+	}
+
+	/**
+	 * @param idCompany
+	 *            Imprime la relacion Buy, No position & Sell
+	 */
+	private void pintBOS(Integer scnCodigo) {
+		try {
+
+			Calendar iniTime = Calendar.getInstance();
+			iniTime.add(Calendar.DAY_OF_YEAR, -21);
+			iniTime.set(Calendar.MILLISECOND, 0);
+			iniTime.set(Calendar.SECOND, 0);
+			iniTime.set(Calendar.MINUTE, 0);
+			iniTime.set(Calendar.HOUR_OF_DAY, 0);
+
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));			
+			_logger.info("Date: " + simpleDateFormat.format(new Date(iniTime.getTimeInMillis())));
+
+			HistoricalDataCompany hdc = new HistoricalDataCompany();
+			hdc.setCompany(scnCodigo.longValue());
+			hdc.setFechaDataHistorica(iniTime);
+
+			List<HistoricalDataCompany> lstHdc = admEnt.getHistoricalDataCompanyByCompanyDateBegin(hdc);
+			Collections.sort(lstHdc);
+			
+			HistoricalDataCompany[] y = lstHdc.toArray(new HistoricalDataCompany[0]);
+			
+			int idxL =  UtilGeneral.getLowest(y);
+			_logger.info( "lowest" + idxL + "-->" + y[idxL]);
+			String bos[] = {"B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S", };
+			int idxB = 0;
+			HistoricalDataCompany historicalDataCompanyBefore = null;
+			for (int i = idxL; i < y.length; i++) {
+				HistoricalDataCompany historicalDataCompanyNow = y[i];
+				ReactionTrendSystem rtsNow = null;
+				ReactionTrendSystem rtsB = null;
+				if (i>0) {
+					historicalDataCompanyBefore = y[i-1];
+					double h, l, c, a;
+					h = Double.parseDouble(historicalDataCompanyBefore.getStockPriceHigh());
+					l = Double.parseDouble(historicalDataCompanyBefore.getStockPriceLow());
+					c = Double.parseDouble(historicalDataCompanyBefore.getStockPriceClose());
+					a = (h+l+c)/3; 
+					rtsB = this.isReactionMode(h,l,c,a, false);
+				}
+				
+				/*
+				 * Valida si el precio anterior esta entre HBOP y LBOP, si no iniciar el bos con B o S, segun sea el caso.
+				 */
+				if (historicalDataCompanyBefore != null && rtsB != null && i > idxL) {
+					double h, l, c, a;
+					h = Double.parseDouble(historicalDataCompanyNow.getStockPriceHigh());
+					l = Double.parseDouble(historicalDataCompanyNow.getStockPriceLow());
+					c = Double.parseDouble(historicalDataCompanyNow.getStockPriceClose());
+					a = (h+l+c)/3; 
+					rtsNow = this.isReactionMode(h,l,c,a, false);
+					if (rtsNow.getxPrima() > rtsB.getHbop()) {
+						idxB = 2;
+						_logger.info( "[CorrigeSell] StockPriceHigh: " + historicalDataCompanyBefore.getStockPriceHigh() + bos[idxB++] );
+					}else if (rtsNow.getxPrima() < rtsB.getLbop()) {
+						idxB = 0;
+						_logger.info( "[CorrigeBuy] StockPriceLow" + historicalDataCompanyBefore.getStockPriceLow() + bos[idxB++] );
+					}
+				}
+					
+				
+				_logger.info( "["+i+"]" + historicalDataCompanyNow.getStockPriceLow() + bos[idxB++] );
+			}
+			
+			
+			
+			//for (HistoricalDataCompany historicalDataCompany : y) {
+			//	_logger.info("-->" + simpleDateFormat.format(new Date( historicalDataCompany.getFechaDataHistorica().getTimeInMillis())));
+			//}
+
+
+
+		} catch (Exception e) {
+			_logger.error("Error al imprimir 'BOS' sequence ", e);
+		}
+
 	}
 
 }
-

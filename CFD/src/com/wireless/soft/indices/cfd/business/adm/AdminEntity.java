@@ -537,6 +537,34 @@ public class AdminEntity {
 
 	}
 	
+	
+	/**
+	 * @param hdc
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HistoricalDataCompany> getHistoricalDataCompanyByCompanyDateBegin(HistoricalDataCompany hdc) throws Exception {
+
+		List<HistoricalDataCompany> listHdcReturn = null;
+		listHdcReturn = new ArrayList<HistoricalDataCompany>();
+
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("companyId", hdc.getCompany());
+		param.put("dateBegin", hdc.getFechaDataHistorica());
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_HISTORICAL_DATA_BY_COMPANY_DATE, param);
+		if (null != listIdxCompany && listIdxCompany.size() > 0) {
+			for (Object object : listIdxCompany) {
+				listHdcReturn.add( (HistoricalDataCompany) object );
+				
+			}
+		}
+
+		return listHdcReturn;
+
+	}
+	
+	
+	
 	/**
 	 * @param hdc
 	 * @return

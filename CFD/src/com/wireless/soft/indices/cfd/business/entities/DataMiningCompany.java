@@ -156,6 +156,27 @@ public class DataMiningCompany implements Serializable{
     @Column(name = "DMC_IS_REACTION_MODE", nullable = true)
     private Boolean reactionMode;
     
+    @Column(name = "DMC_IS_BUY_POINT", nullable = true)
+    private Boolean buyPoint;
+    
+    @Column(name = "DMC_IS_SELL_POINT", nullable = true)
+    private Boolean sellPoint;
+    
+    @Column(name = "DMC_IS_HBOP", nullable = true)
+    private Boolean hbop;
+    
+    @Column(name = "DMC_IS_LBOP", nullable = true)
+    private Boolean lbop;
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
     
     // ////////////////////////////////////////////////////////////////////////
     // Getter/Setter de la clase
@@ -522,6 +543,70 @@ public class DataMiningCompany implements Serializable{
 	 */
 	public void setReactionMode(Boolean reactionMode) {
 		this.reactionMode = reactionMode;
+	}
+
+
+	/**
+	 * @return the buyPoint
+	 */
+	public Boolean getBuyPoint() {
+		return buyPoint;
+	}
+
+
+	/**
+	 * @param buyPoint the buyPoint to set
+	 */
+	public void setBuyPoint(Boolean buyPoint) {
+		this.buyPoint = buyPoint;
+	}
+
+
+	/**
+	 * @return the sellPoint
+	 */
+	public Boolean getSellPoint() {
+		return sellPoint;
+	}
+
+
+	/**
+	 * @param sellPoint the sellPoint to set
+	 */
+	public void setSellPoint(Boolean sellPoint) {
+		this.sellPoint = sellPoint;
+	}
+
+
+	/**
+	 * @return the hbop
+	 */
+	public Boolean getHbop() {
+		return hbop;
+	}
+
+
+	/**
+	 * @param hbop the hbop to set
+	 */
+	public void setHbop(Boolean hbop) {
+		this.hbop = hbop;
+	}
+
+
+	/**
+	 * @return the lbop
+	 */
+	public Boolean getLbop() {
+		return lbop;
+	}
+
+
+	/**
+	 * @param lbop the lbop to set
+	 */
+	public void setLbop(Boolean lbop) {
+		this.lbop = lbop;
 	}
 
 

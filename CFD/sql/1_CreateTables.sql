@@ -1,6 +1,15 @@
+--2018May20
+ALTER TABLE `indexyahoocfd`.`dmc_data_mining_company` CHANGE COLUMN DMC_IS_REACTION_MODE DMC_BUY_POINT smallint;
+ALTER TABLE `indexyahoocfd`.`dmc_data_mining_company` CHANGE COLUMN DMC_BUY_POINT DMC_IS_BUY_POINT smallint;
+
 --2018May14
-ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
-	ADD DMC_IS_REACTION_MODE smallint;
+ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company`
+	ADD DMC_IS_SELL_POINT smallint,
+	ADD DMC_IS_REACTION_MODE smallint,
+	ADD DMC_IS_HBOP smallint,
+	ADD DMC_IS_LBOP smallint;
+	
+	 
 
 --2018May14
 ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
