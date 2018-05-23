@@ -649,5 +649,32 @@ public class UtilGeneral {
 		return idxLowest;
 
 	}
+	
+	/**
+	 * retorna el Item con el valor mas bajo.
+	 * 
+	 * @param hdc
+	 * @return
+	 */
+	public static int getHighest(HistoricalDataCompany[] hdc) {
+
+		double highest = 0;
+		int idxHighest = 0;
+		for (int i = 0; i < hdc.length; i++) {
+			HistoricalDataCompany historicalDataCompany = hdc[i];
+			if (i == 0) {
+				highest = Double.parseDouble(historicalDataCompany.getStockPriceHigh());
+				idxHighest = i;
+			}
+			if (Double.parseDouble(historicalDataCompany.getStockPriceHigh()) > highest) {
+				idxHighest = i;
+				highest = Double.parseDouble(historicalDataCompany.getStockPriceHigh());
+			}
+
+		}
+
+		return idxHighest;
+
+	}
 
 }

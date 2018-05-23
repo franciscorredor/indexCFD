@@ -2459,12 +2459,20 @@ public class ObtenerMarketIndex {
 			
 			HistoricalDataCompany[] y = lstHdc.toArray(new HistoricalDataCompany[0]);
 			
-			int idxL =  UtilGeneral.getLowest(y);
-			_logger.info( "lowest" + idxL + "-->" + y[idxL]);
+			int idx =  UtilGeneral.getLowest(y);
+			boolean banderaisHigh = false;
+			if (idx > 7) {
+				banderaisHigh = true;
+				idx =  UtilGeneral.getHighest(y);
+			}
+			_logger.info( "high[" + banderaisHigh + "]" + idx + "-->" + y[idx]);
 			String bos[] = {"B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S", };
 			int idxB = 0;
+			if (banderaisHigh) {
+				idxB = 2;
+			}
 			HistoricalDataCompany historicalDataCompanyBefore = null;
-			for (int i = idxL; i < y.length; i++) {
+			for (int i = idx; i < y.length; i++) {
 				HistoricalDataCompany historicalDataCompanyNow = y[i];
 				ReactionTrendSystem rtsNow = null;
 				ReactionTrendSystem rtsB = null;
@@ -2481,7 +2489,7 @@ public class ObtenerMarketIndex {
 				/*
 				 * Valida si el precio anterior esta entre HBOP y LBOP, si no iniciar el bos con B o S, segun sea el caso.
 				 */
-				if (historicalDataCompanyBefore != null && rtsB != null && i > idxL) {
+				if (historicalDataCompanyBefore != null && rtsB != null && i > idx) {
 					double h, l, c, a;
 					h = Double.parseDouble(historicalDataCompanyNow.getStockPriceHigh());
 					l = Double.parseDouble(historicalDataCompanyNow.getStockPriceLow());
