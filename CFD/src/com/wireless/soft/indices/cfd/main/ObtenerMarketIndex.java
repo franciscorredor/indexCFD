@@ -176,6 +176,7 @@ public class ObtenerMarketIndex {
 			String accion = args[0];
 			switch (accion) {
 			case "0":
+				_logger.info("\n Inicio run Many Times");
 				runManytimes(omi, argumento2, cortePorcentajePonderado);
 				break;
 			case "1":
@@ -246,9 +247,13 @@ public class ObtenerMarketIndex {
 				omi.printMomentumFactor();
 				break;
 			case "15":
-				_logger.info("\n Print BOS -REACTION vs TREND mode- ");
-				omi.pintBOS(argumento2);
+				_logger.info("\n Print SINGLE BOS -REACTION vs TREND mode- ");
+				omi.printBOS(argumento2);
 				break;
+			case "16":
+				_logger.info("\n Print ALL BOS -REACTION vs TREND mode- ");
+				omi.printBOSForEachCompany(args[1]);
+				break;	
 
 			default:
 				_logger.info("\n No realiza acci_n");
@@ -1716,6 +1721,40 @@ public class ObtenerMarketIndex {
 		}
 
 	}
+	
+	
+	/**
+	 * Imprime el BOS por cada compania, indicando si el dia de ejecución esta en Buy, O, Sell
+	 * La idea es que el último registro este en Sell, que indica que el día de hoy se aplican las
+	 * regas de Buy
+	 * @param companySymbols
+	 * @param idIteracion
+	 */
+	private void printBOSForEachCompany(String companySymbols) {
+
+		String cmpSymbol[] = companySymbols.split(";");
+
+		for (String companySymbol : cmpSymbol) {
+			// Convertir company Symbol en id de compañua
+			Company cmp = null;
+			cmp = new Company();
+			cmp.setGoogleSymbol(companySymbol);
+
+			try {
+				cmp = this.admEnt.getCompanyBySymbol(cmp);
+				_logger.info(companySymbol + ":["+cmp.getId()+"] ---------- " + new Date());
+				printBOS( Integer.valueOf( cmp.getId().intValue() ) );
+				
+			} catch (Exception e1) {
+				_logger.error("Error al traer info de la compania", e1);
+				return;
+			}
+			
+			
+			
+		}
+
+	}
 
 	/**
 	 * @param symbol
@@ -2436,7 +2475,7 @@ public class ObtenerMarketIndex {
 	 * @param idCompany
 	 *            Imprime la relacion Buy, No position & Sell
 	 */
-	private void pintBOS(Integer scnCodigo) {
+	private void printBOS(Integer scnCodigo) {
 		try {
 
 			Calendar iniTime = Calendar.getInstance();
@@ -2498,10 +2537,10 @@ public class ObtenerMarketIndex {
 					rtsNow = this.isReactionMode(h,l,c,a, false);
 					if (rtsNow.getxPrima() > rtsB.getHbop()) {
 						idxB = 2;
-						_logger.info( "[CorrigeSell] StockPriceHigh: " + historicalDataCompanyBefore.getStockPriceHigh() + bos[idxB++] );
+						_logger.info( "["+i+"](CorrigeSell) StockPriceHigh Before: " + historicalDataCompanyBefore.getStockPriceHigh() + bos[idxB] );
 					}else if (rtsNow.getxPrima() < rtsB.getLbop()) {
 						idxB = 0;
-						_logger.info( "[CorrigeBuy] StockPriceLow" + historicalDataCompanyBefore.getStockPriceLow() + bos[idxB++] );
+						_logger.info( "["+i+"](CorrigeBuy) StockPriceLow Before" + historicalDataCompanyBefore.getStockPriceLow() + bos[idxB] );
 					}
 				}
 					

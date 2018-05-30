@@ -1,7 +1,10 @@
 package com.wireless.soft.indices.cfd.business.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -241,11 +244,13 @@ public class HistoricalDataCompany implements Serializable, Comparable<Historica
 
 	@Override
 	public String toString() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));			
 		StringBuilder s = new StringBuilder();
 		s.append("\n id [" + this.id + "]");
 		s.append(" company [" + this.company + "]");
 		s.append(" stockPriceClose [" + this.stockPriceClose + "]");
-		s.append(" fechaCreacion [" + this.fechaCreacion + "]");
+		s.append(" fechaCreacion [" + simpleDateFormat.format( new Date( this.fechaCreacion.getTimeInMillis()))  + "]");
 
 		return s.toString();
 	}

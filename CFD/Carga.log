@@ -38547,3 +38547,241 @@ sample:java -jar indicesToCFD.jar 10 JUP.L;NEO.PA;APC.DE;HSX.L -1
 2018-05-23 05:57:33 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [13]55.22B
 2018-05-23 05:57:33 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [14]54.80
 2018-05-23 05:57:33 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [266] main - fin Proceso Wed May 23 05:57:33 COT 2018
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [249] main - 
+ Print BOS -REACTION vs TREND mode- 
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2451] pintBOS - Date: 2018-05-02
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2463] pintBOS - lowest1-->
+ id [977042] company [119] stockPriceClose [51.94] fechaCreacion [java.util.GregorianCalendar[time=1527045077000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=21,WEEK_OF_MONTH=4,DAY_OF_MONTH=22,DAY_OF_YEAR=142,DAY_OF_WEEK=3,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=10,HOUR_OF_DAY=22,MINUTE=11,SECOND=17,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [1]49.57B
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [2]51.50
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [3]52.02S
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [4]52.58B
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [5]52.560
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [6]52.52S
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [7]52.68B
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [8]52.660
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [9]52.8101S
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [10]52.911B
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [11]54.440
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [12]54.23S
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [13]55.22B
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [14]54.80
+2018-05-23 06:08:46 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [266] main - fin Proceso Wed May 23 06:08:46 COT 2018
+2018-05-23 06:09:58 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [249] main - 
+ Print BOS -REACTION vs TREND mode- 
+2018-05-23 06:09:58 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2451] pintBOS - Date: 2018-05-02
+2018-05-23 06:09:58 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2463] pintBOS - lowest11-->
+ id [984850] company [328] stockPriceClose [818] fechaCreacion [java.util.GregorianCalendar[time=1527045133000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=21,WEEK_OF_MONTH=4,DAY_OF_MONTH=22,DAY_OF_YEAR=142,DAY_OF_WEEK=3,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=10,HOUR_OF_DAY=22,MINUTE=12,SECOND=13,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-23 06:09:58 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [11]818B
+2018-05-23 06:09:58 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [12]8200
+2018-05-23 06:09:58 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2501] pintBOS - [13]818S
+2018-05-23 06:09:58 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [266] main - fin Proceso Wed May 23 06:09:58 COT 2018
+2018-05-23 06:41:37 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [249] main - 
+ Print BOS -REACTION vs TREND mode- 
+2018-05-23 06:41:37 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2451] pintBOS - Date: 2018-05-02
+2018-05-23 06:41:37 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2468] pintBOS - high[true]13-->
+ id [984852] company [328] stockPriceClose [820] fechaCreacion [java.util.GregorianCalendar[time=1527045133000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=21,WEEK_OF_MONTH=4,DAY_OF_MONTH=22,DAY_OF_YEAR=142,DAY_OF_WEEK=3,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=10,HOUR_OF_DAY=22,MINUTE=12,SECOND=13,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-23 06:41:37 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2509] pintBOS - [13]818S
+2018-05-23 06:41:37 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [266] main - fin Proceso Wed May 23 06:41:37 COT 2018
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [249] main - 
+ Print BOS -REACTION vs TREND mode- 
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2451] pintBOS - Date: 2018-05-02
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2468] pintBOS - high[true]9-->
+ id [984848] company [328] stockPriceClose [850] fechaCreacion [java.util.GregorianCalendar[time=1527045133000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=21,WEEK_OF_MONTH=4,DAY_OF_MONTH=22,DAY_OF_YEAR=142,DAY_OF_WEEK=3,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=10,HOUR_OF_DAY=22,MINUTE=12,SECOND=13,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2509] pintBOS - [9]823S
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2509] pintBOS - [10]823B
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2509] pintBOS - [11]8180
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2509] pintBOS - [12]820S
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2509] pintBOS - [13]818B
+2018-05-23 06:44:24 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [266] main - fin Proceso Wed May 23 06:44:24 COT 2018
+2018-05-28 21:35:39 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [254] main - 
+ Print ALL BOS -REACTION vs TREND mode- 
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2489] printBOS - Date: 2018-05-07
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2506] printBOS - high[false]1-->
+ id [1128772] company [818] stockPriceClose [55.14] fechaCreacion [java.util.GregorianCalendar[time=1527553457000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=22,WEEK_OF_MONTH=5,DAY_OF_MONTH=28,DAY_OF_YEAR=148,DAY_OF_WEEK=2,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=24,SECOND=17,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [1]53.1B
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [2]55.440
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [3]56.85S
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [4]57.83B
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [5]58.230
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [6]58.5S
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [7]58.86B
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [8]59.870
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2542] printBOS - [CorrigeBuy] StockPriceLow59.87B
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [9]57.020
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [10]59.67S
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [11]58.74B
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [12]58.040
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [13]57.9S
+2018-05-28 21:35:41 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [14]57.03B
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2489] printBOS - Date: 2018-05-07
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2506] printBOS - high[true]3-->
+ id [1123173] company [671] stockPriceClose [110.4] fechaCreacion [java.util.GregorianCalendar[time=1527553322000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=22,WEEK_OF_MONTH=5,DAY_OF_MONTH=28,DAY_OF_YEAR=148,DAY_OF_WEEK=2,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=22,SECOND=2,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [3]107.8S
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [4]108.6B
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [5]107.80
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [6]108.6S
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [7]107.4B
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [8]106.20
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [9]106.6S
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [10]108B
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [11]109.20
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2542] printBOS - [CorrigeBuy] StockPriceLow109.2B
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [12]106.60
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [13]106.8S
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [14]107.4B
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2539] printBOS - [CorrigeSell] StockPriceHigh: 108.6S
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2547] printBOS - [15]108.8B
+2018-05-28 21:35:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [271] main - fin Proceso Mon May 28 21:35:43 COT 2018
+2018-05-28 21:40:13 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [254] main - 
+ Print ALL BOS -REACTION vs TREND mode- 
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - ETR:LUK:[818] ----- Mon May 28 21:40:15 COT 2018
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-07
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[false]1-->
+ id [1128772] company [818] stockPriceClose [55.14] fechaCreacion [java.util.GregorianCalendar[time=1527553457000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=22,WEEK_OF_MONTH=5,DAY_OF_MONTH=28,DAY_OF_YEAR=148,DAY_OF_WEEK=2,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=24,SECOND=17,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [1]53.1B
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [2]55.440
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [3]56.85S
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [4]57.83B
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [5]58.230
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]58.5S
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]58.86B
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]59.870
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [CorrigeBuy] StockPriceLow59.87B
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]57.020
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]59.67S
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]58.74B
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]58.040
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [13]57.9S
+2018-05-28 21:40:15 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [14]57.03B
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - EPA:STF:[671] ----- Mon May 28 21:40:17 COT 2018
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-07
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[true]3-->
+ id [1123173] company [671] stockPriceClose [110.4] fechaCreacion [java.util.GregorianCalendar[time=1527553322000,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Bogota",offset=-18000000,dstSavings=0,useDaylight=false,transitions=5,lastRule=null],firstDayOfWeek=2,minimalDaysInFirstWeek=1,ERA=1,YEAR=2018,MONTH=4,WEEK_OF_YEAR=22,WEEK_OF_MONTH=5,DAY_OF_MONTH=28,DAY_OF_YEAR=148,DAY_OF_WEEK=2,DAY_OF_WEEK_IN_MONTH=4,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=22,SECOND=2,MILLISECOND=0,ZONE_OFFSET=-18000000,DST_OFFSET=0]]
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [3]107.8S
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [4]108.6B
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [5]107.80
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]108.6S
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]107.4B
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]106.20
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]106.6S
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]108B
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]109.20
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [CorrigeBuy] StockPriceLow109.2B
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]106.60
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [13]106.8S
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [14]107.4B
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2540] printBOS - [CorrigeSell] StockPriceHigh: 108.6S
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [15]108.8B
+2018-05-28 21:40:17 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [271] main - fin Proceso Mon May 28 21:40:17 COT 2018
+2018-05-28 21:44:23 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [254] main - 
+ Print ALL BOS -REACTION vs TREND mode- 
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - ETR:LUK:[818] ---------- Mon May 28 21:44:25 COT 2018
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-07
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[false]1-->
+ id [1128772] company [818] stockPriceClose [55.14] fechaCreacion [2018-05-29]
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [1]53.1B
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [2]55.440
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [3]56.85S
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [4]57.83B
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [5]58.230
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]58.5S
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]58.86B
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]59.870
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [CorrigeBuy] StockPriceLow59.87B
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]57.020
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]59.67S
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]58.74B
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]58.040
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [13]57.9S
+2018-05-28 21:44:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [14]57.03B
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - EPA:STF:[671] ---------- Mon May 28 21:44:26 COT 2018
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-07
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[true]3-->
+ id [1123173] company [671] stockPriceClose [110.4] fechaCreacion [2018-05-29]
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [3]107.8S
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [4]108.6B
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [5]107.80
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]108.6S
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]107.4B
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]106.20
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]106.6S
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]108B
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]109.20
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [CorrigeBuy] StockPriceLow109.2B
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]106.60
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [13]106.8S
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [14]107.4B
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2540] printBOS - [CorrigeSell] StockPriceHigh: 108.6S
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [15]108.8B
+2018-05-28 21:44:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [271] main - fin Proceso Mon May 28 21:44:26 COT 2018
+2018-05-30 00:30:09 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [254] main - 
+ Print ALL BOS -REACTION vs TREND mode- 
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - ETR:LUK:[818] ---------- Wed May 30 00:30:10 COT 2018
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-09
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[false]0-->
+ id [1128773] company [818] stockPriceClose [55.81] fechaCreacion [2018-05-29]
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [0]55.44B
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [1]56.850
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [2]57.83S
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [3]58.23B
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [4]58.50
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [5]58.86S
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]59.87B
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [7](CorrigeBuy) StockPriceLow59.87B
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]57.02B
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]59.670
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]58.74S
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]58.04B
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]57.90
+2018-05-30 00:30:10 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]57.03S
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - EPA:STF:[671] ---------- Wed May 30 00:30:11 COT 2018
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-09
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[false]6-->
+ id [1123178] company [671] stockPriceClose [107.4] fechaCreacion [2018-05-29]
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]106.2B
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]106.60
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]108S
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]109.2B
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [10](CorrigeBuy) StockPriceLow109.2B
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]106.6B
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]106.80
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]107.4S
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2540] printBOS - [13](CorrigeSell) StockPriceHigh: 108.6S
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [13]108.8S
+2018-05-30 00:30:11 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [271] main - fin Proceso Wed May 30 00:30:11 COT 2018
+2018-05-30 00:33:42 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [254] main - 
+ Print ALL BOS -REACTION vs TREND mode- 
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - ETR:LUK:[818] ---------- Wed May 30 00:33:43 COT 2018
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-09
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[false]0-->
+ id [1128773] company [818] stockPriceClose [55.81] fechaCreacion [2018-05-29]
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [0]55.44B
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [1]56.850
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [2]57.83S
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [3]58.23B
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [4]58.50
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [5]58.86S
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]59.87B
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [7](CorrigeBuy) StockPriceLow Before59.87B
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]57.02B
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]59.670
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]58.74S
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]58.04B
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]57.90
+2018-05-30 00:33:43 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]57.03S
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [1745] printBOSForEachCompany - EPA:STF:[671] ---------- Wed May 30 00:33:44 COT 2018
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2490] printBOS - Date: 2018-05-09
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2507] printBOS - high[false]6-->
+ id [1123178] company [671] stockPriceClose [107.4] fechaCreacion [2018-05-29]
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [6]106.2B
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [7]106.60
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [8]108S
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [9]109.2B
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2543] printBOS - [10](CorrigeBuy) StockPriceLow Before109.2B
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [10]106.6B
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [11]106.80
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [12]107.4S
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2540] printBOS - [13](CorrigeSell) StockPriceHigh Before: 108.6S
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [13]108.8S
+2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [271] main - fin Proceso Wed May 30 00:33:44 COT 2018
