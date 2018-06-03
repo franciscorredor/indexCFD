@@ -41,7 +41,15 @@ import com.wireless.soft.indices.cfd.collections.CompanyRanking;
 		@NamedNativeQuery(name = "findTopFiveToMomentumFactor", query = "SELECT	*\r\n"
 				+ "FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n"
 				+ "WHERE	scn_codigo = :companyId \r\n"
-				+ "ORDER by  HST_date desc limit 5 ", resultClass = HistoricalDataCompany.class) })
+				+ "ORDER by  HST_date desc limit 5 ", resultClass = HistoricalDataCompany.class),
+		@NamedNativeQuery(name = "findAllLastHistoricalData", query = "SELECT	ch.*\r\n" + 
+				"FROM		indexyahoocfd.hst_historical_data_company_to_rsi ch		join  (SELECT max(chi.hst_codigo) as hst_codigo  FROM	indexyahoocfd.hst_historical_data_company_to_rsi chi GROUP BY chi.SCN_codigo ) as maxCompanyHistory   \r\n" + 
+				"																ON maxCompanyHistory.hst_codigo = ch.hst_codigo ", resultClass = HistoricalDataCompany.class)
+		
+
+		
+
+})
 
 @Entity
 @Table(name = "indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI")
@@ -67,6 +75,10 @@ public class HistoricalDataCompany implements Serializable, Comparable<Historica
 	public static final String DELETE_HISTORICAL_DATA = "deleteHistoricalData";
 	/** */
 	public static final String FIND_HISTORICAL_DATA_BY_COMPANY_DATE = "findHistoricalDataByCompanyAndDate";
+	
+	public static final String FIND_ALL_LAST_HISTORICAL_DATA = "findAllLastHistoricalData";
+	
+	
 
 	// ////////////////////////////////////////////////////////////////////////
 	// Atributos de la clase

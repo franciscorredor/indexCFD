@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.apache.commons.collections.functors.ForClosure;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
@@ -248,11 +247,21 @@ public class ObtenerMarketIndex {
 				break;
 			case "15":
 				_logger.info("\n Print SINGLE BOS -REACTION vs TREND mode- ");
-				omi.printBOS(argumento2);
+				omi.printBOS(argumento2, true);
 				break;
 			case "16":
-				_logger.info("\n Print ALL BOS -REACTION vs TREND mode- ");
+				_logger.info("\n Print ALL BOS -REACTION vs TREND mode- by company not ID, separate by ; ");
 				omi.printBOSForEachCompany(args[1]);
+				break;
+			case "17":
+				_logger.info("\n Print reaction Mode - ");
+				String[] hlca = args[1].split(":");
+				UtilGeneral.isReactionMode(Double.parseDouble(hlca[0]), Double.parseDouble(hlca[1]), Double.parseDouble(hlca[2]), Double.parseDouble(hlca[3]), true);
+				break;
+			case "18":
+				_logger.info("\n Print possible Buy or Sell ");
+				String[] cmps = args.length<2?null:args[1].split(":");
+				UtilGeneral.printPosibleBuyOrSell(cmps);
 				break;	
 
 			default:
@@ -1607,7 +1616,7 @@ public class ObtenerMarketIndex {
 				
 				
 				
-				ReactionTrendSystem rts = isReactionMode(lastHigh, lastLow, lastClose,
+				ReactionTrendSystem rts = UtilGeneral.isReactionMode(lastHigh, lastLow, lastClose,
 						Double.parseDouble(dmCmp.getStockPrice().replace(",", ".")),true);
 				dmCmp.setBuyPoint(rts.getActualPriceBetweenBuy());
 				dmCmp.setSellPoint(rts.getActualPriceBetweenSell());
@@ -1743,7 +1752,7 @@ public class ObtenerMarketIndex {
 			try {
 				cmp = this.admEnt.getCompanyBySymbol(cmp);
 				_logger.info(companySymbol + ":["+cmp.getId()+"] ---------- " + new Date());
-				printBOS( Integer.valueOf( cmp.getId().intValue() ) );
+				printBOS( Integer.valueOf( cmp.getId().intValue() ), false );
 				
 			} catch (Exception e1) {
 				_logger.error("Error al traer info de la compania", e1);
@@ -2298,7 +2307,7 @@ public class ObtenerMarketIndex {
 					}
 				} else if (MF1 < 0 && MF2 < 0 && MFToday < 0) {
 					if (MFToday > MF1 || MFToday > MF2) {
-						// Almacena momentum factor SHORT
+						// Almacena momentum factor LONG
 						saveDataMining = MOMENTUM_FACTOR.LONG;
 						_logger.info("\nPosible Long [" + cmpId + "] MF1[" + MF1 + "] MF2[" + MF2 + "] MFToday["
 								+ MFToday + "]");
@@ -2416,66 +2425,12 @@ public class ObtenerMarketIndex {
 
 	}
 
-	/**
-	 * Evalua si el precio actual esta en ReactionMode o TrendMode
-	 * 
-	 * @param lastHigh
-	 * @param lastLow
-	 * @param lastClose
-	 * @return
-	 * 
-	 * 		Array --> 0 BuyPoint 1 SellPoint 2 HBOP 3 LBOP 4 REACTION MODE (1) |
-	 *         TREND MODE (0)
-	 * 
-	 */
-	private ReactionTrendSystem isReactionMode(double lastHigh, double lastLow, double lastClose, double actualPrice, boolean print) {
-
-		ReactionTrendSystem rts = new ReactionTrendSystem();
-		/*
-		 * xPrima:= media entre HLC b_1:= Buy Point s_1:= Sell Point
-		 * hbop:=HighBreakOutPoint lbop:=LowBreakOutPoint
-		 */
-		double xPrima, b_1, s_1, hbop, lbop, b_1_up, s_1_down;
-		if (print) {
-		_logger.info("actualPrice: " + actualPrice);
-		}
-		xPrima = (lastHigh + lastLow + lastClose) / 3;
-		b_1 = (2 * xPrima) - lastHigh;
-		b_1_up = (xPrima - (b_1 - xPrima));
-		s_1 = (2 * xPrima) - lastLow;
-		s_1_down = xPrima - (s_1 - xPrima);
-		if (print) {
-		_logger.info("xPrima" + xPrima);
-		_logger.info("b_1: (" + b_1 + "|" + b_1_up + ")s_1: (" + s_1 + "|" + (xPrima + (xPrima - s_1)) + ")");
-		}
-		hbop = (2 * xPrima) - (2 * lastLow) + lastHigh;
-		lbop = (2 * xPrima) - (2 * lastHigh) + lastLow;
-		// _logger.info("hbop: " + hbop + "lbop:" + lbop );
-
-		boolean betweenBuy = (actualPrice > b_1) && (actualPrice < b_1_up);
-		rts.setActualPriceBetweenBuy( betweenBuy );
-		rts.setActualPriceBetweenSell((actualPrice > s_1_down) && (actualPrice < s_1) && !betweenBuy);
-		rts.setActualPriceUpHBOP((actualPrice > hbop));
-		rts.setActualPriceDownLBOP( (actualPrice < lbop) );
-		rts.setActualPriceBetweenHBOPLBOP( (actualPrice < hbop) && (actualPrice > lbop) );
-		
-		rts.setxPrima(xPrima);
-		rts.setB_1(b_1);
-		rts.setS_1(s_1);
-		rts.setHbop(hbop);
-		rts.setLbop(lbop);
-		rts.setB_1_up(b_1_up);
-		rts.setS_1_down(s_1_down);
-
-		return rts;
-
-	}
 
 	/**
 	 * @param idCompany
 	 *            Imprime la relacion Buy, No position & Sell
 	 */
-	private void printBOS(Integer scnCodigo) {
+	private void printBOS(Integer scnCodigo, boolean print) {
 		try {
 
 			Calendar iniTime = Calendar.getInstance();
@@ -2487,7 +2442,7 @@ public class ObtenerMarketIndex {
 
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));			
-			_logger.info("Date: " + simpleDateFormat.format(new Date(iniTime.getTimeInMillis())));
+			//_logger.info("Date: " + simpleDateFormat.format(new Date(iniTime.getTimeInMillis())));
 
 			HistoricalDataCompany hdc = new HistoricalDataCompany();
 			hdc.setCompany(scnCodigo.longValue());
@@ -2504,7 +2459,10 @@ public class ObtenerMarketIndex {
 				banderaisHigh = true;
 				idx =  UtilGeneral.getHighest(y);
 			}
-			_logger.info( "high[" + banderaisHigh + "]" + idx + "-->" + y[idx]);
+			if(print) {
+				_logger.info( "high[" + banderaisHigh + "]" + idx + "-->" + y[idx]);
+			}
+			
 			String bos[] = {"B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S", };
 			int idxB = 0;
 			if (banderaisHigh) {
@@ -2522,7 +2480,7 @@ public class ObtenerMarketIndex {
 					l = Double.parseDouble(historicalDataCompanyBefore.getStockPriceLow());
 					c = Double.parseDouble(historicalDataCompanyBefore.getStockPriceClose());
 					a = (h+l+c)/3; 
-					rtsB = this.isReactionMode(h,l,c,a, false);
+					rtsB = UtilGeneral.isReactionMode(h,l,c,a, false);
 				}
 				
 				/*
@@ -2534,18 +2492,31 @@ public class ObtenerMarketIndex {
 					l = Double.parseDouble(historicalDataCompanyNow.getStockPriceLow());
 					c = Double.parseDouble(historicalDataCompanyNow.getStockPriceClose());
 					a = (h+l+c)/3; 
-					rtsNow = this.isReactionMode(h,l,c,a, false);
+					rtsNow = UtilGeneral.isReactionMode(h,l,c,a, false);
 					if (rtsNow.getxPrima() > rtsB.getHbop()) {
 						idxB = 2;
-						_logger.info( "["+i+"](CorrigeSell) StockPriceHigh Before: " + historicalDataCompanyBefore.getStockPriceHigh() + bos[idxB] );
+						if (print) {
+							_logger.info( "["+i+"](CorrigeSell) StockPriceHigh Before: " + historicalDataCompanyBefore.getStockPriceHigh() + bos[idxB] );
+						}
+						
 					}else if (rtsNow.getxPrima() < rtsB.getLbop()) {
 						idxB = 0;
-						_logger.info( "["+i+"](CorrigeBuy) StockPriceLow Before" + historicalDataCompanyBefore.getStockPriceLow() + bos[idxB] );
+						if (print) {
+							_logger.info( "["+i+"](CorrigeBuy) StockPriceLow Before" + historicalDataCompanyBefore.getStockPriceLow() + bos[idxB] );
+						}
+						
 					}
 				}
+				//Importante incrementa el valor
+				idxB++;
 					
+				if(print) {
+					_logger.info( "["+i+"]" + historicalDataCompanyNow.getStockPriceLow() + ": " + bos[idxB] );
+				}
+				if(i == (y.length-1) && bos[idxB].endsWith("S")) {
+					_logger.info( "["+i+"]" + historicalDataCompanyNow.getStockPriceLow() + ": " + bos[idxB] + "Sell, next buy" );
+				}
 				
-				_logger.info( "["+i+"]" + historicalDataCompanyNow.getStockPriceLow() + bos[idxB++] );
 			}
 			
 			

@@ -47,7 +47,10 @@ limit 7  --> Importante, validar que el precio este en subido, con esta consulta
 																			"	WHERE	SCN_CODIGO = :company and volume is not null and price is not null"+
 																			"	AND		QHC_FECHA_CREACION between  DATE_SUB(NOW(), INTERVAL 1 DAY)  AND NOW() "+  
 																			"	ORDER	by QHC_FECHA_CREACION desc "+
-																			"	LIMIT 1 ", resultClass = QuoteHistoryCompany.class)	
+																			"	LIMIT 1 ", resultClass = QuoteHistoryCompany.class),	
+	@NamedNativeQuery(name = "findAllLastPriceHistory", query = "SELECT	ch.*\r\n" + 
+																			"	FROM		indexyahoocfd.iyc_quote_company_history ch		join  (SELECT max(chi.QCH_codigo) as QCH_codigo  FROM	indexyahoocfd.iyc_quote_company_history chi GROUP BY chi.SCN_codigo ) as maxCompanyHistory   \r\n" + 
+																			"																	ON maxCompanyHistory.QCH_codigo = ch.QCH_codigo ", resultClass = QuoteHistoryCompany.class)
  })
 @Entity
 @Table(name = "indexyahoocfd.iyc_quote_company_history")
@@ -69,6 +72,9 @@ public class QuoteHistoryCompany implements Serializable{
     public static final String FIND_QUOTEHISTORY_BYCOMPANY = "findQuoteHistoryByCompany";
     /** */
     public static final String FIND_FIRSTITERACION_BYCOMPANY = "findFirstIteracionHistoryByCompany";
+    
+    public static final String FIND_ALL_LAST_PRICE_HISTORY = "findAllLastPriceHistory";
+    
     
 
     
@@ -408,3 +414,4 @@ public class QuoteHistoryCompany implements Serializable{
 	
 
 }
+

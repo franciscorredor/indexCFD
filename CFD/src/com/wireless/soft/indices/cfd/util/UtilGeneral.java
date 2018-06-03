@@ -16,7 +16,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,8 +28,11 @@ import com.wireless.soft.indices.cfd.business.adm.AdminEntity;
 import com.wireless.soft.indices.cfd.business.entities.Company;
 import com.wireless.soft.indices.cfd.business.entities.DataMiningCompany;
 import com.wireless.soft.indices.cfd.business.entities.HistoricalDataCompany;
+import com.wireless.soft.indices.cfd.business.entities.QuoteHistoryCompany;
 import com.wireless.soft.indices.cfd.collections.CompanyRanking;
+import com.wireless.soft.indices.cfd.collections.ReactionTrendSystem;
 import com.wireless.soft.indices.cfd.collections.RelativeStrengthIndexData;
+import com.wireless.soft.indices.cfd.main.ObtenerMarketIndex;
 
 /**
  * @author Francisco Clase encargada de calculos matematicos para validar la
@@ -36,6 +41,11 @@ import com.wireless.soft.indices.cfd.collections.RelativeStrengthIndexData;
  *
  */
 public class UtilGeneral {
+
+	// ////////////////////////////////////////////////////////////////////////
+	// Logger de la clase
+	// ////////////////////////////////////////////////////////////////////////
+	private static Logger _logger = Logger.getLogger(UtilGeneral.class);
 
 	/**
 	 * @param precioBuy
@@ -649,7 +659,7 @@ public class UtilGeneral {
 		return idxLowest;
 
 	}
-	
+
 	/**
 	 * retorna el Item con el valor mas bajo.
 	 * 
@@ -675,6 +685,145 @@ public class UtilGeneral {
 
 		return idxHighest;
 
+	}
+
+	/*
+	 * Valida el precio actual de las compañias con el presio de reaction Mode si
+	 * esta dentro de la opción de buy o sell
+	 * 
+	 * Toma el ultimo precio de la tabla indexyahoocfd.iyc_quote_company_history, lo
+	 * compara con el ultimo precio de
+	 * indexyahoocfd.hst_historical_data_company_to_rsi y realiza el calculo para
+	 * saber si esta en Buyo SELL
+	 */
+	public static void printPosibleBuyOrSell(String[] idCompaniesToLookUpArray) {
+		
+
+		AdminEntity admEnt = AdminEntity.getInstance();
+		Map<Long, HistoricalDataCompany> h = null;
+		List<QuoteHistoryCompany> q = null;
+
+		try {
+			h = admEnt.getAllLastHistoricalData();
+			q = admEnt.getAllLastPriceHistory();
+
+			if (q != null && q.size() > 0) {
+				for (QuoteHistoryCompany quoteHistoryCompany : q) {
+					try {
+						if (idCompaniesToLookUpArray == null || isCompanyInTheArray(quoteHistoryCompany.getCompany(), idCompaniesToLookUpArray )) {
+						double lastHigh, lastLow, lastClose, actualPrice;
+						HistoricalDataCompany historicalDataCompany = h.get(quoteHistoryCompany.getCompany());
+						lastHigh = Double.parseDouble(historicalDataCompany.getStockPriceHigh());
+						lastLow = Double.parseDouble(historicalDataCompany.getStockPriceLow());
+						lastClose = Double.parseDouble(historicalDataCompany.getStockPriceClose());
+						actualPrice = Double.parseDouble(quoteHistoryCompany.getPrice());
+
+						ReactionTrendSystem reactionTrendSystem = isReactionMode(lastHigh, lastLow, lastClose,
+								actualPrice, false);
+						if (actualPrice <= reactionTrendSystem.getB_1()) {
+							_logger.info("The companyID [" + historicalDataCompany.getCompany()
+									+ "], has the price below B1");
+						}
+						if (actualPrice >= reactionTrendSystem.getS_1()) {
+							_logger.info("The companyID [" + historicalDataCompany.getCompany()
+									+ "], has the price above S1");
+						}
+						}
+					} catch (Exception e) {
+						// Salta al siguiente Registro
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Evalua si el precio actual esta en ReactionMode o TrendMode
+	 * 
+	 * @param lastHigh
+	 * @param lastLow
+	 * @param lastClose
+	 * @return
+	 * 
+	 * 		Array --> 0 BuyPoint 1 SellPoint 2 HBOP 3 LBOP 4 REACTION MODE (1) |
+	 *         TREND MODE (0)
+	 * 
+	 */
+	public static ReactionTrendSystem isReactionMode(double lastHigh, double lastLow, double lastClose,
+			double actualPrice, boolean print) {
+		
+		if (lastHigh == lastLow && lastLow == lastClose && lastClose ==  actualPrice) {
+			return null;
+		}
+
+		ReactionTrendSystem rts = new ReactionTrendSystem();
+		/*
+		 * xPrima:= media entre HLC b_1:= Buy Point s_1:= Sell Point
+		 * hbop:=HighBreakOutPoint lbop:=LowBreakOutPoint
+		 */
+		double xPrima, b_1, s_1, hbop, lbop, b_1_up, s_1_down;
+		if (print) {
+			_logger.info("actualPrice: " + actualPrice);
+		}
+		xPrima = (lastHigh + lastLow + lastClose) / 3;
+		b_1 = (2 * xPrima) - lastHigh;
+		b_1_up = (xPrima - (b_1 - xPrima));
+		s_1 = (2 * xPrima) - lastLow;
+		s_1_down = xPrima - (s_1 - xPrima);
+		if (print) {
+			_logger.info("xPrima" + xPrima);
+			_logger.info("b_1: (" + b_1 + "|" + b_1_up + ")s_1: (" + s_1 + "|" + (xPrima + (xPrima - s_1)) + ")");
+		}
+		hbop = (2 * xPrima) - (2 * lastLow) + lastHigh;
+		lbop = (2 * xPrima) - (2 * lastHigh) + lastLow;
+		// _logger.info("hbop: " + hbop + "lbop:" + lbop );
+
+		boolean betweenBuy = (actualPrice > b_1) && (actualPrice < b_1_up);
+		rts.setActualPriceBetweenBuy(betweenBuy);
+		rts.setActualPriceBetweenSell((actualPrice > s_1_down) && (actualPrice < s_1) && !betweenBuy);
+		rts.setActualPriceUpHBOP((actualPrice > hbop));
+		rts.setActualPriceDownLBOP((actualPrice < lbop));
+		rts.setActualPriceBetweenHBOPLBOP((actualPrice < hbop) && (actualPrice > lbop));
+
+		rts.setxPrima(xPrima);
+		rts.setB_1(b_1);
+		rts.setS_1(s_1);
+		rts.setHbop(hbop);
+		rts.setLbop(lbop);
+		rts.setB_1_up(b_1_up);
+		rts.setS_1_down(s_1_down);
+
+		return rts;
+
+	}
+	
+	/**
+	 * @param idCmp
+	 * @param array
+	 * @return
+	 */
+	private static boolean isCompanyInTheArray(Long idCmp, String[] array) {
+		
+		boolean isCompanyInTheArray = false;
+		
+		for (String c : array) {
+			if (Long.parseLong( c ) == idCmp) {
+				isCompanyInTheArray = true;
+				break;
+			}
+			
+		}
+		
+		
+		return isCompanyInTheArray;
+		
 	}
 
 }

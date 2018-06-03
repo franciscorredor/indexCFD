@@ -38785,3 +38785,520 @@ sample:java -jar indicesToCFD.jar 10 JUP.L;NEO.PA;APC.DE;HSX.L -1
 2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2540] printBOS - [13](CorrigeSell) StockPriceHigh Before: 108.6S
 2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2548] printBOS - [13]108.8S
 2018-05-30 00:33:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [271] main - fin Proceso Wed May 30 00:33:44 COT 2018
+2018-06-02 15:52:38 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [258] main - 
+ Print reaction Mode - 
+2018-06-02 15:52:38 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2445] isReactionMode - actualPrice: 610.0
+2018-06-02 15:52:38 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2453] isReactionMode - xPrima609.5
+2018-06-02 15:52:38 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [2454] isReactionMode - b_1: (601.5|617.5)s_1: (613.5|605.5)
+2018-06-02 15:52:38 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [276] main - fin Proceso Sat Jun 02 15:52:38 COT 2018
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [726] printPosibleBuyOrSell - The companyID [119], has the price above S1
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [726] printPosibleBuyOrSell - The companyID [120], has the price above S1
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [726] printPosibleBuyOrSell - The companyID [124], has the price above S1
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [726] printPosibleBuyOrSell - The companyID [126], has the price above S1
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [726] printPosibleBuyOrSell - The companyID [128], has the price above S1
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [726] printPosibleBuyOrSell - The companyID [130], has the price above S1
+2018-06-02 23:42:52 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [280] main - fin Proceso Sat Jun 02 23:42:52 COT 2018
+2018-06-02 23:45:59 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [119], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [120], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [124], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [126], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [128], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [130], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [132], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [134], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [137], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [138], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [142], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [143], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [148], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [149], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [150], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [153], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [154], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [159], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [160], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [161], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [189], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [193], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [194], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [195], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [197], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [205], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [208], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [209], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [210], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [214], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [216], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [220], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [221], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [222], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [223], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [224], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [225], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [226], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [229], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [231], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [232], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [234], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [235], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [237], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [241], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [243], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [244], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [247], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [248], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [250], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [255], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [256], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [259], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [260], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [262], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [265], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [270], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [271], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [282], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [283], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [284], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [294], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [297], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [298], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [303], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [307], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [309], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [315], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [316], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [318], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [324], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [325], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [326], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [330], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [334], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [336], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [339], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [340], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [340], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [343], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [344], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [347], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [355], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [361], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [363], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [369], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [373], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [374], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [379], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [380], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [390], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [395], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [396], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [397], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [399], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [402], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [404], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [409], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [411], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [416], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [417], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [422], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [424], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [426], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [428], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [429], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [430], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [433], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [438], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [440], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [442], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [447], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [450], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [451], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [457], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [466], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [472], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [478], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [484], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [485], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [487], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [490], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [491], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [492], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [494], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [501], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [502], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [504], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [505], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [506], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [519], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [522], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [524], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [525], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [527], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [528], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [529], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [530], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [531], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [534], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [535], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [537], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [538], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [539], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [540], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [543], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [544], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [545], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [549], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [554], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [555], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [557], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [559], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [565], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [566], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [568], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [569], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [572], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [573], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [578], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [581], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [594], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [595], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [597], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [600], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [603], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [609], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [610], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [611], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [613], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [618], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [622], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [628], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [630], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [631], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [632], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [633], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [636], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [640], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [641], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [643], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [646], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [647], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [648], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [651], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [652], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [654], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [655], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [657], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [658], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [659], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [663], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [664], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [665], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [668], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [669], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [671], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [685], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [686], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [687], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [690], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [691], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [693], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [698], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [704], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [705], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [706], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [707], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [708], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [709], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [710], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [711], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [713], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [714], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [716], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [717], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [728], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [729], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [731], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [736], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [738], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [739], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [745], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [747], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [750], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [754], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [762], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [763], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [764], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [767], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [770], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [771], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [773], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [775], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [776], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [778], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [782], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [785], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [787], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [789], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [790], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [791], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [795], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [796], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [804], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [805], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [808], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [811], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [814], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [820], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [821], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [822], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [829], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [829], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [831], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [834], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [837], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [838], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [850], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [851], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [852], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [854], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [857], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [860], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [862], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [863], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [867], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [868], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [871], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [876], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [880], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [881], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [882], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [883], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [888], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [891], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [894], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [895], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [896], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [899], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [901], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [902], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [904], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [914], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [915], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [916], has the price below B1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [917], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [727] printPosibleBuyOrSell - The companyID [918], has the price above S1
+2018-06-02 23:46:00 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [280] main - fin Proceso Sat Jun 02 23:46:00 COT 2018
+2018-06-02 23:47:49 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [258] main - 
+ Print reaction Mode - 
+2018-06-02 23:47:49 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [767] isReactionMode - actualPrice: 610.0
+2018-06-02 23:47:49 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [775] isReactionMode - xPrima609.5
+2018-06-02 23:47:49 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [776] isReactionMode - b_1: (601.5|617.5)s_1: (613.5|605.5)
+2018-06-02 23:47:49 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [280] main - fin Proceso Sat Jun 02 23:47:49 COT 2018
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [138], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 196.48
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima198.87906666666666
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (197.0609333333333|200.6972)s_1: (200.05813333333333|197.7)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [149], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 49.34
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima49.903333333333336
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (49.35666666666667|50.45)s_1: (50.28666666666667|49.52)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [160], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 159.4
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima160.52666666666667
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (159.42333333333335|161.63)s_1: (161.11333333333334|159.94)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [209], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 143.48
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima146.5
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (144.5|148.5)s_1: (147.5|145.5)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [224], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 8.48
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima6.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (12.0|0.0)s_1: (12.0|0.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [307], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 1041.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima1213.6666666666667
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (1197.3333333333335|1230.0)s_1: (1231.3333333333335|1196.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [326], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 372.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima373.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (372.0|374.0)s_1: (375.0|371.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [340], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 354.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima354.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (354.0|354.0)s_1: (354.0|354.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [361], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 4.05
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima490.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (490.0|490.0)s_1: (490.0|490.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [429], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 237.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima241.66666666666666
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (239.33333333333331|244.0)s_1: (246.33333333333331|237.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [450], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 125.2
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima127.60000000000001
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (125.4|129.8)s_1: (130.20000000000002|125.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [472], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 3442.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima3590.6666666666665
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (3457.333333333333|3724.0)s_1: (3657.333333333333|3524.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [478], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 899.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima919.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (899.0|939.0)s_1: (937.0|901.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [484], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 896.6
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima902.4666666666667
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (896.9333333333334|908.0)s_1: (907.1333333333334|897.8)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [505], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 235.55
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima239.9333333333333
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (236.26666666666662|243.6)s_1: (241.86666666666662|238.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [527], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 498.6
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima511.73333333333335
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (503.26666666666665|520.2)s_1: (517.4666666666667|506.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [594], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 24.85
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima25.416666666666668
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (25.033333333333335|25.8)s_1: (26.183333333333337|24.65)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [595], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 24.9
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima25.416666666666668
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (25.033333333333335|25.8)s_1: (26.183333333333337|24.65)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [600], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 606.2
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima610.7333333333333
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (606.8666666666667|614.6)s_1: (612.6666666666667|608.8)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [630], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 112.1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima116.16666666666667
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (115.58333333333334|116.75)s_1: (117.33333333333334|115.0)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [632], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 23.22
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima23.906666666666666
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (23.433333333333334|24.38)s_1: (24.253333333333334|23.56)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [641], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 142.85
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima144.28333333333333
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (142.91666666666666|145.65)s_1: (145.06666666666666|143.5)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [664], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 81.1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima82.35000000000001
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (81.50000000000001|83.2)s_1: (84.05000000000001|80.65)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [713], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 6.03
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima6.19
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (6.055000000000001|6.325)s_1: (6.285000000000001|6.095)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [731], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 31.8
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima32.06666666666667
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (31.933333333333337|32.2)s_1: (32.33333333333334|31.799999999999997)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [762], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 13.1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima13.4
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (13.3|13.5)s_1: (13.600000000000001|13.2)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [764], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 15.72
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima18.771666666666665
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (18.40333333333333|19.14)s_1: (19.09833333333333|18.445)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [804], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 4.95
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima5.036666666666666
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (4.973333333333333|5.1)s_1: (5.163333333333332|4.91)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [829], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 208.9
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima208.9
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (208.9|208.9)s_1: (208.9|208.9)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [837], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 2.22
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima2.24
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (2.2300000000000004|2.25)s_1: (2.2600000000000002|2.22)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [854], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 21.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima21.44666666666667
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (21.073333333333338|21.82)s_1: (22.17333333333334|20.72)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [863], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 121.8
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima127.13333333333334
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (123.46666666666667|130.8)s_1: (128.9666666666667|125.29999999999998)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [915], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 21.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima21.3
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (21.1|21.5)s_1: (21.5|21.1)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [722] printPosibleBuyOrSell - The companyID [916], has the price below B1
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [769] isReactionMode - actualPrice: 21.0
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [777] isReactionMode - xPrima21.3
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [778] isReactionMode - b_1: (21.1|21.5)s_1: (21.5|21.1)
+2018-06-02 23:52:44 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [280] main - fin Proceso Sat Jun 02 23:52:44 COT 2018
+2018-06-03 00:39:27 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [221], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [237], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [440], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [442], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [451], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [487], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [504], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [663], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [776], has the price above S1
+2018-06-03 00:39:28 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [281] main - fin Proceso Sun Jun 03 00:39:28 COT 2018
+2018-06-03 01:50:18 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-03 01:50:19 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [281] main - fin Proceso Sun Jun 03 01:50:19 COT 2018
+2018-06-03 01:54:28 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-03 01:54:28 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [281] main - fin Proceso Sun Jun 03 01:54:28 COT 2018
+2018-06-03 01:55:52 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [224], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [235], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [240], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [240], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [241], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [243], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [255], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [316], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [318], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [318], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [325], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [327], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [343], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [344], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [361], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [363], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [407], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [424], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [433], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [438], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [453], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [486], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [610], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [630], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [654], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [708], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [709], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [729], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [731], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [732], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [745], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [745], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [754], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [775], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [790], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [791], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [822], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [829], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [724] printPosibleBuyOrSell - The companyID [830], has the price below B1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [867], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [888], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.util.UtilGeneral [728] printPosibleBuyOrSell - The companyID [914], has the price above S1
+2018-06-03 01:55:53 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [281] main - fin Proceso Sun Jun 03 01:55:53 COT 2018
+2018-06-03 01:56:25 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [263] main - 
+ Print possible Buy or Sell 
+2018-06-03 01:56:26 [main] INFO  com.wireless.soft.indices.cfd.main.ObtenerMarketIndex [281] main - fin Proceso Sun Jun 03 01:56:26 COT 2018

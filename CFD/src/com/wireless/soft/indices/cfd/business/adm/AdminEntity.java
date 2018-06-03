@@ -2,8 +2,10 @@ package com.wireless.soft.indices.cfd.business.adm;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -157,6 +159,27 @@ public class AdminEntity {
 		return listIdxCompany;
 
 	}
+	
+	/**
+	 * @param cmp
+	 * @return
+	 * @throws Exception
+	 */
+	public List<QuoteHistoryCompany> getAllLastPriceHistory() throws Exception {
+		
+		List<QuoteHistoryCompany> qhcReturn = null;
+		qhcReturn = new ArrayList<QuoteHistoryCompany>();
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				QuoteHistoryCompany.FIND_ALL_LAST_PRICE_HISTORY, null);
+		if (null != listIdxCompany && listIdxCompany.size() > 0) {
+			for (Object object : listIdxCompany) {
+				qhcReturn.add( (QuoteHistoryCompany) object );
+			}
+		}
+		return qhcReturn;
+
+	}
+
 
 	// TODO
 	// para saber si una compa�ia subio su maximo high del dia realizar la
@@ -627,6 +650,31 @@ public class AdminEntity {
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				listHdcReturn.add( (HistoricalDataCompany) object );
+				
+			}
+		}
+
+		return listHdcReturn;
+
+	}
+	
+	/**
+	 * Obtiene la ultima data de High, low and close por cada compania.
+	 * @param hdc
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<Long, HistoricalDataCompany> getAllLastHistoricalData() throws Exception {
+
+		Map<Long, HistoricalDataCompany> listHdcReturn = null;
+		listHdcReturn = new HashMap<Long, HistoricalDataCompany>();
+
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_ALL_LAST_HISTORICAL_DATA, null);
+		if (null != listIdxCompany && listIdxCompany.size() > 0) {
+			for (Object object : listIdxCompany) {
+				HistoricalDataCompany historicalDataCompany =(HistoricalDataCompany) object;
+				
+				listHdcReturn.put( historicalDataCompany.getCompany(), historicalDataCompany );
 				
 			}
 		}
