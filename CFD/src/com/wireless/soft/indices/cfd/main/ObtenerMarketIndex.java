@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
@@ -69,8 +70,13 @@ enum TENDENCIA {
 }
 
 /*
- * En base de datos: CEROS --> 0 MF1 --> 1 MF2 --> 2 MF3 --> 3 SHORT --> 4 LONG
- * --> 5
+ * En base de datos: 
+ * CEROS --> 0 
+ * MF1 --> 1 
+ * MF2 --> 2 
+ * MF3 --> 3 
+ * SHORT --> 4 
+ * LONG  --> 5
  */
 enum MOMENTUM_FACTOR {
 	CEROS, MF1, MF2, MF3, SHORT, LONG;
@@ -256,13 +262,22 @@ public class ObtenerMarketIndex {
 			case "17":
 				_logger.info("\n Print reaction Mode - ");
 				String[] hlca = args[1].split(":");
-				UtilGeneral.isReactionMode(Double.parseDouble(hlca[0]), Double.parseDouble(hlca[1]), Double.parseDouble(hlca[2]), Double.parseDouble(hlca[3]), true);
+				UtilGeneral.isReactionMode(Double.parseDouble(hlca[0]), Double.parseDouble(hlca[1]),
+						Double.parseDouble(hlca[2]), Double.parseDouble(hlca[3]), true);
 				break;
 			case "18":
 				_logger.info("\n Print possible Buy or Sell ");
-				String[] cmps = args.length<2?null:args[1].split(":");
+				String[] cmps = args.length < 2 ? null : args[1].split(":");
 				UtilGeneral.printPosibleBuyOrSell(cmps);
-				break;	
+				break;
+			case "19":
+				_logger.info("\n printLastReactionModeByCompany ");
+				long idCompany 	= Long.parseLong( args[1] );
+				double price	= Double.parseDouble(args[2]);
+				omi.printLastReactionModeByCompany(idCompany, price);
+				break;
+				
+				
 
 			default:
 				_logger.info("\n No realiza acci_n");
@@ -1613,11 +1628,9 @@ public class ObtenerMarketIndex {
 				/*
 				 * 0 BuyPoint 1 SellPoint 2 HBOP 3 LBOP 4 REACTION MODE (1) | TREND MODE (0)
 				 */
-				
-				
-				
+
 				ReactionTrendSystem rts = UtilGeneral.isReactionMode(lastHigh, lastLow, lastClose,
-						Double.parseDouble(dmCmp.getStockPrice().replace(",", ".")),true);
+						Double.parseDouble(dmCmp.getStockPrice().replace(",", ".")), true);
 				dmCmp.setBuyPoint(rts.getActualPriceBetweenBuy());
 				dmCmp.setSellPoint(rts.getActualPriceBetweenSell());
 				dmCmp.setHbop(rts.getActualPriceUpHBOP());
@@ -1671,52 +1684,6 @@ public class ObtenerMarketIndex {
 	}
 
 	/**
-	 * @param companySymbol
-	 * @param nDays
-	 *            Obtener la tendencia segun 4 estados /* (0) - alza (1) - baja (2)
-	 *            Alza (3) Baja enum TENDENCIA {minusalza, minusbaja, ALZA, BAJA;}
-	 */
-	private Integer getTendenciaGoogleByHTML(Company cmp, int nDays) {
-
-		// yyyy-MM-dd
-		String fechaHoy = UtilGeneral.obtenerToday();
-		String mesatras = UtilGeneral.obtenerTodayMinusNDays(-90);
-
-		if (nDays == 0) {
-			fechaHoy = UtilGeneral.obtenerToday();
-			mesatras = UtilGeneral.obtenerTodayMinusNDays(-90);
-		} else {
-			fechaHoy = UtilGeneral.obtenerTodayMinusNDays(nDays);
-			mesatras = UtilGeneral.obtenerTodayMinusNDays(-90 + nDays);
-
-		}
-
-		switch (this.getTendenciaGoogleByHTML(cmp, fechaHoy, mesatras)) {
-		case minusalza:
-			return 0; // "-alza";
-		case minusbaja:
-			return 1; // "-baja";
-		case ALZA:
-			return 2; // "ALZA";
-		case BAJA:
-			return 3; // "BAJA";
-		case NO_EVALUADA:
-			_logger.info("Se llama de forma recursiva a getTendencia " + (diasIntentos--));
-			this.variableGlobalIntentos++;
-			if (variableGlobalIntentos > 3) {
-				return null;
-			}
-			return getTendenciaGoogleByHTML(cmp, nDays + (diasIntentos));
-		default:
-			break;
-
-		}
-
-		return null;
-
-	}
-
-	/**
 	 * @param companySymbols
 	 * @param diasAtras
 	 *            Obtener el RSI de varias companias dado una fecha hacia atras
@@ -1730,12 +1697,12 @@ public class ObtenerMarketIndex {
 		}
 
 	}
-	
-	
+
 	/**
-	 * Imprime el BOS por cada compania, indicando si el dia de ejecución esta en Buy, O, Sell
-	 * La idea es que el último registro este en Sell, que indica que el día de hoy se aplican las
-	 * regas de Buy
+	 * Imprime el BOS por cada compania, indicando si el dia de ejecución esta en
+	 * Buy, O, Sell La idea es que el último registro este en Sell, que indica que
+	 * el día de hoy se aplican las regas de Buy
+	 * 
 	 * @param companySymbols
 	 * @param idIteracion
 	 */
@@ -1751,16 +1718,14 @@ public class ObtenerMarketIndex {
 
 			try {
 				cmp = this.admEnt.getCompanyBySymbol(cmp);
-				_logger.info(companySymbol + ":["+cmp.getId()+"] ---------- " + new Date());
-				printBOS( Integer.valueOf( cmp.getId().intValue() ), false );
-				
+				_logger.info(companySymbol + ":[" + cmp.getId() + "] ---------- " + new Date());
+				printBOS(Integer.valueOf(cmp.getId().intValue()), false);
+
 			} catch (Exception e1) {
 				_logger.error("Error al traer info de la compania", e1);
 				return;
 			}
-			
-			
-			
+
 		}
 
 	}
@@ -1781,7 +1746,7 @@ public class ObtenerMarketIndex {
 			HistoricalDataCompany hdc = null;
 			hdc = new HistoricalDataCompany();
 			hdc.setCompany(idCompany);
-			hdc = this.admEnt.getLastHistoricalDataCompanyByCompany(hdc);
+			hdc = this.admEnt.getFirstHistoricalDataCompanyByCompany(hdc);
 			valorHoy = Double.parseDouble(hdc.getStockPriceClose());
 		} catch (Exception e) {
 			_logger.error("Error getTendenciaGoogle.valorHoy (" + idCompany + ")");
@@ -2291,7 +2256,8 @@ public class ObtenerMarketIndex {
 
 			/*
 			 * Long --> When MF today is [higher] number for [either] of the previous two(2)
-			 * days. Short --> When MF today is [lower] number for [both] of the previous
+			 * days. 
+			 * Short --> When MF today is [lower] number for [both] of the previous
 			 * two(2) days.
 			 */
 
@@ -2425,7 +2391,6 @@ public class ObtenerMarketIndex {
 
 	}
 
-
 	/**
 	 * @param idCompany
 	 *            Imprime la relacion Buy, No position & Sell
@@ -2441,8 +2406,9 @@ public class ObtenerMarketIndex {
 			iniTime.set(Calendar.HOUR_OF_DAY, 0);
 
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));			
-			//_logger.info("Date: " + simpleDateFormat.format(new Date(iniTime.getTimeInMillis())));
+			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+			// _logger.info("Date: " + simpleDateFormat.format(new
+			// Date(iniTime.getTimeInMillis())));
 
 			HistoricalDataCompany hdc = new HistoricalDataCompany();
 			hdc.setCompany(scnCodigo.longValue());
@@ -2450,20 +2416,22 @@ public class ObtenerMarketIndex {
 
 			List<HistoricalDataCompany> lstHdc = admEnt.getHistoricalDataCompanyByCompanyDateBegin(hdc);
 			Collections.sort(lstHdc);
-			
+
 			HistoricalDataCompany[] y = lstHdc.toArray(new HistoricalDataCompany[0]);
-			
-			int idx =  UtilGeneral.getLowest(y);
+
+			int idx = UtilGeneral.getLowest(y);
 			boolean banderaisHigh = false;
 			if (idx > 7) {
 				banderaisHigh = true;
-				idx =  UtilGeneral.getHighest(y);
+				idx = UtilGeneral.getHighest(y);
 			}
-			if(print) {
-				_logger.info( "high[" + banderaisHigh + "]" + idx + "-->" + y[idx]);
+			if (print) {
+				_logger.info("high[" + banderaisHigh + "]" + idx + "-->" + y[idx]);
 			}
-			
-			String bos[] = {"B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S","B","0","S", };
+
+			String bos[] = { "B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0", "S",
+					"B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0",
+					"S", "B", "0", "S", "B", "0", "S", "B", "0", "S", "B", "0", "S", };
 			int idxB = 0;
 			if (banderaisHigh) {
 				idxB = 2;
@@ -2473,62 +2441,86 @@ public class ObtenerMarketIndex {
 				HistoricalDataCompany historicalDataCompanyNow = y[i];
 				ReactionTrendSystem rtsNow = null;
 				ReactionTrendSystem rtsB = null;
-				if (i>0) {
-					historicalDataCompanyBefore = y[i-1];
+				if (i > 0) {
+					historicalDataCompanyBefore = y[i - 1];
 					double h, l, c, a;
 					h = Double.parseDouble(historicalDataCompanyBefore.getStockPriceHigh());
 					l = Double.parseDouble(historicalDataCompanyBefore.getStockPriceLow());
 					c = Double.parseDouble(historicalDataCompanyBefore.getStockPriceClose());
-					a = (h+l+c)/3; 
-					rtsB = UtilGeneral.isReactionMode(h,l,c,a, false);
+					a = (h + l + c) / 3;
+					rtsB = UtilGeneral.isReactionMode(h, l, c, a, false);
 				}
-				
+
 				/*
-				 * Valida si el precio anterior esta entre HBOP y LBOP, si no iniciar el bos con B o S, segun sea el caso.
+				 * Valida si el precio anterior esta entre HBOP y LBOP, si no iniciar el bos con
+				 * B o S, segun sea el caso.
 				 */
 				if (historicalDataCompanyBefore != null && rtsB != null && i > idx) {
 					double h, l, c, a;
 					h = Double.parseDouble(historicalDataCompanyNow.getStockPriceHigh());
 					l = Double.parseDouble(historicalDataCompanyNow.getStockPriceLow());
 					c = Double.parseDouble(historicalDataCompanyNow.getStockPriceClose());
-					a = (h+l+c)/3; 
-					rtsNow = UtilGeneral.isReactionMode(h,l,c,a, false);
+					a = (h + l + c) / 3;
+					rtsNow = UtilGeneral.isReactionMode(h, l, c, a, false);
 					if (rtsNow.getxPrima() > rtsB.getHbop()) {
 						idxB = 2;
 						if (print) {
-							_logger.info( "["+i+"](CorrigeSell) StockPriceHigh Before: " + historicalDataCompanyBefore.getStockPriceHigh() + bos[idxB] );
+							_logger.info("[" + i + "](CorrigeSell) StockPriceHigh Before: "
+									+ historicalDataCompanyBefore.getStockPriceHigh() + bos[idxB]);
 						}
-						
-					}else if (rtsNow.getxPrima() < rtsB.getLbop()) {
+
+					} else if (rtsNow.getxPrima() < rtsB.getLbop()) {
 						idxB = 0;
 						if (print) {
-							_logger.info( "["+i+"](CorrigeBuy) StockPriceLow Before" + historicalDataCompanyBefore.getStockPriceLow() + bos[idxB] );
+							_logger.info("[" + i + "](CorrigeBuy) StockPriceLow Before"
+									+ historicalDataCompanyBefore.getStockPriceLow() + bos[idxB]);
 						}
-						
+
 					}
 				}
-				//Importante incrementa el valor
+				// Importante incrementa el valor
 				idxB++;
-					
-				if(print) {
-					_logger.info( "["+i+"]" + historicalDataCompanyNow.getStockPriceLow() + ": " + bos[idxB] );
+
+				if (print) {
+					_logger.info("[" + i + "]" + historicalDataCompanyNow.getStockPriceLow() + ": " + bos[idxB]);
 				}
-				if(i == (y.length-1) && bos[idxB].endsWith("S")) {
-					_logger.info( "["+i+"]" + historicalDataCompanyNow.getStockPriceLow() + ": " + bos[idxB] + "Sell, next buy" );
+				if (i == (y.length - 1) && bos[idxB].endsWith("S")) {
+					_logger.info("[" + i + "]" + historicalDataCompanyNow.getStockPriceLow() + ": " + bos[idxB]
+							+ "Sell, next buy");
 				}
-				
+
 			}
-			
-			
-			
-			//for (HistoricalDataCompany historicalDataCompany : y) {
-			//	_logger.info("-->" + simpleDateFormat.format(new Date( historicalDataCompany.getFechaDataHistorica().getTimeInMillis())));
-			//}
 
-
+			// for (HistoricalDataCompany historicalDataCompany : y) {
+			// _logger.info("-->" + simpleDateFormat.format(new Date(
+			// historicalDataCompany.getFechaDataHistorica().getTimeInMillis())));
+			// }
 
 		} catch (Exception e) {
 			_logger.error("Error al imprimir 'BOS' sequence ", e);
+		}
+
+	}
+
+	/**
+	 * @param idCompany
+	 *            Imprime la relacion Buy, No position & Sell
+	 */
+	private void printLastReactionModeByCompany(Long scnCodigo, Double actualPrice) {
+		try {
+
+			Map<Long, HistoricalDataCompany> hdc = admEnt.getAllLastHistoricalData();
+			HistoricalDataCompany historicalDataCompany = hdc.get(scnCodigo);
+
+			double h, l, c, a;
+			h = Double.parseDouble(historicalDataCompany.getStockPriceHigh());
+			l = Double.parseDouble(historicalDataCompany.getStockPriceLow());
+			c = Double.parseDouble(historicalDataCompany.getStockPriceClose());
+			a = actualPrice;
+			ReactionTrendSystem rtsB = UtilGeneral.isReactionMode(h, l, c, a, true);
+
+		} catch (Exception e) {
+			_logger.error("Error al imprimir printLastReactionModeByCompany ", e);
 		}
 
 	}

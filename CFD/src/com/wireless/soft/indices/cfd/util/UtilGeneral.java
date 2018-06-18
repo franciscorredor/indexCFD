@@ -777,13 +777,15 @@ public class UtilGeneral {
 		b_1_up = (xPrima - (b_1 - xPrima));
 		s_1 = (2 * xPrima) - lastLow;
 		s_1_down = xPrima - (s_1 - xPrima);
+		
+		hbop = (2 * xPrima) - (2 * lastLow) + lastHigh;
+		lbop = (2 * xPrima) - (2 * lastHigh) + lastLow;
 		if (print) {
 			_logger.info("xPrima" + xPrima);
 			_logger.info("b_1: (" + b_1 + "|" + b_1_up + ")s_1: (" + s_1 + "|" + (xPrima + (xPrima - s_1)) + ")");
+			_logger.info("hbop: " + hbop + "lbop:" + lbop );
 		}
-		hbop = (2 * xPrima) - (2 * lastLow) + lastHigh;
-		lbop = (2 * xPrima) - (2 * lastHigh) + lastLow;
-		// _logger.info("hbop: " + hbop + "lbop:" + lbop );
+		 
 
 		boolean betweenBuy = (actualPrice > b_1) && (actualPrice < b_1_up);
 		rts.setActualPriceBetweenBuy(betweenBuy);
