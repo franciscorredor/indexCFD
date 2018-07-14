@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.net.URLConnection;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,13 +20,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.wireless.soft.indices.cfd.business.adm.AdminEntity;
 import com.wireless.soft.indices.cfd.business.entities.Company;
 import com.wireless.soft.indices.cfd.business.entities.DataMiningCompany;
@@ -89,8 +82,6 @@ public class ObtenerMarketIndex {
 	// ////////////////////////////////////////////////////////////////////////
 	/** */
 	private AdminEntity admEnt = null;
-
-	private static int WAIT_TIME = 3500;
 
 	private static int diasIntentos = -1;
 
@@ -394,255 +385,6 @@ public class ObtenerMarketIndex {
 
 		return null;
 
-	}
-
-	/**
-	 * @param url
-	 * @return
-	 * @throws IOException
-	 */
-
-	/**
-	 * @param url
-	 * @return
-	 * @throws IOException
-	 *             Retorna el valor de la copa�ia
-	 */
-	private Double executeGoogleIndexSingleDataByHTML(String url) throws IOException {
-
-		try {
-
-			// -----------------------------------------------------------
-			Document doc;
-			doc = Jsoup.connect(url).timeout(3000).get();
-			Elements newsHeadlines = doc.select("table.gf-table.historical_price");
-
-			for (Element table : newsHeadlines) {
-
-				Elements rows = table.select("tr");
-
-				for (int i = 1; i < rows.size(); i++) { // first row is the col names so skip it.
-
-					Element row = rows.get(i);
-					Elements cols = row.select("td");
-
-					// Open High Low Close
-					// 0 1 2 3
-
-					Elements dataValue = cols.select("td.rgt");
-					String[] torsid = dataValue.text().split(" ");
-
-					// System.out.print("executeGoogleIndexSingleDataByHTML:" +
-					// Double.parseDouble(torsid[3]));
-
-					return Double.parseDouble(torsid[3]);
-
-				}
-				// System.out.print("[" + table.text() + "]");
-			}
-		} catch (FileNotFoundException e) {
-			// e.printStackTrace();
-			_logger.info("Error al leer [" + url + "](FileNotFoundException)");
-		} catch (IOException e) {
-			// e.printStackTrace();
-			_logger.info("Error al leer [" + url + "](IOException)");
-		}
-
-		return null;
-
-	}
-
-	private JsonElement executeJ(String url) throws IOException, InterruptedException {
-		return new JsonParser().parse(execute(url));
-	}
-
-	/**
-	 * @param url
-	 * @param request
-	 * @return
-	 * @throws IOException
-	 */
-	private String execute(String url) throws IOException, InterruptedException {
-		String response = null;
-		try {
-
-			URL resultadoURL = new URL(url);
-			URLConnection con = resultadoURL.openConnection();
-			con.setConnectTimeout(WAIT_TIME);
-			con.setReadTimeout(WAIT_TIME);
-			BufferedReader in = null;
-
-			// intento 1
-			try {
-				in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-			} catch (IOException e) {
-				// _logger.info("1st try to get indicator:" + e.getMessage());
-			}
-
-			// intento 2
-			if (null == in) {
-				try {
-					Thread.sleep(500);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-					// _logger.info("2nd try to get indicator:" + e.getMessage());
-				}
-			}
-			// intento 3
-			if (null == in) {
-				try {
-					Thread.sleep(700);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-					// _logger.info("3th try to get indicator:" + e.getMessage());
-				}
-			}
-			// intento 4
-			if (null == in) {
-				try {
-					Thread.sleep(700);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-					// _logger.info("4th try to get indicator:" + e.getMessage());
-				}
-			}
-
-			// intento 5
-			if (null == in) {
-				try {
-					Thread.sleep(900);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-					// _logger.info("5th try to get indicator:" + e.getMessage());
-				}
-			}
-
-			StringBuilder yahooSM = new StringBuilder();
-			String inputLine;
-			if (null != in) {
-				while ((inputLine = in.readLine()) != null) {
-					yahooSM.append(inputLine);
-				}
-				in.close();
-			}
-
-			// response = http.execute(get, new BasicResponseHandler());
-			response = yahooSM.toString();
-			// _logger.info("Response: " + response);
-		} catch (IOException io) {
-			_logger.info("url No responde:" + url);
-			io.printStackTrace();
-			throw io;
-		} catch (InterruptedException io) {
-			_logger.info("url No responde:" + url);
-			io.printStackTrace();
-			throw io;
-		}
-		return response;
-	}
-
-	/**
-	 * @param url
-	 * @param request
-	 * @return
-	 * @throws IOException
-	 */
-	private static boolean isValidTime() {
-		boolean response = false;
-		String urlTS = "http://www.timeapi.org/utc/now";
-		try {
-
-			URL resultadoURL = new URL(urlTS);
-			URLConnection con = resultadoURL.openConnection();
-			con.setConnectTimeout(WAIT_TIME);
-			con.setReadTimeout(WAIT_TIME);
-			BufferedReader in = null;
-
-			// intento 1
-			try {
-				in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-			} catch (IOException e) {
-			}
-
-			// intento 2
-			if (null == in) {
-				try {
-					Thread.sleep(500);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-				}
-			}
-			// intento 3
-			if (null == in) {
-				try {
-					Thread.sleep(700);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-				}
-			}
-			// intento 4
-			if (null == in) {
-				try {
-					Thread.sleep(700);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-				}
-			}
-
-			// intento 5
-			if (null == in) {
-				try {
-					Thread.sleep(900);
-					in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
-				} catch (IOException e) {
-				}
-			}
-
-			StringBuilder timeResultadoURL = new StringBuilder();
-			String inputLine;
-			if (null != in) {
-				while ((inputLine = in.readLine()) != null) {
-					timeResultadoURL.append(inputLine);
-				}
-				in.close();
-			}
-
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-			Date date = simpleDateFormat.parse(timeResultadoURL.toString());
-
-			// SimpleDateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			// String result = destFormat.format(date);
-
-			String dateStr = "2021-01-01T00:00:00.000+01:00";
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-			Date dateEvaluar = sdf.parse(dateStr.replaceAll(":(?=..$)", ""));
-
-			response = date.after(dateEvaluar);
-
-		} catch (IOException io) {
-			_logger.info("url No responde:" + urlTS);
-			io.printStackTrace();
-
-		} catch (InterruptedException io) {
-			_logger.info("url No responde:" + urlTS);
-			io.printStackTrace();
-
-		} catch (ParseException io) {
-			_logger.info("ParseException:" + io.getMessage());
-			io.printStackTrace();
-
-		}
-
-		return response;
-	}
-
-	/**
-	 * Creates a new {@link Gson} object.
-	 */
-	private Gson createGson() {
-		GsonBuilder builder = new GsonBuilder();
-		return builder.create();
 	}
 
 	/**
@@ -1000,8 +742,8 @@ public class ObtenerMarketIndex {
 						// Persiste en loa BD
 						this.persistirCompaniesFundamental(ri, cmp);
 						this.persistirCompaniesQuotes(ri, cmp);
-						// 2. espera un instante de tiempo 1minuto
-						Thread.sleep(60000l);
+						// 2. espera un instante de tiempo 3segundos
+						Thread.sleep(10000);
 						// 3. Consulta si la compania subio o bajo
 						CompanyRanking cr = this.evaluaRanking(cmp);
 						if (null != cr) {
@@ -1077,12 +819,8 @@ public class ObtenerMarketIndex {
 	private void persisteVariasIteraciones() {
 		try {
 			while (true) {
-				// Persiste cada instante de tiempo 10 minuto
-				Thread.sleep(60000l * 9);
 				this.printPERatio();
 			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -1323,105 +1061,6 @@ public class ObtenerMarketIndex {
 		_logger.info("diff:" + (max - min));
 		_logger.info("Porcentaje Incremento High:" + (((100 * avgHigh) / avgLow) - 100));
 		_logger.info("|win:[" + win + "]|lost:[" + lst + "]|diff(win-lost):[" + (win - lst) + "] \n");
-
-	}
-
-	/*
-	 * Obtine el indicador, para saber que tan costosa o overbuy esta la accion El
-	 * input lo toma de un archivo plano
-	 */
-	private void relativeStrengthIndexDinamico() {
-		// obtener el historico de 14 dias o iteraciones!
-		_logger.info("obtener el historico de 14 dias o iteraciones!");
-
-		List<RelativeStrengthIndexData> lstRSI = null;
-		lstRSI = UtilGeneral.getListaRSIGoogle();
-
-		// ordena descendente ID, porque el formamo de la data esta de mayor a menor
-		// y las fechas deben ordenarse de menor a Mayor
-		Collections.sort(lstRSI);
-
-		// Obtener el valor maximo y minimo en el cierre de la accion al dia
-		double max = 0;
-		double min = 0;
-
-		// obtener el promedio de H&L
-		double avgHigh = 0;
-		double avgLow = 0;
-		// Iteracion 2 change = close today - close yesterday
-		for (int i = 0; i < lstRSI.size(); i++) {
-			if (i == 0) {
-				RelativeStrengthIndexData relativeStrengthIndexMM = lstRSI.get(i);
-				if (null != relativeStrengthIndexMM) {
-					max = relativeStrengthIndexMM.getClose();
-					min = relativeStrengthIndexMM.getClose();
-					avgHigh += relativeStrengthIndexMM.getHigh();
-					avgLow += relativeStrengthIndexMM.getLow();
-				}
-
-			}
-			if (i > 0) {
-				RelativeStrengthIndexData relativeStrengthIndexDataA = lstRSI.get(i - 1);
-				RelativeStrengthIndexData relativeStrengthIndexDataB = lstRSI.get(i);
-				// _logger.info(relativeStrengthIndexDataA.getClose());
-				// _logger.info(relativeStrengthIndexDataB.getClose());
-				relativeStrengthIndexDataB
-						.setChange(-relativeStrengthIndexDataA.getClose() + relativeStrengthIndexDataB.getClose());
-				// _logger.info(relativeStrengthIndexDataB.toString());
-				lstRSI.set(i, relativeStrengthIndexDataB);
-
-				// Valida valor Mayor y menor
-				if (relativeStrengthIndexDataB.getClose() > max) {
-					max = relativeStrengthIndexDataB.getClose();
-				}
-				if (relativeStrengthIndexDataB.getClose() < min) {
-					min = relativeStrengthIndexDataB.getClose();
-				}
-
-				// sumar el average
-				avgHigh += relativeStrengthIndexDataB.getHigh();
-				avgLow += relativeStrengthIndexDataB.getLow();
-
-			}
-
-		}
-
-		avgHigh = avgHigh / lstRSI.size();
-		avgLow = avgLow / lstRSI.size();
-
-		// print Resultado
-		// for (RelativeStrengthIndexData relativeStrengthIndexData : lstRSI) {
-		// _logger.info(relativeStrengthIndexData.toString());
-		// }
-
-		// Iteracion 3 suma gain and lost
-		BigDecimal gain = new BigDecimal(0);
-		gain.setScale(10, BigDecimal.ROUND_UNNECESSARY);
-		BigDecimal lost = new BigDecimal(0);
-		lost.setScale(10, BigDecimal.ROUND_UNNECESSARY);
-		for (int i = 0; i < 14; i++) {
-			double change = lstRSI.get(i).getChange();
-			if (change > 0) {
-				// _logger.info("change (+) >" + change);
-				gain = gain.add(new BigDecimal(change));
-				// _logger.info("gain >" + gain);
-			} else if (change < 0) {
-				// _logger.info("change (-) >" + change);
-				lost = lost.add(new BigDecimal(Math.abs(change)));
-				// _logger.info("lost >" + lost);
-			}
-		}
-		// _logger.info(gain + "<-- g");
-		// _logger.info(lost + "<-- l");
-
-		double rs = (gain.doubleValue() / 14) / (lost.doubleValue() / 14);
-		double rsi = 100 - (100 / (1 + rs));
-
-		_logger.info("RSI14:" + rsi);
-		_logger.info("max:" + max);
-		_logger.info("min:" + min);
-		_logger.info("diff:" + (max - min));
-		_logger.info("Porcentaje Incremento High:" + (((100 * avgHigh) / avgLow) - 100));
 
 	}
 
@@ -1783,56 +1422,6 @@ public class ObtenerMarketIndex {
 
 	}
 
-	/**
-	 * @param symbol
-	 * @param dateEnd
-	 * @param dateBegin
-	 * @param print
-	 * @return Obtiene la tendencia de la compania
-	 */
-	private TENDENCIA getTendenciaGoogleByHTML(Company cmp, String dateEnd, String dateBegin) {
-
-		Double valorTresMesesAtras = null;
-		Double valorHoy = null;
-
-		String urlDataHoy = null;
-		String urlDataTresMonthBefore = null;
-
-		try {
-			urlDataHoy = "https://finance.google.ca/finance/historical?cid=" + cmp.getCid() + "&startdate="
-					+ dateEnd.replace(" ", "%20") + "&enddate=" + dateEnd.replace(" ", "%20") + "&num=30";
-			urlDataTresMonthBefore = "https://finance.google.ca/finance/historical?cid=" + cmp.getCid() + "&startdate="
-					+ dateBegin.replace(" ", "%20") + "&enddate=" + dateBegin.replace(" ", "%20") + "&num=30";
-			valorHoy = this.executeGoogleIndexSingleDataByHTML(urlDataHoy);
-			valorTresMesesAtras = this.executeGoogleIndexSingleDataByHTML(urlDataTresMonthBefore);
-
-			if (null == valorHoy | null == valorTresMesesAtras) {
-				return TENDENCIA.NO_EVALUADA;
-			}
-
-			if (valorHoy > valorTresMesesAtras) {
-
-				double res = valorHoy - valorTresMesesAtras;
-				if (res < 1.2d) {
-					return TENDENCIA.minusalza;
-				}
-				return TENDENCIA.ALZA;
-			} else {
-				double res = valorTresMesesAtras - valorHoy;
-				if (res < 1.2d) {
-					return TENDENCIA.minusbaja;
-				}
-				return TENDENCIA.BAJA;
-			}
-
-		} catch (IOException e) {
-			_logger.info("urlDataHoy: [" + urlDataHoy + "]");
-			_logger.info("urlDataTresMonthBefore: [" + urlDataTresMonthBefore + "]");
-			_logger.info("Error al evaluar la tendencia" + e.getMessage());
-		}
-
-		return TENDENCIA.NO_EVALUADA;
-	}
 
 	// TODO: Filtrar YTD positivo:
 	// * CAGR=(endingvalue/beginingvalue)elevado[^](1/#deyears) - 1
@@ -2125,7 +1714,7 @@ public class ObtenerMarketIndex {
 			try {
 				// Cuando este en idle deberia liberar los objetos
 				System.gc();
-				Thread.sleep(600000);
+				Thread.sleep(240000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} // 10 minutos
