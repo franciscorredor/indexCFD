@@ -86,6 +86,8 @@ public class ObtenerMarketIndex {
 	private static int diasIntentos = -1;
 
 	private int variableGlobalIntentos = 0;
+	
+	private List<Company> cmpGlobal = null;
 
 	/*
 	 * El sistema esta generando un out of memory porque esta creando varias
@@ -102,6 +104,10 @@ public class ObtenerMarketIndex {
 
 	public ObtenerMarketIndex() {
 		admEnt = AdminEntity.getInstance();
+	}
+	
+	public void freeAdminEntity() {
+		admEnt.free();
 	}
 
 	/**
@@ -172,44 +178,44 @@ public class ObtenerMarketIndex {
 			String accion = args[0];
 			switch (accion) {
 			case "0":
-				_logger.info("\n Inicio run Many Times");
+				_logger.info("Inicio run Many Times");
 				runManytimes(omi, argumento2, cortePorcentajePonderado);
 				break;
 			case "1":
-				_logger.info("\n Imprime el indicador OBV");
+				_logger.info("Imprime el indicador OBV");
 				_logger.info("Precio accion menor = & % volumen mayor a cero!" + "Time:" + new Date());
 				omi.printOBV(argumento2, cortePorcentajePonderado, Evalua.ONE);
 				_logger.info("Precio accion mayor & % volumen mayor a cero!" + "Time:" + new Date());
 				omi.printOBV(argumento2, cortePorcentajePonderado, Evalua.THREE);
 				break;
 			case "2":
-				_logger.info("\n Indica si el mecado esta en Bull o Bear");
+				_logger.info("Indica si el mecado esta en Bull o Bear");
 				omi.printIndicadorMercado();
 				break;
 			case "3":
-				_logger.info("\n Print Chart Company UP&Down Price");
+				_logger.info("Print Chart Company UP&Down Price");
 				omi.printChartCompany(argumento2);
 				break;
 			case "4":
-				_logger.info("\n Persistir cada 10 minutos informacion de la companias");
+				_logger.info("Persistir cada 10 minutos informacion de la companias");
 				omi.persisteVariasIteraciones();
 				break;
 			case "5":
-				_logger.info("\n test Call PE Ratio");
+				_logger.info("test Call PE Ratio");
 				omi.printPERatio();
 				break;
 			case "6":
-				_logger.info("\n Call relativeStrengthIndex");
+				_logger.info("Call relativeStrengthIndex");
 				omi.relativeStrengthIndex();
 				break;
 			case "7":
-				_logger.info("\n Call relativeStrengthIndex: --> [" + args[1] + "]");
+				_logger.info("Call relativeStrengthIndex: --> [" + args[1] + "]");
 				// El identificador 0 es que no tiene iteracion y no debe almacenar ningun tipo
 				// de informacion para el Datamining
 				omi.relativeStrengthIndexFromGoogle(args[1], true, "0");
 				break;
 			case "8":
-				_logger.info("\n Persiste info de las companies, consultando de yahoo [Go short]");
+				_logger.info("Persiste info de las companies, consultando de yahoo [Go short]");
 				omi.printPERatio();
 				_logger.info("Precio accion menor = & % volumen mayor a cero!" + "Time:" + new Date());
 				omi.printOBVGoShort(argumento2, cortePorcentajePonderado, Evalua.ONE);
@@ -217,52 +223,52 @@ public class ObtenerMarketIndex {
 				omi.printOBVGoShort(argumento2, cortePorcentajePonderado, Evalua.THREE);
 				break;
 			case "9":
-				_logger.info("\n Obtener indicador YTD (Regla de tres con respecto al inicio del year) --> [" + args[1]
+				_logger.info("Obtener indicador YTD (Regla de tres con respecto al inicio del year) --> [" + args[1]
 						+ "] | " + omi.getYearToDateReturn(Long.parseLong(args[1])));
 				break;
 			case "10":
 				_logger.info(
-						"\n Obtener historico de n companias, definiendo el dia en q empieza la iteracion \nsample:java -jar indicesToCFD.jar 10 JUP.L;NEO.PA;APC.DE;HSX.L -1 \n");
+						"Obtener historico de n companias, definiendo el dia en q empieza la iteracion sample:java -jar indicesToCFD.jar 10 JUP.L;NEO.PA;APC.DE;HSX.L -1 ");
 				omi.relativeStrengthIndexArray(args[1], args[2]);
 				break;
 			case "11":
 				_logger.info(
-						"\n Obtener tendencia de la compania en n meses (0) - alza 	(1)	- baja		(2)	Alza		(3)	Baja \n");
+						" Obtener tendencia de la compania en n meses (0) - alza 	(1)	- baja		(2)	Alza		(3)	Baja ");
 				_logger.info(" " + omi.getTendenciaGoogle(Long.parseLong(args[1]), Integer.parseInt(args[2])));
 				break;
 			case "12":
-				_logger.info("\n Evaluar data mining statistical modeling ");
+				_logger.info(" Evaluar data mining statistical modeling ");
 				omi.getStatisticalModeling(Long.parseLong(args[1]));
 				break;
 			case "13":
-				_logger.info("\n Obtener historico diario para obtener el RSI ");
+				_logger.info(" Obtener historico diario para obtener el RSI ");
 				omi.persistirHistoricoToRSI();
 				break;
 			case "14":
-				_logger.info("\n Print Momentum Factor ");
+				_logger.info(" Print Momentum Factor ");
 				omi.printMomentumFactor();
 				break;
 			case "15":
-				_logger.info("\n Print SINGLE BOS -REACTION vs TREND mode- ");
+				_logger.info(" Print SINGLE BOS -REACTION vs TREND mode- ");
 				omi.printBOS(argumento2, true);
 				break;
 			case "16":
-				_logger.info("\n Print ALL BOS -REACTION vs TREND mode- by company not ID, separate by ; ");
+				_logger.info(" Print ALL BOS -REACTION vs TREND mode- by company not ID, separate by ; ");
 				omi.printBOSForEachCompany(args[1]);
 				break;
 			case "17":
-				_logger.info("\n Print reaction Mode - ");
+				_logger.info(" Print reaction Mode - ");
 				String[] hlca = args[1].split(":");
 				UtilGeneral.isReactionMode(Double.parseDouble(hlca[0]), Double.parseDouble(hlca[1]),
 						Double.parseDouble(hlca[2]), Double.parseDouble(hlca[3]), true);
 				break;
 			case "18":
-				_logger.info("\n Print possible Buy or Sell ");
+				_logger.info(" Print possible Buy or Sell ");
 				String[] cmps = args.length < 2 ? null : args[1].split(":");
 				UtilGeneral.printPosibleBuyOrSell(cmps);
 				break;
 			case "19":
-				_logger.info("\n printLastReactionModeByCompany ");
+				_logger.info(" printLastReactionModeByCompany ");
 				long idCompany 	= Long.parseLong( args[1] );
 				double price	= Double.parseDouble(args[2]);
 				omi.printLastReactionModeByCompany(idCompany, price);
@@ -271,7 +277,7 @@ public class ObtenerMarketIndex {
 				
 
 			default:
-				_logger.info("\n No realiza acci_n");
+				_logger.info(" No realiza acci_n");
 				break;
 			}
 
@@ -399,7 +405,10 @@ public class ObtenerMarketIndex {
 			 * aumenta 2 --> Accion aumenta, volumen disminuye 3 --> Accion aumenta, volumen
 			 * aumenta
 			 */
-			for (Company cmp : admEnt.getCompanies()) {
+			if (cmpGlobal == null) {
+				cmpGlobal = admEnt.getCompanies();
+			}
+			for (Company cmp : cmpGlobal) {
 				List<Object> listIdxCompany = admEnt.getCompIdxQuote(cmp);
 				Object tmp[] = listIdxCompany.toArray();
 				if (null != tmp && tmp.length > 1) {
@@ -541,7 +550,7 @@ public class ObtenerMarketIndex {
 					toexecute += companyRanking.getSymbol() + ";";
 				}
 			}
-			_logger.info("\nIdentificador iteracion:" + identificadorUnicoIteracion);
+			_logger.info("Identificador iteracion:" + identificadorUnicoIteracion);
 			_logger.info(toexecute + " " + identificadorUnicoIteracion);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -561,7 +570,10 @@ public class ObtenerMarketIndex {
 			 * aumenta 2 --> Accion aumenta, volumen disminuye 3 --> Accion aumenta, volumen
 			 * aumenta
 			 */
-			for (Company cmp : admEnt.getCompanies()) {
+			if (cmpGlobal == null) {
+				cmpGlobal = admEnt.getCompanies();
+			}
+			for (Company cmp : cmpGlobal) {
 				List<Object> listIdxCompany = admEnt.getCompIdxQuote(cmp);
 				Object tmp[] = listIdxCompany.toArray();
 				if (null != tmp && tmp.length > 1) {
@@ -836,12 +848,19 @@ public class ObtenerMarketIndex {
 	 */
 	private void printPERatio() throws BusinessException, IOException {
 		ri = null;
-		for (Company cmp : admEnt.getCompanies()) {
+		
+		if (cmpGlobal == null) {
+			cmpGlobal = admEnt.getCompanies();
+		}
+		for (Company cmp : cmpGlobal) {
 			if (null != cmp && null != cmp.getUrlIndex() && cmp.getUrlIndex().length() > 3) {
-				// _logger.info("cmp" + cmp.getId());
+				//_logger.info("cmp" + cmp.getId());
 				ri = this.executeYahooIndexQuoteHTML(cmp.getUrlQuote());
+				//_logger.info("Execute yahoo" );
 				this.persistirCompaniesFundamental(ri, cmp);
+				//_logger.info("Persiste Fundamental" );
 				this.persistirCompaniesQuotes(ri, cmp);
+				//_logger.info("Persiste Quotes" );
 			}
 		}
 	}
@@ -1060,7 +1079,7 @@ public class ObtenerMarketIndex {
 		_logger.info("min:" + min);
 		_logger.info("diff:" + (max - min));
 		_logger.info("Porcentaje Incremento High:" + (((100 * avgHigh) / avgLow) - 100));
-		_logger.info("|win:[" + win + "]|lost:[" + lst + "]|diff(win-lost):[" + (win - lst) + "] \n");
+		_logger.info("|win:[" + win + "]|lost:[" + lst + "]|diff(win-lost):[" + (win - lst) + "] ");
 
 	}
 
@@ -1230,8 +1249,8 @@ public class ObtenerMarketIndex {
 				+ (diff > 49 ? "Diferencia mayor a 49 DataMining*" : "") + "]");
 		System.out.print("|%IncrementoHigh:[" + String.format("%.4f", (((100 * avgHigh) / avgLow) - 100))
 				+ (porcentajeIncremento >= 3 ? "%IncMayorIgual3 DataMining *" : "") + "]");
-		System.out.print("|media:[" + String.format("%.2f", (max + min) / 2) + "] \n");
-		_logger.info("|win:[" + win + "]|lost:[" + lst + "]|diff(win-lost):[" + (win - lst) + "] \n");
+		System.out.print("|media:[" + String.format("%.2f", (max + min) / 2) + "] ");
+		_logger.info("|win:[" + win + "]|lost:[" + lst + "]|diff(win-lost):[" + (win - lst) + "] ");
 		// }
 		// Almacenar informacion de Data Mining si el numero
 		// de la iteracion contine informacion
@@ -1702,15 +1721,19 @@ public class ObtenerMarketIndex {
 			throws BusinessException, IOException {
 
 		omi.persistirHistoricoToRSI();
+		
 		for (;;) {
+			omi.freeAdminEntity();
 			cr = null;
-			_logger.info("\n Persiste info de las companias, consultando de yahoo  [Go long]");
+			_logger.info("Persiste info de las companias, consultando de yahoo  [Go long]");
 			omi.printPERatio();
+			omi.freeAdminEntity();
 			_logger.info("Precio accion menor = & % volumen mayor a cero!" + " Time:" + new Date());
 			omi.printOBV(argumento2, cortePorcentajePonderado, Evalua.ONE);
+			omi.freeAdminEntity();
 			_logger.info("Precio accion mayor & % volumen mayor a cero!" + "Time:" + new Date());
 			omi.printOBV(argumento2, cortePorcentajePonderado, Evalua.THREE);
-			_logger.info("\n FIN, esperar 10 minutos.." + new Date());
+			_logger.info("FIN, esperar 10 minutos.." + new Date());
 			try {
 				// Cuando este en idle deberia liberar los objetos
 				System.gc();
@@ -1739,7 +1762,10 @@ public class ObtenerMarketIndex {
 
 			admEnt.deleteDataHistorica();
 
-			for (Company cmp : admEnt.getCompanies()) {
+			if (cmpGlobal == null) {
+				cmpGlobal = admEnt.getCompanies();
+			}
+			for (Company cmp : cmpGlobal) {
 
 				String[] qx = cmp.getGoogleSymbol().split(":");
 				// _logger.info("q:" + qx[1] + "x:" + qx[0]);
@@ -1799,8 +1825,11 @@ public class ObtenerMarketIndex {
 
 	private void printMomentumFactor() {
 		try {
-			for (Company cmp : admEnt.getCompanies()) {
-				// _logger.info("\n:" + cmp.getId());
+			if (cmpGlobal == null) {
+				cmpGlobal = admEnt.getCompanies();
+			}
+			for (Company cmp : cmpGlobal) {
+				// _logger.info(":" + cmp.getId());
 				getMomentumFactor(cmp.getId(), true);
 			}
 		} catch (BusinessException e) {
@@ -1830,13 +1859,13 @@ public class ObtenerMarketIndex {
 				aClosePrice[count++] = Double.parseDouble(h.getStockPriceClose());
 			}
 			/*
-			 * for (Double double1 : aClosePrice) { _logger.info("\n " + double1); }
+			 * for (Double double1 : aClosePrice) { _logger.info(" " + double1); }
 			 */
 
 			/*
-			 * _logger.info("\nMF1:" + (aClosePrice[4]-aClosePrice[2])*-1 );
-			 * _logger.info("\nMF2:" + (aClosePrice[3]-aClosePrice[1])*-1 );
-			 * _logger.info("\nMF3:" + (aClosePrice[2]-aClosePrice[0])*-1 );
+			 * _logger.info("MF1:" + (aClosePrice[4]-aClosePrice[2])*-1 );
+			 * _logger.info("MF2:" + (aClosePrice[3]-aClosePrice[1])*-1 );
+			 * _logger.info("MF3:" + (aClosePrice[2]-aClosePrice[0])*-1 );
 			 */
 
 			Double MF1 = (aClosePrice[4] - aClosePrice[2]) * -1;
@@ -1855,7 +1884,7 @@ public class ObtenerMarketIndex {
 					if (MFToday < MF1 && MFToday < MF2) {
 						// Almacena momentum factor SHORT
 						saveDataMining = MOMENTUM_FACTOR.SHORT;
-						_logger.info("\nPosible Short [" + cmpId + "] MF1[" + MF1 + "] MF2[" + MF2 + "] MFToday["
+						_logger.info("Posible Short [" + cmpId + "] MF1[" + MF1 + "] MF2[" + MF2 + "] MFToday["
 								+ MFToday + "]");
 					} else {
 						saveDataMining = MOMENTUM_FACTOR.MF1;
@@ -1864,7 +1893,7 @@ public class ObtenerMarketIndex {
 					if (MFToday > MF1 || MFToday > MF2) {
 						// Almacena momentum factor LONG
 						saveDataMining = MOMENTUM_FACTOR.LONG;
-						_logger.info("\nPosible Long [" + cmpId + "] MF1[" + MF1 + "] MF2[" + MF2 + "] MFToday["
+						_logger.info("Posible Long [" + cmpId + "] MF1[" + MF1 + "] MF2[" + MF2 + "] MFToday["
 								+ MFToday + "]");
 					} else {
 						saveDataMining = MOMENTUM_FACTOR.MF2;
