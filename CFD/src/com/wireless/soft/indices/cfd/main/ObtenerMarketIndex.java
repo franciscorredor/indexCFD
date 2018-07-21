@@ -408,6 +408,7 @@ public class ObtenerMarketIndex {
 			if (cmpGlobal == null) {
 				cmpGlobal = admEnt.getCompanies();
 			}
+			int contadorLiberaRecursos = 0;
 			for (Company cmp : cmpGlobal) {
 				List<Object> listIdxCompany = admEnt.getCompIdxQuote(cmp);
 				Object tmp[] = listIdxCompany.toArray();
@@ -522,6 +523,10 @@ public class ObtenerMarketIndex {
 						} // End --> YTD index
 					} // END --> PERatio validation
 
+				}
+				
+				if (contadorLiberaRecursos++ % 50 == 0) {
+					admEnt.free();
 				}
 
 			} // END --> for companies
@@ -852,6 +857,7 @@ public class ObtenerMarketIndex {
 		if (cmpGlobal == null) {
 			cmpGlobal = admEnt.getCompanies();
 		}
+		int contadorLiberaRecursos = 0;
 		for (Company cmp : cmpGlobal) {
 			if (null != cmp && null != cmp.getUrlIndex() && cmp.getUrlIndex().length() > 3) {
 				//_logger.info("cmp" + cmp.getId());
@@ -861,6 +867,10 @@ public class ObtenerMarketIndex {
 				//_logger.info("Persiste Fundamental" );
 				this.persistirCompaniesQuotes(ri, cmp);
 				//_logger.info("Persiste Quotes" );
+				
+				if (contadorLiberaRecursos++ % 50 == 0) {
+					admEnt.free();
+				}
 			}
 		}
 	}
@@ -1733,11 +1743,11 @@ public class ObtenerMarketIndex {
 			omi.freeAdminEntity();
 			_logger.info("Precio accion mayor & % volumen mayor a cero!" + "Time:" + new Date());
 			omi.printOBV(argumento2, cortePorcentajePonderado, Evalua.THREE);
-			_logger.info("FIN, esperar 10 minutos.." + new Date());
+			_logger.info("FIN, esperar 3 minutos.." + new Date());
 			try {
 				// Cuando este en idle deberia liberar los objetos
 				System.gc();
-				Thread.sleep(240000);
+				Thread.sleep(180000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} // 10 minutos

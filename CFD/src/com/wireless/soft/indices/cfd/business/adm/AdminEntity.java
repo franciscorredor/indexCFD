@@ -49,8 +49,7 @@ public class AdminEntity {
 	private EntityTransaction tx;
 
 	private static final AdminEntity INSTANCE = new AdminEntity();
-	
-	
+
 	// ////////////////////////////////////////////////////////////////////////
 	// Constructor de la clase
 	// ////////////////////////////////////////////////////////////////////////
@@ -68,12 +67,21 @@ public class AdminEntity {
 	public static AdminEntity getInstance() {
 		return INSTANCE;
 	}
-	
+
 	public void free() {
-		try {this.em.clear();}catch(Exception e) {}
-		try {this.em.close();}catch(Exception e) {}
-		try {this.emf.close();}catch(Exception e) {}
-		
+		try {
+			this.em.clear();
+		} catch (Exception e) {
+		}
+		try {
+			this.em.close();
+		} catch (Exception e) {
+		}
+		try {
+			this.emf.close();
+		} catch (Exception e) {
+		}
+
 		this.emf = Persistence.createEntityManagerFactory("entityManager");
 		this.em = this.emf.createEntityManager();
 		this.tx = this.em.getTransaction();
@@ -91,13 +99,18 @@ public class AdminEntity {
 		List<Company> lstCompanies = new ArrayList<Company>();
 
 		try {
-
+			if (!tx.isActive()) {
+				this.tx.begin();
+			}
+			em.joinTransaction();
 			List<Object> list = UtilSession.getObjectsByNamedQuery(this.em, Company.FIND_COMPANIES, null);
 
 			for (Object object : list) {
 				Company vnt = (Company) object;
 				lstCompanies.add(vnt);
 			}
+
+			em.clear();
 
 		} catch (Exception ex) {
 			String s = "Error al consultar las companias";
@@ -115,7 +128,10 @@ public class AdminEntity {
 	 */
 	public void persistirCompaniesQuotes(ReturnYahooFinanceQuoteObject rf, Company cmp) {
 
-		this.tx.begin();
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		if (null != rf && null != rf.getQuery() && null != rf.getQuery().getResults()
 				&& null != rf.getQuery().getResults().getQuote()) {
@@ -154,6 +170,7 @@ public class AdminEntity {
 		}
 
 		this.tx.commit();
+		em.clear();
 	}
 
 	/**
@@ -162,35 +179,49 @@ public class AdminEntity {
 	 * @throws Exception
 	 */
 	public List<Object> getCompIdxQuote(Company cmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("company", cmp.getId());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
 				QuoteHistoryCompany.FIND_QUOTEHISTORY_BYCOMPANY, param);
 
+		em.clear();
+
 		return listIdxCompany;
 
 	}
-	
+
 	/**
 	 * @param cmp
 	 * @return
 	 * @throws Exception
 	 */
 	public List<QuoteHistoryCompany> getAllLastPriceHistory() throws Exception {
-		
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		List<QuoteHistoryCompany> qhcReturn = null;
 		qhcReturn = new ArrayList<QuoteHistoryCompany>();
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
 				QuoteHistoryCompany.FIND_ALL_LAST_PRICE_HISTORY, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
-				qhcReturn.add( (QuoteHistoryCompany) object );
+				qhcReturn.add((QuoteHistoryCompany) object);
 			}
 		}
+
+		em.clear();
 		return qhcReturn;
 
 	}
-
 
 	// TODO
 	// para saber si una compa�ia subio su maximo high del dia realizar la
@@ -205,6 +236,11 @@ public class AdminEntity {
 	 */
 	public QuoteHistoryCompany getFirstRecordDay(Company cmp) throws Exception {
 
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		QuoteHistoryCompany qhcReturn = null;
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
@@ -218,6 +254,8 @@ public class AdminEntity {
 			}
 		}
 
+		em.clear();
+
 		return qhcReturn;
 
 	}
@@ -229,6 +267,11 @@ public class AdminEntity {
 	 *             Obtiene el primer record de una compania
 	 */
 	public Company getCompanyById(Company cmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		Company cReturn = null;
 
@@ -242,6 +285,8 @@ public class AdminEntity {
 			}
 		}
 
+		em.clear();
+
 		return cReturn;
 
 	}
@@ -253,6 +298,11 @@ public class AdminEntity {
 	 *             Obtiene el primer record de una compa�ia
 	 */
 	public Company getCompanyBySymbol(Company cmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		Company cReturn = null;
 
@@ -266,6 +316,8 @@ public class AdminEntity {
 			}
 		}
 
+		em.clear();
+
 		return cReturn;
 
 	}
@@ -278,6 +330,11 @@ public class AdminEntity {
 	 */
 
 	public DataMiningCompany getDMCompanyByCmpAndIteracion(DataMiningCompany dmCmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		DataMiningCompany dmcReturn = null;
 
@@ -293,16 +350,23 @@ public class AdminEntity {
 			}
 		}
 
+		em.clear();
+
 		return dmcReturn;
 
 	}
-	
+
 	/**
 	 * @param dmCmp
 	 * @return
 	 * @throws Exception
 	 */
 	public DataMiningCompany getPenultimateCompanyByCmp(DataMiningCompany dmCmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		DataMiningCompany dmcReturn = null;
 
@@ -312,11 +376,13 @@ public class AdminEntity {
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
 				DataMiningCompany.FIND_LAST_TWO_DATAMINING_COMPANY_BY_ID, param);
 		if (null != listIdxCompany && listIdxCompany.size() >= 2) {
-			//for (Object object : listIdxCompany) {
-				dmcReturn = (DataMiningCompany) listIdxCompany.get(1);
-			//}
+			// for (Object object : listIdxCompany) {
+			dmcReturn = (DataMiningCompany) listIdxCompany.get(1);
+			// }
 		}
 
+		em.clear();
+		
 		return dmcReturn;
 
 	}
@@ -328,6 +394,12 @@ public class AdminEntity {
 	 *             Obtiene lista de DataMining
 	 */
 	public List<DataMiningCompany> getDMCompanyByIteracion(DataMiningCompany dmCmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		List<DataMiningCompany> lstDataMC = new ArrayList<DataMiningCompany>();
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
@@ -342,6 +414,8 @@ public class AdminEntity {
 			}
 		}
 
+		em.clear();
+		
 		return lstDataMC;
 	}
 
@@ -351,7 +425,10 @@ public class AdminEntity {
 	 */
 	public void persistirCompaniesFundamental(ReturnYahooFinanceQuoteObject rf, Company cmp) {
 
-		this.tx.begin();
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		if (null != rf && null != rf.getQuery() && null != rf.getQuery().getResults()
 				&& null != rf.getQuery().getResults().getQuote()) {
@@ -386,6 +463,8 @@ public class AdminEntity {
 		}
 
 		this.tx.commit();
+		em.clear();
+		
 	}
 
 	/**
@@ -393,7 +472,10 @@ public class AdminEntity {
 	 */
 	public void persistirDataMiningCompany(DataMiningCompany dmc) {
 
-		this.tx.begin();
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		if (null != dmc && null != dmc.getCompany() && null != dmc.getCompany().getId()) {
 
@@ -409,6 +491,8 @@ public class AdminEntity {
 		}
 
 		this.tx.commit();
+		em.clear();
+		
 	}
 
 	/**
@@ -416,7 +500,10 @@ public class AdminEntity {
 	 */
 	public void updateDataMiningCompany(DataMiningCompany dmc) {
 
-		this.tx.begin();
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		if (null != dmc && null != dmc.getCompany() && null != dmc.getCompany().getId()) {
 
@@ -430,6 +517,8 @@ public class AdminEntity {
 		}
 
 		this.tx.commit();
+		em.clear();
+		
 	}
 
 	/**
@@ -440,6 +529,11 @@ public class AdminEntity {
 	 * @throws Exception
 	 */
 	public FundamentalHistoryCompany getLastFundamentalRecord(Company cmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		FundamentalHistoryCompany fhcReturn = null;
 
@@ -454,6 +548,9 @@ public class AdminEntity {
 			}
 		}
 
+		em.clear();
+		
+
 		return fhcReturn;
 
 	}
@@ -466,6 +563,11 @@ public class AdminEntity {
 	 * @throws Exception
 	 */
 	public BloombergIndex getBloombergIndex(Company cmp) throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		BloombergIndex bidxReturn = null;
 
@@ -480,6 +582,9 @@ public class AdminEntity {
 			}
 		}
 
+		em.clear();
+		
+
 		return bidxReturn;
 
 	}
@@ -492,6 +597,7 @@ public class AdminEntity {
 		if (!tx.isActive()) {
 			this.tx.begin();
 		}
+		em.joinTransaction();
 
 		if (null != lstDataToPersistir && !lstDataToPersistir.isEmpty()) {
 
@@ -503,6 +609,9 @@ public class AdminEntity {
 		}
 
 		this.tx.commit();
+
+		em.clear();
+		
 	}
 
 	/**
@@ -513,6 +622,7 @@ public class AdminEntity {
 		if (!tx.isActive()) {
 			this.tx.begin();
 		}
+		em.joinTransaction();
 
 		UtilSession.executeUpdateByNamedQuery(em, HistoricalDataCompany.DELETE_HISTORICAL_DATA, null);
 
@@ -520,32 +630,37 @@ public class AdminEntity {
 
 		this.tx.commit();
 
+		em.clear();
+		
+
 	}
-	
-	
+
 	/**
 	 * @param lstDataToPersistir
 	 * @throws Exception
 	 */
 	public void updateMomentumFactorByCompany(Long idCompany, Integer momentumFactor) throws Exception {
-		
+
 		if (!tx.isActive()) {
 			this.tx.begin();
 		}
-		
+		em.joinTransaction();
+
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("company", idCompany);
 		param.put("momentumFactor", momentumFactor);
-		UtilSession.executeUpdateByNativeQuery(em, "UPDATE indexyahoocfd.dmc_data_mining_company SET DMC_MOMENTUM_FACTOR = :momentumFactor WHERE scn_codigo = :company", param);
-		
-		
+		UtilSession.executeUpdateByNativeQuery(em,
+				"UPDATE indexyahoocfd.dmc_data_mining_company SET DMC_MOMENTUM_FACTOR = :momentumFactor WHERE scn_codigo = :company",
+				param);
 
 		this.em.flush();
 
 		this.tx.commit();
 
+		em.clear();
+		
+
 	}
-	
 
 	/**
 	 * @param hdc
@@ -553,31 +668,43 @@ public class AdminEntity {
 	 * @throws Exception
 	 */
 	public List<HistoricalDataCompany> getHistoricalDataCompanyByCompany(HistoricalDataCompany hdc) throws Exception {
-
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 		List<HistoricalDataCompany> listHdcReturn = null;
 		listHdcReturn = new ArrayList<HistoricalDataCompany>();
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_HISTORICAL_DATA_BYCOMPANY, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				HistoricalDataCompany.FIND_HISTORICAL_DATA_BYCOMPANY, param);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
-				listHdcReturn.add( (HistoricalDataCompany) object );
-				
+				listHdcReturn.add((HistoricalDataCompany) object);
+
 			}
 		}
+
+		em.clear();
+		
 
 		return listHdcReturn;
 
 	}
-	
-	
+
 	/**
 	 * @param hdc
 	 * @return
 	 * @throws Exception
 	 */
-	public List<HistoricalDataCompany> getHistoricalDataCompanyByCompanyDateBegin(HistoricalDataCompany hdc) throws Exception {
+	public List<HistoricalDataCompany> getHistoricalDataCompanyByCompanyDateBegin(HistoricalDataCompany hdc)
+			throws Exception {
+
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
 
 		List<HistoricalDataCompany> listHdcReturn = null;
 		listHdcReturn = new ArrayList<HistoricalDataCompany>();
@@ -585,20 +712,21 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
 		param.put("dateBegin", hdc.getFechaDataHistorica());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_HISTORICAL_DATA_BY_COMPANY_DATE, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				HistoricalDataCompany.FIND_HISTORICAL_DATA_BY_COMPANY_DATE, param);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
-				listHdcReturn.add( (HistoricalDataCompany) object );
-				
+				listHdcReturn.add((HistoricalDataCompany) object);
+
 			}
 		}
 
+		em.clear();
+		
 		return listHdcReturn;
 
 	}
-	
-	
-	
+
 	/**
 	 * @param hdc
 	 * @return
@@ -606,22 +734,31 @@ public class AdminEntity {
 	 */
 	public HistoricalDataCompany getFirstHistoricalDataCompanyByCompany(HistoricalDataCompany hdc) throws Exception {
 
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		HistoricalDataCompany hdcReturn = null;
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_FIRST_HISTORICAL_DATA_BYCOMPANY, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				HistoricalDataCompany.FIND_FIRST_HISTORICAL_DATA_BYCOMPANY, param);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
-				hdcReturn = (HistoricalDataCompany) object ;
+				hdcReturn = (HistoricalDataCompany) object;
 				break;
 			}
 		}
 
+		em.clear();
+		
+
 		return hdcReturn;
 
 	}
-	
+
 	/**
 	 * @param hdc
 	 * @return
@@ -629,22 +766,31 @@ public class AdminEntity {
 	 */
 	public HistoricalDataCompany getLastHistoricalDataCompanyByCompany(HistoricalDataCompany hdc) throws Exception {
 
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		HistoricalDataCompany hdcReturn = null;
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_LAST_HISTORICAL_DATA_BYCOMPANY, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				HistoricalDataCompany.FIND_LAST_HISTORICAL_DATA_BYCOMPANY, param);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
-				hdcReturn = (HistoricalDataCompany) object ;
+				hdcReturn = (HistoricalDataCompany) object;
 				break;
 			}
 		}
 
+		em.clear();
+		
+
 		return hdcReturn;
 
 	}
-	
+
 	/**
 	 * @param hdc
 	 * @return
@@ -652,43 +798,62 @@ public class AdminEntity {
 	 */
 	public List<HistoricalDataCompany> getTopFiveToMomentumFactor(HistoricalDataCompany hdc) throws Exception {
 
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		List<HistoricalDataCompany> listHdcReturn = null;
 		listHdcReturn = new ArrayList<HistoricalDataCompany>();
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_TOP_FIVE_TO_MOMENTUM_FACTOR, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				HistoricalDataCompany.FIND_TOP_FIVE_TO_MOMENTUM_FACTOR, param);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
-				listHdcReturn.add( (HistoricalDataCompany) object );
-				
+				listHdcReturn.add((HistoricalDataCompany) object);
+
 			}
 		}
+
+		em.clear();
+		
 
 		return listHdcReturn;
 
 	}
-	
+
 	/**
 	 * Obtiene la ultima data de High, low and close por cada compania.
+	 * 
 	 * @param hdc
 	 * @return
 	 * @throws Exception
 	 */
 	public Map<Long, HistoricalDataCompany> getAllLastHistoricalData() throws Exception {
 
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
 		Map<Long, HistoricalDataCompany> listHdcReturn = null;
 		listHdcReturn = new HashMap<Long, HistoricalDataCompany>();
 
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, HistoricalDataCompany.FIND_ALL_LAST_HISTORICAL_DATA, null);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				HistoricalDataCompany.FIND_ALL_LAST_HISTORICAL_DATA, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
-				HistoricalDataCompany historicalDataCompany =(HistoricalDataCompany) object;
-				
-				listHdcReturn.put( historicalDataCompany.getCompany(), historicalDataCompany );
-				
+				HistoricalDataCompany historicalDataCompany = (HistoricalDataCompany) object;
+
+				listHdcReturn.put(historicalDataCompany.getCompany(), historicalDataCompany);
+
 			}
 		}
+
+		em.clear();
+		
 
 		return listHdcReturn;
 
