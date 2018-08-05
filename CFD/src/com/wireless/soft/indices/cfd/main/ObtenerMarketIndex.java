@@ -1729,8 +1729,13 @@ public class ObtenerMarketIndex {
 					Calendar firstDay = (Calendar) dayBase.clone();
 
 					int size = d.getSeries().size() - 1;
+					int count = 0;
 					for (int z = size; z >= 0; z--) {
-
+						
+						if (count++ == 50) {
+							break;
+						}
+						
 						SeriesObj s = d.getSeries().get(z);
 
 						if (z == size) {
