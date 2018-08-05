@@ -215,8 +215,7 @@ public class ObtenerMarketIndex {
 				omi.printPERatio();
 				break;
 			case "6":
-				_logger.info("Call relativeStrengthIndex");
-				omi.relativeStrengthIndex();
+				_logger.info("Do nothing");
 				break;
 			case "7":
 				_logger.info("Call relativeStrengthIndex: --> [" + args[1] + "]");
@@ -999,109 +998,7 @@ public class ObtenerMarketIndex {
 
 	}
 
-	/*
-	 * Obtine el indicador, para saber que tan costosa o overbuy esta la accion El
-	 * input lo toma de un archivo plano
-	 */
-	private void relativeStrengthIndex() {
-		// obtener el historico de 14 dias o iteraciones!
-		_logger.info("obtener el historico de 14 dias o iteraciones!");
 
-		List<RelativeStrengthIndexData> lstRSI = null;
-		lstRSI = UtilGeneral.getListaRSIGoogle();
-
-		// ordena descendente ID, porque el formamo de la data esta de mayor a menor
-		// y las fechas deben ordenarse de menor a Mayor
-		Collections.sort(lstRSI);
-
-		// Obtener el valor maximo y minimo en el cierre de la accion al dia
-		double max = 0;
-		double min = 0;
-
-		// obtener el promedio de H&L
-		double avgHigh = 0;
-		double avgLow = 0;
-		// Iteracion 2 change = close today - close yesterday
-		for (int i = 0; i < lstRSI.size(); i++) {
-			if (i == 0) {
-				RelativeStrengthIndexData relativeStrengthIndexMM = lstRSI.get(i);
-				if (null != relativeStrengthIndexMM) {
-					max = relativeStrengthIndexMM.getClose();
-					min = relativeStrengthIndexMM.getClose();
-					avgHigh += relativeStrengthIndexMM.getHigh();
-					avgLow += relativeStrengthIndexMM.getLow();
-				}
-
-			}
-			if (i > 0) {
-				RelativeStrengthIndexData relativeStrengthIndexDataA = lstRSI.get(i - 1);
-				RelativeStrengthIndexData relativeStrengthIndexDataB = lstRSI.get(i);
-				// _logger.info(relativeStrengthIndexDataA.getClose());
-				// _logger.info(relativeStrengthIndexDataB.getClose());
-				relativeStrengthIndexDataB
-						.setChange(-relativeStrengthIndexDataA.getClose() + relativeStrengthIndexDataB.getClose());
-				// _logger.info(relativeStrengthIndexDataB.toString());
-				lstRSI.set(i, relativeStrengthIndexDataB);
-
-				// Valida valor Mayor y menor
-				if (relativeStrengthIndexDataB.getClose() > max) {
-					max = relativeStrengthIndexDataB.getClose();
-				}
-				if (relativeStrengthIndexDataB.getClose() < min) {
-					min = relativeStrengthIndexDataB.getClose();
-				}
-
-				// sumar el average
-				avgHigh += relativeStrengthIndexDataB.getHigh();
-				avgLow += relativeStrengthIndexDataB.getLow();
-
-			}
-
-		}
-
-		avgHigh = avgHigh / lstRSI.size();
-		avgLow = avgLow / lstRSI.size();
-
-		// print Resultado
-		// for (RelativeStrengthIndexData relativeStrengthIndexData : lstRSI) {
-		// _logger.info(relativeStrengthIndexData.toString());
-		// }
-
-		int win = 0;
-		int lst = 0;
-		// Iteracion 3 suma gain and lost
-		BigDecimal gain = new BigDecimal(0);
-		gain.setScale(10, BigDecimal.ROUND_UNNECESSARY);
-		BigDecimal lost = new BigDecimal(0);
-		lost.setScale(10, BigDecimal.ROUND_UNNECESSARY);
-		for (int i = 0; i < 14; i++) {
-			double change = lstRSI.get(i).getChange();
-			if (change > 0) {
-				win++;
-				// _logger.info("change (+) >" + change);
-				gain = gain.add(new BigDecimal(change));
-				// _logger.info("gain >" + gain);
-			} else if (change < 0) {
-				lst++;
-				// _logger.info("change (-) >" + change);
-				lost = lost.add(new BigDecimal(Math.abs(change)));
-				// _logger.info("lost >" + lost);
-			}
-		}
-		// _logger.info(gain + "<-- g");
-		// _logger.info(lost + "<-- l");
-
-		double rs = (gain.doubleValue() / 14) / (lost.doubleValue() / 14);
-		double rsi = 100 - (100 / (1 + rs));
-
-		_logger.info("RSI14:" + rsi);
-		_logger.info("max:" + max);
-		_logger.info("min:" + min);
-		_logger.info("diff:" + (max - min));
-		_logger.info("Porcentaje Incremento High:" + (((100 * avgHigh) / avgLow) - 100));
-		_logger.info("|win:[" + win + "]|lost:[" + lst + "]|diff(win-lost):[" + (win - lst) + "] ");
-
-	}
 
 	/**
 	 * Obtiene el valor de YTD & 1YR from Bloomberg
@@ -1298,7 +1195,9 @@ public class ObtenerMarketIndex {
 				DataMiningCompany dmCmpAnterior = new DataMiningCompany();
 				dmCmpAnterior.setCompany(cmp);
 				dmCmpAnterior = admEnt.getPenultimateCompanyByCmp(dmCmp);
-				dmCmpAnterior.setStockPriceClose(dmCmp.getStockPrice());
+				if (dmCmpAnterior != null) {
+					dmCmpAnterior.setStockPriceClose(dmCmp.getStockPrice());
+				}
 
 				// Aceleracion: delta Precio / delta Tiempo.
 				// Almacena el valor de la aceleraci_n
@@ -1315,7 +1214,9 @@ public class ObtenerMarketIndex {
 				dmCmp.setLbop(rts.getActualPriceDownLBOP());
 				dmCmp.setReactionMode(rts.getActualPriceBetweenHBOPLBOP());
 
-				admEnt.updateDataMiningCompany(dmCmpAnterior);
+				if (dmCmpAnterior != null) {
+					admEnt.updateDataMiningCompany(dmCmpAnterior);
+				}
 				admEnt.updateDataMiningCompany(dmCmp);
 			}
 		} catch (Exception e) {
@@ -1740,8 +1641,7 @@ public class ObtenerMarketIndex {
 	private static void runManytimes(ObtenerMarketIndex omi, Integer argumento2, Integer cortePorcentajePonderado)
 			throws BusinessException, IOException {
 
-		//omi.persistirHistoricoToRSI();
-		omi.persistirHistoricoToRSI2();
+		omi.persistirHistoricoToRSI();
 		
 		for (;;) {
 			omi.freeAdminEntity();
@@ -1773,7 +1673,7 @@ public class ObtenerMarketIndex {
 	 * 
 	 * @throws IOException
 	 */
-	private void persistirHistoricoToRSI2() throws IOException {
+	private void persistirHistoricoToRSI() throws IOException {
 
 		_logger.info(
 				"Persiste la informacion de: https://finance.services.appex.bing.com/Market.svc/ChartDataV5?symbols=200.1.LUK.FRA&chartType=1y&isEOD=False&lang=en-US&isCS=true&isVol=true&prime=true");
@@ -1818,6 +1718,9 @@ public class ObtenerMarketIndex {
 					}
 
 					StockMarketData[] quote = gson.fromJson(result, StockMarketData[].class);
+					if (quote == null || quote.length <= 0) {
+						continue;
+					}
 					StockMarketData d = quote[0];
 
 					Calendar dayBase = Calendar.getInstance();
@@ -1868,83 +1771,7 @@ public class ObtenerMarketIndex {
 
 	}
 
-	/**
-	 * Metodo encargado de persistir en la base de datos la informacion historica de
-	 * DATE,CLOSE,HIGH,LOW,OPEN,VOLUME, para luego calcular el RSI por compa�ia.
-	 * 
-	 * @throws IOException
-	 */
-	private void persistirHistoricoToRSI() throws IOException {
-		_logger.info(
-				"Persiste la informacion de: https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
-		BufferedReader in = null;
 
-		try {
-
-			// Elimina la informacion historia de la tabla para tener el ultimo stock
-
-			admEnt.deleteDataHistorica();
-
-			if (cmpGlobal == null) {
-				cmpGlobal = admEnt.getCompanies();
-			}
-			for (Company cmp : cmpGlobal) {
-
-				String[] qx = cmp.getGoogleSymbol().split(":");
-				// _logger.info("q:" + qx[1] + "x:" + qx[0]);
-
-				// "https://finance.google.com/finance/getprices?q=FXPO&x=LON&p=15d&i=86401&f=d,c,o,h,l,v");
-				URL hitoricalDataToRSI = new URL("https://finance.google.com/finance/getprices?q=" + qx[1] + "&x="
-						+ qx[0] + "&p=150d&i=86401&f=d,c,o,h,l,v");
-				in = new BufferedReader(new InputStreamReader(hitoricalDataToRSI.openStream()));
-
-				String inputLine;
-				List<HistoricalDataCompany> lstHistoricalDataCompany = null;
-				lstHistoricalDataCompany = new ArrayList<HistoricalDataCompany>();
-				while ((inputLine = in.readLine()) != null) {
-					if (!inputLine.startsWith("a")) {
-						continue;
-					}
-					String[] shd = inputLine.split(",");
-					/*
-					 * 0 --> a1522310400 : DATE 1 --> 249.9 : CLOSE 2 --> 251.1 : HIGH 3 --> 247.1 :
-					 * LOW 4 --> 248.8 : OPEN 5 --> 326609 : VOLUME
-					 */
-					long dateLong = Long.valueOf(shd[0].substring(1) + "000");
-					Calendar fechaHistorica = Calendar.getInstance();
-					// Se adicionan mil porque la fuente no esta en milisegundos
-					fechaHistorica.setTimeInMillis(dateLong);
-
-					HistoricalDataCompany hdc = new HistoricalDataCompany();
-					hdc.setCompany(cmp.getId());
-					hdc.setFechaCreacion(Calendar.getInstance());
-					hdc.setFechaDataHistorica(fechaHistorica);
-					hdc.setStockPriceClose(shd[1]);
-					hdc.setStockPriceHigh(shd[2]);
-					hdc.setStockPriceLow(shd[3]);
-					hdc.setStockPriceOpen(shd[4]);
-					hdc.setStockVolume(shd[5]);
-
-					lstHistoricalDataCompany.add(hdc);
-					// _logger.info(inputLine);
-				}
-
-				// _logger.info("lstHistoricalDataCompany.size()" +
-				// lstHistoricalDataCompany.size());
-
-				// Periste la informacion de la lista
-				admEnt.persistirDataHistoricaByCompany(lstHistoricalDataCompany);
-			}
-
-		} catch (Exception e) {
-			_logger.error("Error en ObtenerMarketIndex.persistirHistoricoToRSI", e);
-		} finally {
-			if (in != null) {
-				in.close();
-			}
-
-		}
-	}
 
 	private void printMomentumFactor() {
 		try {
