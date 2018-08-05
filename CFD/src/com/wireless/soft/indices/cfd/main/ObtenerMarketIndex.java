@@ -22,7 +22,6 @@ import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -1792,9 +1791,8 @@ public class ObtenerMarketIndex {
 		}
 
 		for (Company cmp : cmpGlobal) {
-			BufferedReader in = null;
 			try {
-				if (cmp.getUrlQuote() != null && cmp.getUrlQuote().indexOf("fi-") > 0 && cmp.getName().equals("Reckitt Benckiser")) {
+				if (cmp.getUrlQuote() != null && cmp.getUrlQuote().indexOf("fi-") > 0) {
 					
 					String qx = cmp.getUrlQuote().substring(cmp.getUrlQuote().indexOf("fi-") + 3,
 							cmp.getUrlQuote().length());
@@ -1804,17 +1802,11 @@ public class ObtenerMarketIndex {
 							 + qx.replace("%7CSLA%7C", "%2F")
 							 + "&chartType=1y&isEOD=False&lang=en-US&isCS=true&isVol=true&prime=true";
 
-					 _logger.info("call: " + call);
-					
-					URL hitoricalDataToRSI = new URL(call);
-					in = new BufferedReader(new InputStreamReader(hitoricalDataToRSI.openStream()));
+					 //_logger.info("call: " + call);
 
-					String inputLine;
 					List<HistoricalDataCompany> lstHistoricalDataCompany = null;
 					lstHistoricalDataCompany = new ArrayList<HistoricalDataCompany>();
-					while ((inputLine = in.readLine()) != null) {
-						_logger.info("inputLine"  + inputLine);
-					}
+
 					
 					JsonElement result = executeJ(call);
 					if (result.isJsonObject()) {
@@ -1826,18 +1818,7 @@ public class ObtenerMarketIndex {
 					}
 
 					StockMarketData[] quote = gson.fromJson(result, StockMarketData[].class);
-					
-					 
-					 
-/*
-					RestTemplate restTemplate = new RestTemplate();
-					StockMarketData[] quote = restTemplate.getForObject(
-							call,
-							StockMarketData[].class);*/
-
-
 					StockMarketData d = quote[0];
-					//_logger.info("test " + d.getUtcFullRunTime().substring(6, 19));
 
 					Calendar dayBase = Calendar.getInstance();
 					dayBase.setTimeInMillis(Long.parseLong(d.getUtcFullRunTime().substring(6, 19)));

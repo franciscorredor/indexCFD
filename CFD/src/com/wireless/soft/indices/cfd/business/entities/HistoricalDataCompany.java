@@ -25,9 +25,9 @@ import javax.persistence.Table;
  *
  */
 @NamedQueries(value = {
-		@NamedQuery(name = "findHistoricalDataByCompany", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId ORDER BY h.id desc "),
+		@NamedQuery(name = "findHistoricalDataByCompany", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId ORDER BY h.id asc "),
 		@NamedQuery(name = "deleteHistoricalData", query = "DELETE FROM HistoricalDataCompany "),
-		@NamedQuery(name = "findHistoricalDataByCompanyAndDate", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId AND fechaDataHistorica >= :dateBegin ORDER BY h.id desc ") })
+		@NamedQuery(name = "findHistoricalDataByCompanyAndDate", query = "SELECT h FROM HistoricalDataCompany h WHERE h.company = :companyId AND fechaDataHistorica >= :dateBegin ORDER BY h.id asc ") })
 
 @NamedNativeQueries({ @NamedNativeQuery(name = "findFirstValueHistoricalDataByCompany", query = "SELECT	*\r\n"
 		+ "FROM		indexyahoocfd.HST_HISTORICAL_DATA_COMPANY_TO_RSI\r\n" + "WHERE	scn_codigo = :companyId \r\n"
