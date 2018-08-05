@@ -17,8 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.wireless.soft.indices.cfd.collections.CompanyRanking;
-
 /**
  * Entity encargado del almacenar el ultimo historico por compania para poder
  * calcular el RSI

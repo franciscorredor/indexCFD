@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,7 +22,12 @@ import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.web.client.RestTemplate;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.wireless.soft.indices.cfd.business.adm.AdminEntity;
 import com.wireless.soft.indices.cfd.business.entities.Company;
 import com.wireless.soft.indices.cfd.business.entities.DataMiningCompany;
@@ -32,6 +38,8 @@ import com.wireless.soft.indices.cfd.collections.CompanyRanking;
 import com.wireless.soft.indices.cfd.collections.ReactionTrendSystem;
 import com.wireless.soft.indices.cfd.collections.RelativeStrengthIndexData;
 import com.wireless.soft.indices.cfd.deserializable.json.object.ReturnYahooFinanceQuoteObject;
+import com.wireless.soft.indices.cfd.deserializable.json.object.SeriesObj;
+import com.wireless.soft.indices.cfd.deserializable.json.object.StockMarketData;
 import com.wireless.soft.indices.cfd.exception.BusinessException;
 import com.wireless.soft.indices.cfd.statistics.DiffMaxMin;
 import com.wireless.soft.indices.cfd.statistics.IStatistics;
@@ -80,8 +88,11 @@ public class ObtenerMarketIndex {
 	// ////////////////////////////////////////////////////////////////////////
 	// Atributos de la clase
 	// ////////////////////////////////////////////////////////////////////////
+	private final Gson gson = this.createGson();
 	/** */
 	private AdminEntity admEnt = null;
+	
+	private static int WAIT_TIME = 3500;
 
 	private static int diasIntentos = -1;
 
@@ -1730,7 +1741,8 @@ public class ObtenerMarketIndex {
 	private static void runManytimes(ObtenerMarketIndex omi, Integer argumento2, Integer cortePorcentajePonderado)
 			throws BusinessException, IOException {
 
-		omi.persistirHistoricoToRSI();
+		//omi.persistirHistoricoToRSI();
+		omi.persistirHistoricoToRSI2();
 		
 		for (;;) {
 			omi.freeAdminEntity();
@@ -1752,6 +1764,126 @@ public class ObtenerMarketIndex {
 				e.printStackTrace();
 			} // 10 minutos
 		}
+
+	}
+	
+	
+	/**
+	 * Metodo encargado de persistir en la base de datos la informacion historica de
+	 * DATE,CLOSE,HIGH,LOW,OPEN,VOLUME, para luego calcular el RSI por compa�ia.
+	 * 
+	 * @throws IOException
+	 */
+	private void persistirHistoricoToRSI2() throws IOException {
+
+		_logger.info(
+				"Persiste la informacion de: https://finance.services.appex.bing.com/Market.svc/ChartDataV5?symbols=200.1.LUK.FRA&chartType=1y&isEOD=False&lang=en-US&isCS=true&isVol=true&prime=true");
+
+		try {
+
+			// Elimina la informacion historia de la tabla para tener el ultimo stock
+			admEnt.deleteDataHistorica();
+
+			if (cmpGlobal == null) {
+				cmpGlobal = admEnt.getCompanies();
+			}
+		} catch (Exception e) {
+			_logger.error("Error al borrar info historica", e);
+		}
+
+		for (Company cmp : cmpGlobal) {
+			BufferedReader in = null;
+			try {
+				if (cmp.getUrlQuote() != null && cmp.getUrlQuote().indexOf("fi-") > 0 && cmp.getName().equals("Reckitt Benckiser")) {
+					
+					String qx = cmp.getUrlQuote().substring(cmp.getUrlQuote().indexOf("fi-") + 3,
+							cmp.getUrlQuote().length());
+					 
+					 
+					 String call = "https://finance.services.appex.bing.com/Market.svc/ChartDataV5?symbols="
+							 + qx.replace("%7CSLA%7C", "%2F")
+							 + "&chartType=1y&isEOD=False&lang=en-US&isCS=true&isVol=true&prime=true";
+
+					 _logger.info("call: " + call);
+					
+					URL hitoricalDataToRSI = new URL(call);
+					in = new BufferedReader(new InputStreamReader(hitoricalDataToRSI.openStream()));
+
+					String inputLine;
+					List<HistoricalDataCompany> lstHistoricalDataCompany = null;
+					lstHistoricalDataCompany = new ArrayList<HistoricalDataCompany>();
+					while ((inputLine = in.readLine()) != null) {
+						_logger.info("inputLine"  + inputLine);
+					}
+					
+					JsonElement result = executeJ(call);
+					if (result.isJsonObject()) {
+						JsonElement error = result.getAsJsonObject().get("error");
+						if (error != null) {
+							JsonElement code = result.getAsJsonObject().get("code");
+							System.out.println("[Error] code:" + code);
+						}
+					}
+
+					StockMarketData[] quote = gson.fromJson(result, StockMarketData[].class);
+					
+					 
+					 
+/*
+					RestTemplate restTemplate = new RestTemplate();
+					StockMarketData[] quote = restTemplate.getForObject(
+							call,
+							StockMarketData[].class);*/
+
+
+					StockMarketData d = quote[0];
+					//_logger.info("test " + d.getUtcFullRunTime().substring(6, 19));
+
+					Calendar dayBase = Calendar.getInstance();
+					dayBase.setTimeInMillis(Long.parseLong(d.getUtcFullRunTime().substring(6, 19)));
+
+					Calendar firstDay = (Calendar) dayBase.clone();
+
+					int size = d.getSeries().size() - 1;
+					for (int z = size; z >= 0; z--) {
+
+						SeriesObj s = d.getSeries().get(z);
+
+						if (z == size) {
+							firstDay.add(Calendar.DAY_OF_YEAR, (((s.getT() / 1440) + 1) * -1));
+						}
+
+						Calendar dayEval = (Calendar) firstDay.clone();
+						dayEval.add(Calendar.DAY_OF_YEAR, (s.getT() / 1440));
+
+						if (z == 0) {
+							dayEval = (Calendar) firstDay.clone();
+						}
+
+						//_logger.info(s.getT() + " --> " + new Date(dayEval.getTimeInMillis()));
+
+						HistoricalDataCompany hdc = new HistoricalDataCompany();
+						hdc.setCompany(cmp.getId());
+						hdc.setFechaCreacion(Calendar.getInstance());
+						hdc.setFechaDataHistorica(dayEval);
+						hdc.setStockPriceClose(Double.toString(s.getP()));
+						hdc.setStockPriceHigh(Double.toString(s.getHp()));
+						hdc.setStockPriceLow(Double.toString(s.getLp()));
+						hdc.setStockPriceOpen(Double.toString(s.getOp()));
+						hdc.setStockVolume(Double.toString(s.getV()));
+
+						lstHistoricalDataCompany.add(hdc);
+
+					}
+					admEnt.persistirDataHistoricaByCompany(lstHistoricalDataCompany);
+				}
+			} catch (Exception e) {
+				_logger.error("Error al persistir la informacion de " + cmp.getName(), e);
+			}
+
+		}
+
+		// Periste la informacion de la lista
 
 	}
 
@@ -2152,5 +2284,111 @@ public class ObtenerMarketIndex {
 		}
 
 	}
+	
+	/**
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	private JsonElement executeJ(String url) throws IOException, InterruptedException {
+		return new JsonParser().parse(execute(url));
+	    }
+	
+	
+	/**
+     * @param url
+     * @param request
+     * @return
+     * @throws IOException
+     */
+	private String execute(String url) throws IOException, InterruptedException {
+		String response = null;
+		try {
+			
+			URL resultadoURL = new URL(url);
+			URLConnection con = resultadoURL.openConnection();
+			con.setConnectTimeout(WAIT_TIME);
+			con.setReadTimeout(WAIT_TIME);
+			BufferedReader in = null;
+			
+			//intento 1
+			try{
+			    in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
+			}catch(IOException e){
+			    //System.out.println("1st try to get indicator:" + e.getMessage());
+			}
+			
+			//intento 2
+			if (null == in){
+			try{
+			    Thread.sleep(500);
+			    in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
+			}catch(IOException e){
+				//System.out.println("2nd try to get indicator:" + e.getMessage());
+			}
+			}
+			//intento 3
+			if (null == in){
+			try{
+			    Thread.sleep(700);
+			    in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
+			}catch(IOException e){
+				//System.out.println("3th try to get indicator:" + e.getMessage());
+			}
+			}
+			//intento 4
+			if (null == in){
+			try{
+			    Thread.sleep(700);
+			    in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
+			}catch(IOException e){
+				//System.out.println("4th try to get indicator:" + e.getMessage());
+			}
+			}
+			
+			//intento 5
+			if (null == in){
+			try{
+			    Thread.sleep(900);
+			    in = new BufferedReader(new InputStreamReader(resultadoURL.openStream()));
+			}catch(IOException e){
+				//System.out.println("5th try to get indicator:" + e.getMessage());
+			}
+			}
+
+			StringBuilder yahooSM = new StringBuilder();
+			String inputLine;
+			if (null != in){
+				while ((inputLine = in.readLine()) != null) {
+				    yahooSM.append(inputLine);
+				}
+				in.close();	
+			}
+			
+			//response = http.execute(get, new BasicResponseHandler());
+			response = yahooSM.toString();
+			// _logger.info("Response: " + response);
+		} catch (IOException io) {
+			System.out.println("url No responde:" + url);
+			io.printStackTrace();
+			throw io; 
+		}catch (InterruptedException io) {
+			System.out.println("url No responde:" + url);
+			io.printStackTrace();
+			throw io; 
+		}
+		return response;
+	}
+	
+
+    /**
+     * Creates a new {@link Gson} object.
+     */
+    private Gson createGson() {
+	GsonBuilder builder = new GsonBuilder();
+	return builder.create();
+    }
+    
 
 }
