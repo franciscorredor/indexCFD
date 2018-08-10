@@ -547,7 +547,7 @@ public class ObtenerMarketIndex {
 			Collections.sort(cr);
 			// TODO persistir la informacion del resultado, con la fecha de la
 			// ejecui_n del proceso
-			String toexecute = "java -jar indicesToCFD.jar 10 ";
+			String toexecute = "java -jar indicesToCFD.jar 10 (RunMe con el Close del dia que paso, No correr runME.) ";
 			int i = 0;
 			Long identificadorUnicoIteracion = UtilGeneral.obtenerIdIteracion();
 			for (CompanyRanking companyRanking : cr) {
