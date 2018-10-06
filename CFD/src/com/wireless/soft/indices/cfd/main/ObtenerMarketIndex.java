@@ -388,14 +388,11 @@ public class ObtenerMarketIndex {
 			return y;
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			_logger.info("Error al leer [" + url + "](FileNotFoundException)");
+			_logger.info("Error al leer [" + url + "](FileNotFoundException)",e);
 		} catch (IOException e) {
-			e.printStackTrace();
-			_logger.info("Error al leer [" + url + "](IOException)");
+			_logger.info("Error al leer [" + url + "](IOException)",e);
 		} catch (Exception e) {
-			e.printStackTrace();
-
+			_logger.info("Error al leer [" + url + "](Exception)",e);
 		}
 
 		return null;

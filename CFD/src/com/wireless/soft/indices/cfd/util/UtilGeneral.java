@@ -32,7 +32,6 @@ import com.wireless.soft.indices.cfd.business.entities.QuoteHistoryCompany;
 import com.wireless.soft.indices.cfd.collections.CompanyRanking;
 import com.wireless.soft.indices.cfd.collections.ReactionTrendSystem;
 import com.wireless.soft.indices.cfd.collections.RelativeStrengthIndexData;
-import com.wireless.soft.indices.cfd.main.ObtenerMarketIndex;
 
 /**
  * @author Francisco Clase encargada de calculos matematicos para validar la
@@ -152,10 +151,10 @@ public class UtilGeneral {
 		if (med.length % 2 == 0) {
 			double left = med[middle - 1];
 			double right = med[middle];
-			System.out.println("middle [LR]:" + ((left + right) / 2));
+			_logger.info("middle [LR]:" + ((left + right) / 2));
 			return ((left + right) / 2);
 		} else {
-			System.out.println("middle:" + (med[middle]));
+			_logger.info("middle:" + (med[middle]));
 			return (med[middle]);
 		}
 	}
@@ -197,14 +196,11 @@ public class UtilGeneral {
 
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.error("UtilGeneral public static List<RelativeStrengthIndexData> getListaRSIGoogle() [FileNotFoundException]", e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.error("UtilGeneral public static List<RelativeStrengthIndexData> getListaRSIGoogle() [IOException]", e);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.error("UtilGeneral public static List<RelativeStrengthIndexData> getListaRSIGoogle() [ParseException]", e);
 		}
 
 		return lstRSI;
@@ -301,8 +297,8 @@ public class UtilGeneral {
 			int ctd = 0;
 
 			if (print) {
-				System.out.println("urlHistdata [scnCodigo]: [" + scnCodigo + "]");
-				System.out.println("Date,Open,High,Low,Close");
+				_logger.info("urlHistdata [scnCodigo]: [" + scnCodigo + "]");
+				_logger.info("Date,Open,High,Low,Close");
 			}
 
 			ctd = 0;
@@ -332,13 +328,13 @@ public class UtilGeneral {
 				if (print) {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd", Locale.US);
 					try {
-						System.out.println(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
+						_logger.info(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceOpen()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceHigh()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceLow()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceClose()));
 					} catch (NumberFormatException n) {
-						System.out.println(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
+						_logger.info(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
 								+ historicalDataCompany.getStockPriceOpen() + ","
 								+ historicalDataCompany.getStockPriceHigh() + ","
 								+ historicalDataCompany.getStockPriceLow() + ","
@@ -353,9 +349,10 @@ public class UtilGeneral {
 			}
 
 		} catch (ParseException e) {
-			System.out.println("Error al leer scnCodigo: [" + scnCodigo + "](ParseException)");
+			_logger.error("Error al leer scnCodigo: [" + scnCodigo + "](ParseException)", e);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			_logger.error("Error al leer scnCodigo: [" + scnCodigo + "](Exception)", e1);
+
 		}
 
 		return lstRSI;
@@ -383,8 +380,8 @@ public class UtilGeneral {
 			int ctd = 0;
 
 			if (print) {
-				System.out.println("urlHistdata [scnCodigo]: [" + scnCodigo + "]");
-				System.out.println("Date,Open,High,Low,Close");
+				_logger.info("urlHistdata [scnCodigo]: [" + scnCodigo + "]");
+				_logger.info("Date,Open,High,Low,Close");
 			}
 
 			ctd = 0;
@@ -414,13 +411,13 @@ public class UtilGeneral {
 				if (print) {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd", Locale.US);
 					try {
-						System.out.println(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
+						_logger.info(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceOpen()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceHigh()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceLow()) + ","
 								+ Double.parseDouble(historicalDataCompany.getStockPriceClose()));
 					} catch (NumberFormatException n) {
-						System.out.println(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
+						_logger.info(sdf.format(historicalDataCompany.getFechaDataHistorica().getTime()) + ","
 								+ historicalDataCompany.getStockPriceOpen() + ","
 								+ historicalDataCompany.getStockPriceHigh() + ","
 								+ historicalDataCompany.getStockPriceLow() + ","
@@ -435,9 +432,9 @@ public class UtilGeneral {
 			}
 
 		} catch (ParseException e) {
-			System.out.println("Error al leer scnCodigo: [" + scnCodigo + "](ParseException)");
+			_logger.error("Error al leer scnCodigo: [" + scnCodigo + "](ParseException)", e);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			_logger.error("Error al leer scnCodigo: [" + scnCodigo + "](Exception)", e1);
 		}
 
 		return lstRSI;
@@ -465,9 +462,8 @@ public class UtilGeneral {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Error al obtener indicador de Bloomberg: " + e.getMessage());
-			System.out.println("{" + urlBloomberg + "}");
-			// e.printStackTrace();
+			_logger.error("Error al obtener indicador de Bloomberg: " + e.getMessage(), e);
+			_logger.error("{" + urlBloomberg + "}");
 		}
 
 		if (retornoYTD != null && retornoYTD.length() > 2) {
