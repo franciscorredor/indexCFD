@@ -101,10 +101,16 @@ public class UtilSession {
      */
     @SuppressWarnings("unchecked")
     public static List<Object> getObjectsByNamedQuery(EntityManager entityManager, String namedQuery,
-	    Map<String, Object> params) throws Exception {
+	    Map<String, Object> params, Integer maxResult) throws Exception {
 	try {
 	    // Crea un objeto query
-	    Query query = entityManager.createNamedQuery(namedQuery);
+		Query query = null; 
+		if (maxResult != null) {
+			query = entityManager.createNamedQuery(namedQuery).setMaxResults(maxResult);
+		}else {
+			query = entityManager.createNamedQuery(namedQuery);
+		}
+		
 	    // Setea parametros
 	    setParameters(query, params);
 	    // Ejecuta la consulta

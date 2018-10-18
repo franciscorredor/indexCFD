@@ -103,7 +103,7 @@ public class AdminEntity {
 				this.tx.begin();
 			}
 			em.joinTransaction();
-			List<Object> list = UtilSession.getObjectsByNamedQuery(this.em, Company.FIND_COMPANIES, null);
+			List<Object> list = UtilSession.getObjectsByNamedQuery(this.em, Company.FIND_COMPANIES, null, null);
 
 			for (Object object : list) {
 				Company vnt = (Company) object;
@@ -188,7 +188,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("company", cmp.getId());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				QuoteHistoryCompany.FIND_QUOTEHISTORY_BYCOMPANY, param);
+				QuoteHistoryCompany.FIND_QUOTEHISTORY_BYCOMPANY, param, 5);
 
 		em.clear();
 
@@ -211,7 +211,7 @@ public class AdminEntity {
 		List<QuoteHistoryCompany> qhcReturn = null;
 		qhcReturn = new ArrayList<QuoteHistoryCompany>();
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				QuoteHistoryCompany.FIND_ALL_LAST_PRICE_HISTORY, null);
+				QuoteHistoryCompany.FIND_ALL_LAST_PRICE_HISTORY, null, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				qhcReturn.add((QuoteHistoryCompany) object);
@@ -246,7 +246,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("company", cmp.getId());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				QuoteHistoryCompany.FIND_FIRSTITERACION_BYCOMPANY, param);
+				QuoteHistoryCompany.FIND_FIRSTITERACION_BYCOMPANY, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				qhcReturn = (QuoteHistoryCompany) object;
@@ -277,7 +277,7 @@ public class AdminEntity {
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", cmp.getId());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, Company.FIND_COMPANY_BY_ID, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, Company.FIND_COMPANY_BY_ID, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				cReturn = (Company) object;
@@ -308,7 +308,7 @@ public class AdminEntity {
 
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("cmpSymbol", cmp.getGoogleSymbol());
-		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, Company.FIND_COMPANY_BY_SYMBOL, param);
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em, Company.FIND_COMPANY_BY_SYMBOL, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				cReturn = (Company) object;
@@ -342,7 +342,7 @@ public class AdminEntity {
 		param.put("companyId", dmCmp.getCompany().getId());
 		param.put("iteracion", dmCmp.getIdIteracion());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				DataMiningCompany.FIND_DATAMINING_COMPANY_BY_ID_ITERACION, param);
+				DataMiningCompany.FIND_DATAMINING_COMPANY_BY_ID_ITERACION, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				dmcReturn = (DataMiningCompany) object;
@@ -374,7 +374,7 @@ public class AdminEntity {
 		param.put("companyId", dmCmp.getCompany().getId());
 		param.put("idIteracion", dmCmp.getIdIteracion());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				DataMiningCompany.FIND_LAST_TWO_DATAMINING_COMPANY_BY_ID, param);
+				DataMiningCompany.FIND_LAST_TWO_DATAMINING_COMPANY_BY_ID, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() >= 2) {
 			// for (Object object : listIdxCompany) {
 			dmcReturn = (DataMiningCompany) listIdxCompany.get(1);
@@ -405,7 +405,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("iteracion01", dmCmp.getIdIteracion());
 		List<Object> listDMC = UtilSession.getObjectsByNamedQuery(em, DataMiningCompany.FIND_DATAMINING_BY_ID_ITERACION,
-				param);
+				param, null);
 
 		if (null != listDMC && listDMC.size() > 0) {
 			for (Object object : listDMC) {
@@ -540,7 +540,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("company", cmp.getId());
 		List<Object> listFtlCompany = UtilSession.getObjectsByNamedQuery(em,
-				FundamentalHistoryCompany.FIND_LAST_FUNDAMENTAL_ITERACION_BYCOMPANY, param);
+				FundamentalHistoryCompany.FIND_LAST_FUNDAMENTAL_ITERACION_BYCOMPANY, param, null);
 		if (null != listFtlCompany && listFtlCompany.size() > 0) {
 			for (Object object : listFtlCompany) {
 				fhcReturn = (FundamentalHistoryCompany) object;
@@ -574,7 +574,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("company", cmp.getId());
 		List<Object> listFtlCompany = UtilSession.getObjectsByNamedQuery(em,
-				BloombergIndex.FIND_BLOOMBERG_URL_BYCOMPANY, param);
+				BloombergIndex.FIND_BLOOMBERG_URL_BYCOMPANY, param, null);
 		if (null != listFtlCompany && listFtlCompany.size() > 0) {
 			for (Object object : listFtlCompany) {
 				bidxReturn = (BloombergIndex) object;
@@ -678,7 +678,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				HistoricalDataCompany.FIND_HISTORICAL_DATA_BYCOMPANY, param);
+				HistoricalDataCompany.FIND_HISTORICAL_DATA_BYCOMPANY, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				listHdcReturn.add((HistoricalDataCompany) object);
@@ -713,7 +713,7 @@ public class AdminEntity {
 		param.put("companyId", hdc.getCompany());
 		param.put("dateBegin", hdc.getFechaDataHistorica());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				HistoricalDataCompany.FIND_HISTORICAL_DATA_BY_COMPANY_DATE, param);
+				HistoricalDataCompany.FIND_HISTORICAL_DATA_BY_COMPANY_DATE, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				listHdcReturn.add((HistoricalDataCompany) object);
@@ -744,7 +744,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				HistoricalDataCompany.FIND_FIRST_HISTORICAL_DATA_BYCOMPANY, param);
+				HistoricalDataCompany.FIND_FIRST_HISTORICAL_DATA_BYCOMPANY, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				hdcReturn = (HistoricalDataCompany) object;
@@ -776,7 +776,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				HistoricalDataCompany.FIND_LAST_HISTORICAL_DATA_BYCOMPANY, param);
+				HistoricalDataCompany.FIND_LAST_HISTORICAL_DATA_BYCOMPANY, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				hdcReturn = (HistoricalDataCompany) object;
@@ -809,7 +809,7 @@ public class AdminEntity {
 		Hashtable<String, Object> param = new Hashtable<String, Object>();
 		param.put("companyId", hdc.getCompany());
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				HistoricalDataCompany.FIND_TOP_FIVE_TO_MOMENTUM_FACTOR, param);
+				HistoricalDataCompany.FIND_TOP_FIVE_TO_MOMENTUM_FACTOR, param, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				listHdcReturn.add((HistoricalDataCompany) object);
@@ -842,7 +842,7 @@ public class AdminEntity {
 		listHdcReturn = new HashMap<Long, HistoricalDataCompany>();
 
 		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
-				HistoricalDataCompany.FIND_ALL_LAST_HISTORICAL_DATA, null);
+				HistoricalDataCompany.FIND_ALL_LAST_HISTORICAL_DATA, null, null);
 		if (null != listIdxCompany && listIdxCompany.size() > 0) {
 			for (Object object : listIdxCompany) {
 				HistoricalDataCompany historicalDataCompany = (HistoricalDataCompany) object;
