@@ -282,6 +282,10 @@ public class ObtenerMarketIndex {
 				double price	= Double.parseDouble(args[2]);
 				omi.printLastReactionModeByCompany(idCompany, price);
 				break;
+			case "20":
+				_logger.info(" print Awesome Oscillator ");
+				omi.printAwesomeOscillator(args[1]);
+				break;
 				
 				
 
@@ -1304,6 +1308,73 @@ public class ObtenerMarketIndex {
 
 		}
 
+	}
+	
+	
+	/*
+	 * The Awesome oscillator(AO) is an indicator used to measured market momentum. AO calculates the difference between a 34 period &
+	 * 5 period Simple Moving Average. The SMA that are used are not calculated using closing price but rqather each bars midpoints. AO
+	 * is generally used to affirm trends or to anticipate possible reversals.
+	 		iii.	Awsome Oscillator indicator (AO) Bill Williams. New Trading Dimensions
+					lengthAO1=input(5, minval=1) //5 periods
+					lengthAO2=input(34, minval=1) //34 periods
+					AO = sma((high+low)/2, lengthAO1) - sma((high+low)/2, lengthAO2)
+					
+					**sma: Simple Movile Average
+					
+					https://www.tradingview.com/wiki/Awesome_Oscillator_(AO)
+	 * 
+	 */
+	private void printAwesomeOscillator(String companySymbols) {
+		String cmpSymbol[] = companySymbols.split(";");
+
+		for (String companySymbol : cmpSymbol) {
+			// Convertir company Symbol en id de compañua
+			Company cmp = null;
+			cmp = new Company();
+			cmp.setGoogleSymbol(companySymbol);
+
+			try {
+				cmp = this.admEnt.getCompanyBySymbol(cmp);
+				_logger.info(companySymbol + ":[" + cmp.getId() + "] ---------- " + new Date());
+				//calculate Awesome Oscillator and persist in "dmc_data_mining_company"
+				List<Object> listIdxCompany = admEnt.getCompIdxAOQuote(cmp);
+				
+				Double SMA05Period = 0d;
+				Double SMA34Period = 0d;
+				Double awesomeOscillator = 0d;
+				
+				
+				for (Object object : listIdxCompany) {
+					QuoteHistoryCompany data = (QuoteHistoryCompany) object;
+					SMA34Period += data.getMedia();
+				}
+				
+				for (int i = 0; i < 5; i++) {
+					QuoteHistoryCompany data = (QuoteHistoryCompany) listIdxCompany.get(i);
+					SMA05Period += data.getMedia();
+				}
+				SMA34Period = SMA34Period / 34;
+				SMA05Period = SMA05Period / 5;
+				
+				awesomeOscillator = SMA05Period - SMA34Period;
+				
+				Persist "awesomeOscillator" on BD "dmc_data_mining_company"
+				
+				_logger.info("awesomeOscillator:" + awesomeOscillator);
+				
+				
+				
+				
+
+			} catch (Exception e1) {
+				_logger.error("Error al traer info de la compania para obtener el indicador: Awesome OScillator", e1);
+				return;
+			}
+
+		}
+		
+		
 	}
 
 	/**

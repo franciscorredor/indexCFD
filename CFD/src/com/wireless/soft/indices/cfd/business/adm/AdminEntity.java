@@ -195,6 +195,31 @@ public class AdminEntity {
 		return listIdxCompany;
 
 	}
+	
+	/**
+	 * @param cmp
+	 * @return
+	 * @throws Exception
+	 */
+	//Get info to take the Awesome Oscillator
+	public List<Object> getCompIdxAOQuote(Company cmp) throws Exception {
+
+		
+		if (!tx.isActive()) {
+			this.tx.begin();
+		}
+		em.joinTransaction();
+
+		Hashtable<String, Object> param = new Hashtable<String, Object>();
+		param.put("company", cmp.getId());
+		List<Object> listIdxCompany = UtilSession.getObjectsByNamedQuery(em,
+				QuoteHistoryCompany.FIND_AO_QUOTEHISTORY_BYCOMPANY, param, 34);
+
+		em.clear();
+
+		return listIdxCompany;
+
+	}
 
 	/**
 	 * @param cmp

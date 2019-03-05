@@ -13,6 +13,7 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author 	Francisco Corredor
@@ -38,7 +39,8 @@ limit 7  --> Importante, validar que el precio este en subido, con esta consulta
  */
 @NamedQueries(value = {				
 		@NamedQuery(name = "findAllQuoteHistory", query = "SELECT s FROM QuoteHistoryCompany s ORDER BY s.id"),
-		@NamedQuery(name = "findQuoteHistoryByCompany", query = "SELECT s FROM QuoteHistoryCompany s WHERE s.company = :company AND s.volume is not NULL ORDER BY s.id desc LIMIT 5 ")
+		@NamedQuery(name = "findQuoteHistoryByCompany", query = "SELECT s FROM QuoteHistoryCompany s WHERE s.company = :company AND s.volume is not NULL ORDER BY s.id desc LIMIT 5 "),
+		@NamedQuery(name = "findAOQuoteHistoryByCompany", query = "SELECT s FROM QuoteHistoryCompany s WHERE s.company = :company AND s.day_high is not NULL AND s.day_low is not NULL AND s.price is not NULL ORDER BY s.id desc LIMIT 34 ")
 					})
 @NamedNativeQueries({
 	//TODO --> encontrar la primera iteracion para saber si a superado el high del dia y del anio, para dar un ponderado
@@ -70,6 +72,8 @@ public class QuoteHistoryCompany implements Serializable{
     public static final String FIND_ALL_QUOTEHISTORY = "findAllQuoteHistory";
     /** */
     public static final String FIND_QUOTEHISTORY_BYCOMPANY = "findQuoteHistoryByCompany";
+    
+    public static final String FIND_AO_QUOTEHISTORY_BYCOMPANY = "findAOQuoteHistoryByCompany";
     /** */
     public static final String FIND_FIRSTITERACION_BYCOMPANY = "findFirstIteracionHistoryByCompany";
     
@@ -142,6 +146,9 @@ public class QuoteHistoryCompany implements Serializable{
     
     @Column(name = "price", nullable = true)
     private String price;
+    
+    @Transient
+    private Double media;
     
     // ////////////////////////////////////////////////////////////////////////
     // Getter/Setter de la clase
@@ -399,6 +406,37 @@ public class QuoteHistoryCompany implements Serializable{
 	}
 	
 	
+	/**
+	 * @return the media
+	 */
+	public Double getMedia() {
+		
+		double max;
+		double min;
+		double dpr;
+		
+		try {
+			max = Double.parseDouble(this.day_high);
+			min = Double.parseDouble(this.day_low);
+			dpr = Double.parseDouble(this.price);
+			
+			this.media = (max+min+dpr) / 3;
+			
+		}catch (Exception e) {
+			this.media = -1d;
+		}
+		
+		
+		return media;
+	}
+
+	/**
+	 * @param media the media to set
+	 */
+	public void setMedia(Double media) {
+		this.media = media;
+	}
+
 	@Override
     public String toString() {
 	StringBuffer s = new StringBuffer();
