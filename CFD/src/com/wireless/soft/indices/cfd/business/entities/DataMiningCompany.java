@@ -168,6 +168,9 @@ public class DataMiningCompany implements Serializable{
     @Column(name = "DMC_IS_LBOP", nullable = true)
     private Boolean lbop;
     
+    @Column(name = "DMC_AWESOME_OSCILLATOR", nullable = true)
+    private String awesomeOscillator;
+    
     
     
     
@@ -607,6 +610,22 @@ public class DataMiningCompany implements Serializable{
 	 */
 	public void setLbop(Boolean lbop) {
 		this.lbop = lbop;
+	}
+
+
+	/**
+	 * @return the awesomeOscillator
+	 */
+	public String getAwesomeOscillator() {
+		return awesomeOscillator;
+	}
+
+
+	/**
+	 * @param awesomeOscillator the awesomeOscillator to set
+	 */
+	public void setAwesomeOscillator(String awesomeOscillator) {
+		this.awesomeOscillator = awesomeOscillator;
 	}
 
 

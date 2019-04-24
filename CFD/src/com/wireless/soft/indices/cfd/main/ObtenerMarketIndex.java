@@ -283,8 +283,7 @@ public class ObtenerMarketIndex {
 				omi.printLastReactionModeByCompany(idCompany, price);
 				break;
 			case "20":
-				_logger.info(" print Awesome Oscillator ");
-				omi.printAwesomeOscillator(args[1]);
+				_logger.info(" print Awesome Oscillator " + omi.getAwesomeOscillator(args[1]));
 				break;
 				
 				
@@ -1214,6 +1213,14 @@ public class ObtenerMarketIndex {
 				dmCmp.setHbop(rts.getActualPriceUpHBOP());
 				dmCmp.setLbop(rts.getActualPriceDownLBOP());
 				dmCmp.setReactionMode(rts.getActualPriceBetweenHBOPLBOP());
+				
+				//Registra el indicador de Awesome indicator para ser almacenado en "dmc_data_mining_company"
+				Double awesomeOscillator = this.getAwesomeOscillator(companySymbol);
+				if (awesomeOscillator != null) {
+					dmCmp.setAwesomeOscillator(String.valueOf(awesomeOscillator));
+				}
+				
+				
 
 				if (dmCmpAnterior != null) {
 					admEnt.updateDataMiningCompany(dmCmpAnterior);
@@ -1325,8 +1332,9 @@ public class ObtenerMarketIndex {
 					https://www.tradingview.com/wiki/Awesome_Oscillator_(AO)
 	 * 
 	 */
-	private void printAwesomeOscillator(String companySymbols) {
+	private double getAwesomeOscillator(String companySymbols) {
 		String cmpSymbol[] = companySymbols.split(";");
+		Double awesomeOscillator = 0d;
 
 		for (String companySymbol : cmpSymbol) {
 			// Convertir company Symbol en id de compañua
@@ -1342,7 +1350,7 @@ public class ObtenerMarketIndex {
 				
 				Double SMA05Period = 0d;
 				Double SMA34Period = 0d;
-				Double awesomeOscillator = 0d;
+				
 				
 				
 				for (Object object : listIdxCompany) {
@@ -1359,8 +1367,6 @@ public class ObtenerMarketIndex {
 				
 				awesomeOscillator = SMA05Period - SMA34Period;
 				
-				Persist "awesomeOscillator" on BD "dmc_data_mining_company"
-				
 				_logger.info("awesomeOscillator:" + awesomeOscillator);
 				
 				
@@ -1369,10 +1375,11 @@ public class ObtenerMarketIndex {
 
 			} catch (Exception e1) {
 				_logger.error("Error al traer info de la compania para obtener el indicador: Awesome OScillator", e1);
-				return;
 			}
 
 		}
+		
+		return awesomeOscillator;
 		
 		
 	}

@@ -1,3 +1,8 @@
+--2019Mar05
+ALTER TABLE  `indexyahoocfd`.`dmc_data_mining_company` 
+	ADD DMC_AWESOME_OSCILLATOR VARCHAR (1000);
+
+
 --2018May20
 ALTER TABLE `indexyahoocfd`.`dmc_data_mining_company` CHANGE COLUMN DMC_IS_REACTION_MODE DMC_BUY_POINT smallint;
 ALTER TABLE `indexyahoocfd`.`dmc_data_mining_company` CHANGE COLUMN DMC_BUY_POINT DMC_IS_BUY_POINT smallint;
